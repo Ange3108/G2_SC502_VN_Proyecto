@@ -1,0 +1,75 @@
+.contenedor {
+  display: flex;
+  gap: 32px; /* Más espacio entre columnas */
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 1200px; /* Limita el ancho total si lo deseas */
+  margin: 40px auto; /* Centra el contenedor */
+}
+
+.Patrones,
+.Eventos {
+  width: 50%; /* O usa 48% si quieres que se adapten al tamaño del contenedor */
+  min-width: 320px;
+  padding: 24px;
+  border-radius: 10px;
+  background-color: rgb(194, 255, 255);
+  margin-bottom: 20px;
+  box-sizing: border-box;
+
+}
+
+/* Diferente color para Eventos */
+.Eventos {
+  background-color: rgb(251, 202, 255);
+}
+
+
+.btnImagen  {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.imagen {
+  display: block;
+  width: 140px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.flex-contenido-img {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.flex-contenido-img ul{
+    margin: 1;
+    padding: 0 0 0 20px;
+    flex: 1;;
+}
+h4 {
+  text-align: center;
+  color: rgb(100, 100, 100);
+  font-family: 'Trebuchet MS', sans-serif;
+  size: 0cap
+ 
+ 
+}
+
+.eventos-grid button {
+  display: block;
+  background: #fff;
+  color: #000000;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border : none;
+  margin-bottom: 12px;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
