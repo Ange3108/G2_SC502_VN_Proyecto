@@ -1,0 +1,36 @@
+body{
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: medium;
+}
+
+.unidades, .horas, .resultado, .materiales{
+    padding: 30px;
+    margin-bottom: 10px;
+}
+.materiales input{
+     border-radius: 10px;
+    background-color: rgb(224, 206, 255);
+    border: 2px solid rgb(202, 255, 251)
+}
+
+.unidades input{
+    border-radius: 10px;
+      background-color: rgb(194, 255, 255);
+    border: 2px solid rgb(255, 247, 202);
+}
+
+.horas input{
+    border-radius: 10px;
+    background-color: rgb(248, 241, 149);
+    border: 2px solid rgb(224, 206, 255);;
+}
+.button{
+    background-color:darkgray;
+    border: none;
+    border-radius: 5px;
+    color: aliceblue;
+    justify-content: center;
+    align-items: center;
+
+}
+
