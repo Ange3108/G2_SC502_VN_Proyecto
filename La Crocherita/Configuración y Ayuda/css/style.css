@@ -1,4 +1,4 @@
-.notificaciones{
+.notificaciones {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -9,7 +9,7 @@
   border: 1px solid #e9ecef;
   margin-bottom: 15px;
 }
-.cuenta{
+.cuenta {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -22,7 +22,7 @@
   cursor: pointer;
 }
 
-.favoritos{
+.favoritos {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -34,7 +34,7 @@
   margin-bottom: 15px;
   cursor: pointer;
 }
-.ayuda{
+.ayuda {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -47,19 +47,34 @@
   cursor: pointer;
 }
 
-body{
-  font-family: 'Trebuchet MS', sans-serif;
-
-  
+body {
+  font-family: "Trebuchet MS", sans-serif;
 }
 
-.notificaciones, .cuenta, .favoritos, .ayuda {
-  max-width: 500px;    
+.notificaciones,
+.cuenta,
+.favoritos,
+.ayuda {
+  max-width: 500px;
 }
 
-.container{
+.container {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
+}
+
+.cerrar-sesion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: rgb(255, 210, 210); /* Rojo pastel */
+  border: 1px solid #e9ecef;
+  margin-bottom: 15px;
+  cursor: pointer;
+  max-width: 500px;
 }
 
