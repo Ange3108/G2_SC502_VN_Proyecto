@@ -15,10 +15,13 @@
   border-radius: 10px;
   background-color: rgb(194, 255, 255);
   margin-bottom: 20px;
-    box-sizing: border-box; /* Asegura que el padding no rompa el grid */
+  box-sizing: border-box; /* Asegura que el padding no rompa el grid */
   cursor: pointer;
 
   
+}
+.eventos{
+  background-color: rgb(250, 244, 161);
 }
 
 .Chat, .asistencia{
