@@ -31,7 +31,7 @@
   background-color: rgb(250, 209, 253);
 }
 
-/* ESTILO ARMÓNICO PARA SECCIÓN CLASES */
+/* Estilo de Clases */
 .seccion-clases {
   display: flex;
   flex-direction: column;
@@ -84,3 +84,30 @@
   text-align: center;
 }
 
+/*Estilo de Eventos*/
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  background-color: #f0d1d6;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.calendar-day {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 0.9rem;
+  min-height: 80px;
+  position: relative;
+}
+
+.calendar-day.evento {
+  background-color: #c1d8c3;
+  font-weight: bold;
+  color: #5b2c6f;
+}
