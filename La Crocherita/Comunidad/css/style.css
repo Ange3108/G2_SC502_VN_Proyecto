@@ -1,26 +1,113 @@
 .contenedor {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+  grid-template-columns: repeat(3, 1fr);
   gap: 32px;
   justify-content: center;
   align-items: flex-start;
   max-width: 1200px;
   margin: 40px auto;
-  font-family: 'Trebuchet MS', sans-serif;
+  font-family: "Trebuchet MS", sans-serif;
   font-size: medium;
 }
 
-.clases, .Chat, .eventos, .recordatorio, .asistencia{
+.clases,
+.Chat,
+.eventos,
+.recordatorio,
+.asistencia {
   padding: 24px;
   border-radius: 10px;
   background-color: rgb(194, 255, 255);
   margin-bottom: 20px;
-    box-sizing: border-box; /* Asegura que el padding no rompa el grid */
+  box-sizing: border-box; /* Asegura que el padding no rompa el grid */
   cursor: pointer;
-
-  
+}
+.eventos {
+  background-color: rgb(250, 244, 161);
 }
 
-.Chat, .asistencia{
-    background-color: rgb(250, 209, 253);
+.Chat,
+.asistencia {
+  background-color: rgb(250, 209, 253);
+}
+
+/* Estilo de Clases */
+.seccion-clases {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  width: 900px;
+  margin: 90px auto;
+}
+
+.horario-card {
+  background-color: #c4f7f7;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 20px;
+}
+
+#selectHorario, #btnReservar {
+  font-family: 'Poppins', sans-serif;
+  padding: 10px;
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.mensaje-sinpe {
+  text-align: center;
+  background-color: #fff0f5;
+  color: #8b005d;
+  font-weight: bold;
+  padding: 16px 24px;
+  border-left: 6px solid #d36eaa;
+  border-radius: 10px;
+  margin: 24px auto;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.titulo-pagina {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 32px;
+  color: #562f54;
+  text-align: center;
+}
+
+/*Estilo de Eventos*/
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  background-color: #f0d1d6;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.calendar-day {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-family: "Trebuchet MS", sans-serif;
+  font-size: 0.9rem;
+  min-height: 80px;
+  position: relative;
+}
+
+.calendar-day.evento {
+  background-color: #c1d8c3;
+  font-weight: bold;
+  color: #5b2c6f;
 }

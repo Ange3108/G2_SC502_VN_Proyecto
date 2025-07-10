@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configuración y Ayuda</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <header></header>
+    <main>
+      <div class="container">
+        <section class="favoritos" onclick="window.location.href=''">
+          <h4>Favoritos</h4>
+          <p>Accede a tus productos favoritos y gestiona tu lista de deseos.</p>
+        </section>
+
+        <section class="notificaciones">
+          <div class="notificaciones-content">
+            <h4>Notificaciones</h4>
+          </div>
+          <div class="switch-container">
+            <label class="switch">
+              <input type="checkbox" id="notificaciones-toggle" checked />
+              <span class="slider"></span>
+            </label>
+            <span class="switch-label">Activadas</span>
+          </div>
+        </section>
+        <section class="cuenta" onclick="window.location.href='cuenta.html'">
+          <h4>Cuenta</h4>
+        </section>
+        <section class="ayuda">
+          <h4>Ayuda</h4>
+          <p>Si necesitas ayuda, contacta con el soporte técnico.</p>
+        </section>
+        <section class="cerrar-sesion" onclick="cerrarSesion()">
+          <h4>Cerrar sesión</h4>
+          <p>Sal de tu cuenta de forma segura.</p>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <script src="js/scripts.js"></script>
+    </footer>
+  </body>
+</html>

@@ -56,7 +56,7 @@ h4 {
   text-align: center;
   color: rgb(100, 100, 100);
   font-family: 'Trebuchet MS', sans-serif;
-  size: 0cap
+  size: 0cap;
  
  
 }
@@ -71,5 +71,46 @@ h4 {
   margin-bottom: 12px;
   font-size: 1.1em;
   cursor: pointer;
+}
+
+
+/*Prueba*/
+footer {
+  background-color: #f5e6f7;
+  color: #5b2c6f;
+  text-align: center;
+  padding: 25px 15px;
+  font-size: 0.95rem;
+  border-top: 3px solid #e4b4db;
+  font-family: 'Trebuchet MS', sans-serif;
+  margin-top: 40px;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+}
+
+footer a {
+  color: #a14da0;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: #8e44ad;
+}
+
+footer .frase {
+  font-style: italic;
+  font-size: 1rem;
+  margin-top: 10px;
+  color: #88417c;
+}
+
+footer .iconitos {
+  font-size: 1.2rem;
+  margin-top: 8px;
+}
+
+footer .iconitos span {
+  margin: 0 8px;
 }
 
