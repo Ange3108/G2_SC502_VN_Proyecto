@@ -13,12 +13,15 @@
 <body>
   <header class="d-flex justify-content-between align-items-center p-3 bg-light shadow-sm">
     <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-      <i class="fas fa-bars"></i> </button>
-    <h1 class="h4 mb-0">La Crocherita</h1> <div></div> </header>
+      <i class="fas fa-bars"></i>
+    </button>
+    <h1 class="h4 mb-0">La Crocherita</h1>
+    <div></div>
+  </header>
 
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
     <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú</h5>
+      <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú de Navegación</h5>
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
@@ -26,17 +29,53 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="../Home/Home.html">Inicio</a>
         </li>
-        
         <li class="nav-item">
-          <a class="nav-link" href="../Comunidad/comunidad.html">Comunidad</a> </li>
+          <a class="nav-link" href="#">Patrones</a>
+        </li>
         <li class="nav-item">
-          <a class="nav-link" href="../Herramienta de Cálculo/calculadora.html">Herramientas De Cálculo</a> </li>
-          
+          <a class="nav-link" href="#">Eventos</a>
+        </li>
         <li class="nav-item">
-          <a class="nav-link" href="../Configuración y Ayuda/configuracion.html">Configuración y Ayuda</a> </li>
+          <a class="nav-link" href="../Comunidad/comunidad.html">Comunidad</a>
+        </li>
         <li class="nav-item">
-          <a class="nav-link" href="../Login/Login.html">Cerrar Sesión</a> </li>
-        </ul>
+          <a class="nav-link" href="../Herramienta de Cálculo/calculadora.html">Herramientas De Cálculo</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../Configuración y Ayuda/configuracion.html">Configuración y Ayuda</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#offcanvasContacto" aria-controls="offcanvasContacto">
+            <i class="fas fa-address-book me-2"></i>Contacto de la Profesora
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../Login/Login.html">Cerrar Sesión</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasContacto" aria-labelledby="offcanvasContactoLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasContactoLabel">Contacto de la Profesora</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="list-unstyled">
+        <li class="mb-3">
+          <p class="mb-0"><i class="fas fa-user-tie me-2"></i>Profesora Vanessa</p>
+        </li>
+        <li class="mb-3">
+          <p class="mb-0"><i class="fas fa-phone-alt me-2"></i>Teléfono: <a href="tel:+50688887777">+506 8888-7777</a></p>
+        </li>
+        <li class="mb-3">
+          <p class="mb-0"><i class="fas fa-envelope me-2"></i>Correo: <a href="mailto:info@lacrocherita.com">info@lacrocherita.com</a></p>
+        </li>
+        <li class="mb-3">
+          <p class="mb-0"><i class="fas fa-globe me-2"></i>Página: La Crocherita</p>
+        </li>
+      </ul>
     </div>
   </div>
 
@@ -45,31 +84,27 @@
       <div style="max-width: 300px; width: 100%; ">
         <div id="Carrusel" class="carousel slide">
           <div class="carousel-indicators">
-            <button type="button" data-bs-target="#Carrusel" data-bs-slide-to="0" class="active" aria-current="true"
-              aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#Carrusel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#Carrusel" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#Carrusel" data-bs-slide-to="2" aria-label="Slide 3"></button>
           </div>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="./Imagenes/Mercedita.jpg" class="d-block w-100"
-                alt="Mulequita mercedita, con vestido rojo, y diadema de Mickey Mouse">
+              <img src="./Imagenes/Mercedita.jpg" class="d-block w-100" alt="Mulequita mercedita, con vestido rojo, y diadema de Mickey Mouse">
               <div class="carousel-caption d-none d-md-block">
                 <h5>Mercedita con diadema de Mickey Mouse</h5>
                 <p>Está linda muñequita fue hecha por doña ...</p>
               </div>
             </div>
             <div class="carousel-item">
-              <img src="./Imagenes/Capibara.jpg" class="d-block w-100"
-                alt="Capibara, con una flor rosada en la cabeza y un bolso verde">
+              <img src="./Imagenes/Capibara.jpg" class="d-block w-100" alt="Capibara, con una flor rosada en la cabeza y un bolso verde">
               <div class="carousel-caption d-none d-md-block">
                 <h5>Capibara</h5>
                 <p>Este capibara con decorado de flor y un bolso en forma de tortuga fue hecho por...</p>
               </div>
             </div>
             <div class="carousel-item">
-              <img src="./Imagenes/Pinguino.jpg" class="d-block w-100"
-                alt="Pinguino gris y blanco, con un gorro de lana">
+              <img src="./Imagenes/Pinguino.jpg" class="d-block w-100" alt="Pinguino gris y blanco, con un gorro de lana">
               <div class="carousel-caption d-none d-md-block">
                 <h5>Pinguino</h5>
                 <p>Este tierno pinguino con gorrito fue hecho por...</p>
@@ -128,8 +163,7 @@
           <button class="btnEvento" id="btnEvento">
             <strong>Fiesta de la Alegría con temática del día de las Madres</strong>
           </button>
-          <p>Con una cuota de 5 mil, sorprende a una persona con algo relacionado al crochet. ¡Que esperas para
-            participar!</p>
+          <p>Con una cuota de 5 mil, sorprende a una persona con algo relacionado al crochet. ¡Que esperas para participar!</p>
 
         </div>
       </section>
