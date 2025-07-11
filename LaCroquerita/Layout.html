@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Side Navigation Bar</title>
+    <!-- Boxicons CSS -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styleNavBar.css" />
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo_item">
+            <i class="bx bx-menu" id="sidebarOpen"></i>
+            <img src="img/Logo.jpg" alt="Logo">
+            <h1 class="m-0 text-primary"><span class="text-dark">LA</span> CROQUERITA</h1>
+        </div>
+        <div class="search_bar">
+            <input type="text" placeholder="Search" />
+        </div>
+        <div class="navbar_content">
+            <i class="bx bx-grid"></i>
+            <i class='bx bx-sun' id="darkLight"></i>
+            <i class='bx bx-bell'></i>
+            <img src="img/Capibara.jpg" alt="Profile" class="profile" />
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="menu_content">
+            <ul class="menu_items">
+                <li class="item">
+                    <div class="menu_content">
+
+                        <ul class="menu_items">
+                            <li class="item">
+                                <a href="views/Homeee.html" class="nav_link" data-view="/views/Homeee.html">
+                                    <span class="navlink_icon"><i class='bx  bx-home-heart'></i></span>
+                                    <span class="navlink">Home</span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="menu_items">
+                            <li class="item">
+                                <div class="nav_link submenu_item">
+                                    <span class="navlink_icon"><i class='bx  bx-group'></i></span>
+                                    <span class="navlink">Comunidad <br>& Participacion</br></span>
+                                    <i class="bx bx-chevron-right arrow-left"></i>
+                                </div>
+                                <ul class="menu_items submenu">
+                                    <li><a href="#" class="nav_link sublink" data-view="views/team.html">Clases</a></li>
+                                    <li><a href="#" class="nav_link sublink">Foro de discusion</a></li>
+                                    <li><a href="#" class="nav_link sublink">Eventos</a></li>
+                                    <li><a href="#" class="nav_link sublink">Recordatorios</a></li>
+                                    <li><a href="#" class="nav_link sublink">Asistencia</a></li>
+                                    <li><a href="#" class="nav_link sublink">Notificaciones</a></li>
+                                </ul>
+                            </li>
+                            <li class="item">
+                                <div class="nav_link submenu_item">
+                                    <span class="navlink_icon"><i class='bx  bx-palette'></i></span>
+                                    <span class="navlink">Mis Proyectos <br>& Recursos</br> </span>
+                                    <i class="bx bx-chevron-right arrow-left"></i>
+                                </div>
+                                <ul class="menu_items submenu">
+                                    <li><a href="#" class="nav_link sublink">Mis Proyectos</a></li>
+                                    <li><a href="#" class="nav_link sublink">Retos de tejido</a></li>
+                                    <li><a href="#" class="nav_link sublink">Tutoriales</a></li>
+                                    <li><a href="#" class="nav_link sublink">Patrones digitales</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="item">
+                                <div class="nav_link submenu_item">
+                                    <span class="navlink_icon"><i class='bx  bx-dollar-circle'></i></span>
+                                    <span class="navlink">Herramientas de <br>Calculo</br></span>
+                                    <i class="bx bx-chevron-right arrow-left"></i>
+                                </div>
+                                <ul class="menu_items submenu">
+                                    <li><a href="#" class="nav_link sublink">Calculo de costos</a></li>
+                                    <li><a href="#" class="nav_link sublink">Precios Estandar</a></li>
+                                    <li><a href="#" class="nav_link sublink">Tutoriales</a></li>
+                                    <li><a href="#" class="nav_link sublink">Patrones digitales</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- <ul class="menu_items">
+                            <li class="item">
+                                <a href="products.html" class="nav_link">
+                                    <span class="navlink_icon"><i class='bx bx-package'></i></span>
+                                    <span class="navlink">Productos</span>
+                                </a>
+                            </li>
+                             <li class="item">
+                    <a href="#" class="nav_link">
+                        <span class="navlink_icon"><i class="bx bx-loader-circle"></i></span>
+                        <span class="navlink">Filters</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="#" class="nav_link">
+                        <span class="navlink_icon"><i class="bx bx-cloud-upload"></i></span>
+                        <span class="navlink">Upload New</span>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="menu_items">
+                <li class="item">
+                    <a href="#" class="nav_link">
+                        <span class="navlink_icon"><i class="bx bx-flag"></i></span>
+                        <span class="navlink">Notice Board</span>
+                    </a>
+                </li>
+                <li class="item">
+                    <a href="#" class="nav_link">
+                        <span class="navlink_icon"><i class="bx bx-medal"></i></span>
+                        <span class="navlink">Award</span>
+                    </a>
+                </li>
+            </ul> -->
+
+                        <div class="bottom_content">
+                            <div class="item">
+                                <a href="#" class="nav_link">
+                                    <span class="navlink_icon"><i class="bx bx-cog"></i></span>
+                                    <span class="navlink">Configuracion</span>
+                                </a>
+                            </div>
+
+                            <div class="bottom expand_sidebar">
+                                <span> Expand</span>
+                                <i class='bx bx-log-in'></i>
+                            </div>
+                            <div class="bottom collapse_sidebar">
+                                <span> Collapse</span>
+                                <i class='bx bx-log-out'></i>
+                            </div>
+                        </div>
+                    </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Contenido principal de tu página aquí -->
+        <h1>Bienvenido</h1>
+        <p>Contenido de la página...</p>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+
+</html>
