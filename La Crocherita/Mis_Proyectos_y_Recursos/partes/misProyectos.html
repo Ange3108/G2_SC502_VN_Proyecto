@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Patrones Realizados</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- DataTables CSS -->
+  <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+  <!-- Tu CSS -->
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <div class="contenedor">
+    <div class="patronesD">
+      <h2 class="titulo">Patrones Realizados por el Estudiante</h2>
+
+      <!-- Formulario para agregar nuevo patrón -->
+      <form id="formulario-patron" class="mb-4">
+        <div class="row g-3 align-items-center">
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="nombre" placeholder="Nombre del Patrón" required>
+          </div>
+          <div class="col-md-2">
+            <input type="date" class="form-control" id="fecha" required>
+          </div>
+          <div class="col-md-2">
+            <input type="text" class="form-control" id="duracion" placeholder="Ej: 3 horas" required>
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" id="comentario" placeholder="Comentario">
+          </div>
+          <div class="col-md-2">
+            <button type="submit" class="btn btn-success w-100">Agregar</button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Tabla de patrones -->
+      <div class="table-responsive">
+        <table id="tabla-patrones" class="table table-hover align-middle tabla-patrones">
+          <thead class="table-light">
+            <tr>
+              <th>Foto</th>
+              <th>Nombre</th>
+              <th>Acceder</th>
+              <th>Fecha</th>
+              <th>Duración</th>
+              <th>Comentarios</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><img src="../img/tulipan.jpg" alt="Tulipán" class="tabla-img"></td>
+              <td>Llavero de Tulipán</td>
+              <td><a href="patrones.html#tulipan" class="btn btn-outline-primary btn-sm">Ver Patrón</a></td>
+              <td>2025-07-10</td>
+              <td>2 horas</td>
+              <td>Ideal para principiantes</td>
+            </tr>
+            <tr>
+              <td><img src="../img/oso.jpg" alt="Oso" class="tabla-img"></td>
+              <td>Oso Amigurumi</td>
+              <td><a href="patrones.html#oso" class="btn btn-outline-primary btn-sm">Ver Patrón</a></td>
+              <td>2025-07-12</td>
+              <td>5 horas</td>
+              <td>Requiere atención con aumentos</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+  <script src="js/patrones.js"></script>
+
+</body>
+</html>

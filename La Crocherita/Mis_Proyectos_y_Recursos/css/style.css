@@ -1,0 +1,166 @@
+/* --- ESTILOS ESPECÍFICOS DE MIS_PROYECTOS_Y_RECURSOS/PROYECTOS.HTML --- */
+
+/* Contenedor principal de los cuadros en Proyectos.html */
+.contenedor-proyectos {
+  display: flex;
+  flex-direction: column; /* Apila los elementos verticalmente */
+  justify-content: center;
+  align-items: center; /* Centra los elementos horizontalmente */
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  width: 900px;
+  max-width: 90%; /* Ajuste para responsividad */
+  margin: 90px auto; /* Centra el contenedor y da margen */
+  gap: 20px; /* Espacio entre los cuadros */
+}
+
+/* Estilos de los cuadros individuales en Proyectos.html */
+.retos,
+.proyectos,
+.patronesD,
+.tutoriales {
+  padding: 24px;
+  border-radius: 12px;
+  background-color: rgb(224, 206, 255); /* lavanda pastel */
+  margin-bottom: 16px; /* Espacio entre cuadros (adicional al gap) */
+  cursor: pointer;
+  width: 100%; /* Ocupa todo el ancho del contenedor */
+  border: 2px solid rgb(205, 252, 248); /* celestito pastel */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  /* Estilos para enlaces */
+  text-decoration: none; /* Quita el subrayado predeterminado del enlace */
+  color: inherit; /* Hereda el color del texto del body */
+  display: block; /* Para que el 'a' ocupe todo el espacio y los estilos de padding/width funcionen */
+}
+
+.retos:hover,
+.proyectos:hover,
+.patronesD:hover,
+.tutoriales:hover {
+  transform: translateY(-5px); /* Pequeño efecto de elevación al pasar el ratón */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.contenedor-proyectos h4 {
+    text-align: center;
+    color: #5b2c6f;
+    margin-bottom: 15px;
+    display: flex; /* Para alinear el icono con el texto del título */
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Espacio entre el texto del título y el icono */
+}
+
+.contenedor-proyectos p {
+    text-align: center;
+    color: #666;
+    font-size: 0.95em;
+    line-height: 1.5;
+}
+
+
+/* --- ESTILOS ESPECÍFICOS PARA LAS SUB-PÁGINAS (partes/misProyectos.html, partes/patrones.html, partes/tutoriales.html) --- */
+/* Estas clases deben usarse en los archivos HTML correspondientes, no en Proyectos.html principal */
+
+.titulo { /* Si es el título principal de una sub-página */
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 40px;
+  font-family: 'Trebuchet MS', sans-serif;
+  color: #562f54;
+}
+
+.contenedor-tutoriales { /* Contenedor para la página de tutoriales, por ejemplo */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  width: 900px;
+  max-width: 90%; /* Responsivo */
+  margin: 40px auto;
+}
+
+.tarjeta-tutorial {
+  padding: 30px;
+  border-radius: 10px;
+  background-color: rgb(224, 206, 255); /* lavanda pastel */
+  margin-bottom: 30px;
+  cursor: pointer;
+  width: 100%;
+  border: 2px solid rgb(205, 252, 248); /* celestito pastel */
+  box-shadow: none; /* Asegura que no haya sombra si no se desea */
+}
+
+.tarjeta-tutorial h3 {
+  margin-top: 0;
+  color: #562f54;
+  font-size: 18px;
+}
+
+.tarjeta-tutorial p {
+  margin: 8px 0 12px;
+}
+
+.tarjeta-tutorial a {
+  text-decoration: none;
+  color: #562f54;
+  font-weight: bold;
+  background-color: rgb(205, 252, 248); /* fondo celestito */
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.tarjeta-tutorial a:hover {
+  background-color: rgb(190, 240, 235);
+}
+
+.imagen-patron {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+  margin: 16px 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tabla-img {
+  width: 80px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tabla-patrones {
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+.btn-outline-primary {
+  border-color: rgb(205, 252, 248);
+  color: #562f54;
+}
+
+.btn-outline-primary:hover {
+  background-color: rgb(205, 252, 248);
+  color: #000;
+}
+
+/* --- ESTILOS RESPONSIVOS ADICIONALES PARA MIS_PROYECTOS_Y_RECURSOS --- */
+@media (max-width: 768px) {
+  .contenedor-proyectos {
+    width: 100%;
+    padding: 0 15px;
+    margin-top: 40px; /* Ajusta margen superior para móviles */
+  }
+
+  .contenedor-tutoriales {
+      width: 100%;
+      padding: 0 15px;
+  }
+}
