@@ -1,43 +1,32 @@
-/* --- ESTILOS GENERALES Y PARA FOOTER ADHESIVO (Sticky Footer) --- */
-
-/* Asegura que html y body ocupen todo el alto de la ventana */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
-/* El body se convierte en un contenedor flex para el sticky footer */
 body {
   display: flex;
-  flex-direction: column; /* Coloca header, main y footer uno debajo del otro */
+  flex-direction: column; 
   font-family: 'Trebuchet MS', sans-serif;
   color: #333;
 }
 
-/* El main toma el espacio disponible, empujando el footer hacia abajo */
 main {
-  flex-grow: 1; /* Esto es clave: el main se estira para ocupar el espacio restante */
-  padding-bottom: 20px; /* Un poco de espacio al final del main, opcional */
+  flex-grow: 1;
+  padding-bottom: 20px; 
 }
 
-/* --- ESTILOS PARA EL HEADER SUPERIOR (el de "La Crocherita" y el botón de menú) --- */
-/* Estas clases son de Bootstrap, pero se incluyen para referencia.
-   Asegúrate de que tu header HTML tenga estas clases. */
-/* .d-flex, .justify-content-between, .align-items-center, .p-3, .bg-light, .shadow-sm */
-
-/* --- ESTILOS PARA HEADERS DE SECCIÓN (como el de "Comunidad y Participación") --- */
 .page-title-section {
     text-align: center;
     margin-top: 30px;
     margin-bottom: 40px;
     padding: 20px 15px;
-    background-color: #fce4ec; /* Color de fondo suave */
+    background-color: #fce4ec; 
     border-bottom: 2px solid #e4b4db;
     border-top: 2px solid #e4b4db;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    width: 100%; /* Ocupa todo el ancho disponible */
-    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+    width: 100%; 
+    box-sizing: border-box; 
 }
 
 .page-title-section h2 {
@@ -53,20 +42,19 @@ main {
     margin-bottom: 0;
 }
 
-/* --- ESTILOS ESPECÍFICOS DE LAS SECCIONES DE CONTENIDO (Para comunidad.html) --- */
 .contenedor {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual ancho */
-  gap: 32px; /* Espacio entre los elementos del grid */
-  justify-content: center; /* Centra el grid horizontalmente */
-  align-items: flex-start; /* Alinea los elementos al inicio verticalmente */
-  max-width: 1200px; /* Ancho máximo del contenedor */
-  margin: 40px auto; /* Centra el contenedor y le da margen superior/inferior */
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 32px; 
+  justify-content: center; 
+  align-items: flex-start; 
+  max-width: 1200px; 
+  margin: 40px auto;
   font-size: medium;
-  padding: 0 15px; /* Añadido padding para móviles y bordes */
+  padding: 0 15px; 
 }
 
-/* Estilos comunes para todos los elementos de los cuadros, sean 'a' o 'div' */
+
 .clases,
 .Chat,
 .eventos,
@@ -80,9 +68,9 @@ main {
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  text-decoration: none; /* Quita el subrayado de los enlaces */
-  color: inherit; /* Hereda el color del texto para los enlaces */
-  display: block; /* Para que el padding y margen funcionen como un bloque */
+  text-decoration: none; 
+  color: inherit; 
+  display: block; 
 }
 
 .clases:hover,
@@ -107,10 +95,10 @@ main {
   text-align: center;
   color: #5b2c6f;
   margin-bottom: 15px;
-  display: flex; /* Para alinear el icono con el texto del título */
+  display: flex; 
   align-items: center;
   justify-content: center;
-  gap: 8px; /* Espacio entre el texto del título y el icono */
+  gap: 8px; 
 }
 
 .contenedor p {
@@ -120,7 +108,7 @@ main {
     line-height: 1.5;
 }
 
-/* Estilo específico para el botón de WhatsApp en la sección Chat */
+
 .Chat .btn.btn-success.btn-block {
     background-color: #28a745;
     border-color: #28a745;
@@ -142,7 +130,7 @@ main {
     border-color: #1e7e34;
 }
 
-/* --- ESTILOS ESPECÍFICOS DE CLASES.HTML (Mantenemos por si los usas) --- */
+
 .horario-card {
   background-color: #c4f7f7;
   padding: 30px;
@@ -152,7 +140,7 @@ main {
   width: 100%;
   max-width: 500px;
   margin-bottom: 20px;
-  margin-left: auto; /* Para centrar si no hay un contenedor flex */
+  margin-left: auto;
   margin-right: auto;
 }
 
@@ -202,7 +190,7 @@ main {
   text-align: center;
 }
 
-/* --- ESTILOS ESPECÍFICOS DE EVENTOS.HTML --- */
+
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -232,7 +220,7 @@ main {
   color: #5b2c6f;
 }
 
-/* --- ESTILOS DEL FOOTER --- */
+
 footer {
   background-color: #f5e6f7;
   color: #5b2c6f;
@@ -277,11 +265,11 @@ footer .iconitos span:hover {
   color: #a14da0;
 }
 
-/* --- ESTILOS RESPONSIVOS --- */
+
 @media (max-width: 768px) {
   .contenedor {
-    grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
-    padding: 0 15px; /* Ajusta el padding para móviles */
+    grid-template-columns: 1fr;
+    padding: 0 15px; 
   }
 
   .clases, .Chat, .eventos, .recordatorio, .asistencia {
@@ -289,12 +277,12 @@ footer .iconitos span:hover {
     width: 100%;
   }
 
-  .seccion-clases { /* Esto lo usas en clases.html, no en comunidad.html */
+  .seccion-clases { 
       width: 100%;
       padding: 0 15px;
   }
 
-  .calendar-grid { /* Esto lo usas en eventos.html */
+  .calendar-grid { 
       grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   }
 
