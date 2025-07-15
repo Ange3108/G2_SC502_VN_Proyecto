@@ -220,3 +220,103 @@ input:checked + .slider:before {
         font-size: 1.1em;
     }
 }
+
+.cuenta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: rgb(250, 244, 161);
+  border: 1px solid #e9ecef;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.favoritos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: rgb(250, 209, 253);
+  border: 1px solid #e9ecef;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+.ayuda {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: rgb(224, 206, 255);
+  border: 1px solid #e9ecef;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+body {
+  font-family: "Trebuchet MS", sans-serif;
+}
+
+.notificaciones,
+.cuenta,
+.favoritos,
+.ayuda {
+  max-width: 500px;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.cerrar-sesion {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: rgb(255, 210, 210); /* Rojo pastel */
+  border: 1px solid #e9ecef;
+  margin-bottom: 15px;
+  cursor: pointer;
+  max-width: 500px;
+}
+
+.contenedor-perfil {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fff3f8;
+  padding: 2rem;
+}
+
+.tarjeta-perfil {
+  background-color: #ffe4ec;
+  border: 2px solid #f9c5d5;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 0 15px rgba(240, 180, 200, 0.2);
+  text-align: center;
+}
+
+.tarjeta-perfil h2 {
+  color: #b45e85;
+  margin-bottom: 1rem;
+}
+
+.info-usuario p {
+  font-size: 1.1rem;
+  color: #6a4d57;
+  margin: 0.5rem 0;
+}
