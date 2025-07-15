@@ -114,3 +114,96 @@ footer .iconitos span {
   margin: 0 8px;
 }
 
+/* --- NUEVOS ESTILOS PARA EL BOTÓN DE CONTACTO Y EL MODAL EN HOME.HTML --- */
+
+.contact-button-container {
+    text-align: center;
+    margin: 50px auto;
+    max-width: 900px;
+}
+
+.btn-contacto-profesora {
+    background-color: #562f54; /* Color principal de tu paleta */
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px; /* Botón más redondeado */
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none; /* Asegurar que no tenga subrayado si es un <a> */
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-contacto-profesora:hover {
+    background-color: #7b4c8d; /* Tono más oscuro al pasar el ratón */
+    transform: translateY(-2px);
+    color: white; /* Asegurar que el color del texto no cambie en hover */
+}
+
+/* Estilos del modal de contacto */
+.modal-content {
+    border-radius: 15px;
+    overflow: hidden; /* Para que el radio se aplique bien al contenido */
+}
+
+.modal-header {
+    background-color: rgb(224, 206, 255); /* Lavanda pastel */
+    color: #5b2c6f;
+    border-bottom: none;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header .btn-close {
+    color: #5b2c6f; /* Color del ícono de cerrar */
+    opacity: 0.8;
+    font-size: 1.2em;
+}
+
+.modal-header .modal-title {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 30px;
+    color: #333;
+}
+
+.contact-info p {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-info p i {
+    color: #5b2c6f; /* Iconos en color morado */
+    font-size: 1.3em;
+}
+
+.contact-info p a {
+    color: #5b2c6f;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.contact-info p a:hover {
+    color: #7b4c8d;
+    text-decoration: underline;
+}
+
+/* Media Queries para Responsividad del botón de contacto */
+@media (max-width: 768px) {
+    .btn-contacto-profesora {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+}
