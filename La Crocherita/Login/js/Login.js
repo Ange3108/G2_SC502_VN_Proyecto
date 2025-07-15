@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     if (usuarioValido) {
+      localStorage.setItem("usuarioActual", JSON.stringify(usuarioValido));
       window.location.href = "../Home/Home.html";
     } else {
       loginError.style.display = "block";
