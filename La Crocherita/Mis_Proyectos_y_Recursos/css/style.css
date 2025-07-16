@@ -1,3 +1,17 @@
+
+.contenedor {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  width: 900px;
+  margin: 90px auto;
+  gap: 20px;
+}
+
+
 /* --- ESTILOS ESPECÍFICOS DE MIS_PROYECTOS_Y_RECURSOS/PROYECTOS.HTML --- */
 
 /* Contenedor principal de los cuadros en Proyectos.html */
@@ -15,6 +29,7 @@
 }
 
 /* Estilos de los cuadros individuales en Proyectos.html */
+
 .retos,
 .proyectos,
 .patronesD,
@@ -22,6 +37,19 @@
   padding: 24px;
   border-radius: 12px;
   background-color: rgb(224, 206, 255); /* lavanda pastel */
+  margin-bottom: 16px;
+  cursor: pointer;
+  width: 100%;
+  border: 2px solid rgb(205, 252, 248); /* celestito pastel */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* === Estilo para la sección de tutoriales dentro de Mis Proyectos y Recursos === */
+
+/* === Estilo para la sección de Tutoriales === */
+
+.titulo {
   margin-bottom: 16px; /* Espacio entre cuadros (adicional al gap) */
   cursor: pointer;
   width: 100%; /* Ocupa todo el ancho del contenedor */
@@ -64,6 +92,7 @@
 /* Estas clases deben usarse en los archivos HTML correspondientes, no en Proyectos.html principal */
 
 .titulo { /* Si es el título principal de una sub-página */
+
   text-align: center;
   font-size: 24px;
   font-weight: bold;
@@ -71,6 +100,7 @@
   font-family: 'Trebuchet MS', sans-serif;
   color: #562f54;
 }
+
 
 .contenedor-tutoriales { /* Contenedor para la página de tutoriales, por ejemplo */
   display: flex;
@@ -92,6 +122,7 @@
   width: 100%;
   border: 2px solid rgb(205, 252, 248); /* celestito pastel */
   box-shadow: none; /* Asegura que no haya sombra si no se desea */
+
 }
 
 .tarjeta-tutorial h3 {
@@ -164,3 +195,4 @@
       padding: 0 15px;
   }
 }
+
