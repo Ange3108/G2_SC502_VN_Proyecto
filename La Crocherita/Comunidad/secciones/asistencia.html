@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Asistencia de Estudiantes - La Crocherita</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/calendar.css" />
+</head>
+
+<body>
+    <main class="container mt-5">
+        <h2 class="titulo-pagina text-center mb-4">
+            Asistencia de Estudiantes 🧶📅
+        </h2>
+
+        <div class="d-flex justify-content-center mb-4">
+            <select id="mes-selector" class="form-select w-auto">
+                <option value="6">Julio</option>
+                <option value="7">Agosto</option>
+                <option value="8">Septiembre</option>
+            </select>
+        </div>
+
+        <div class="asistencia-wrapper d-flex justify-content-center gap-4">
+            <div>
+                <div class="calendar-header">
+                    <div>Lunes</div>
+                    <div>Martes</div>
+                    <div>Miércoles</div>
+                    <div>Jueves</div>
+                    <div>Viernes</div>
+                    <div>Sábado</div>
+                    <div>Domingo</div>
+                </div>
+
+                <div id="calendar" class="calendar-grid"></div>
+            </div>
+
+            <aside class="resumen-asistencia">
+                <p><strong>Plan:</strong> <span id="plan-nombre">-</span></p>
+                <p><strong>Precio base:</strong> ₡<span id="precio-plan">0</span></p>
+                <p><strong>Días asistidos:</strong> <span id="total-dias">0</span></p>
+                <p><strong>Total a pagar:</strong> ₡<span id="total-pago">0</span></p>
+            </aside>
+        </div>
+    </main>
+
+    <script src="../js/asistencia.js"></script>
+</body>
+
+</html>
