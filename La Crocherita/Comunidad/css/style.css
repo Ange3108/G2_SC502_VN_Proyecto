@@ -111,3 +111,85 @@
   font-weight: bold;
   color: #5b2c6f;
 }
+
+
+/*ASISTENCIA*/
+
+/* Punto indicador de asistencia */
+.calendar-day.asistido::after {
+  content: '';
+  width: 14px;
+  height: 14px;
+  background-color: #562f54;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  text-align: center;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-family: 'Trebuchet MS', sans-serif;
+  color: #562f54;
+}
+
+.resumen-asistencia {
+  background-color: #f6e9f9;
+  border: 2px solid #dfc4ec;
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 32px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  color: #562f54;
+}
+
+.resumen-asistencia p {
+  margin-bottom: 12px;
+}
+
+.resumen-asistencia span {
+  font-weight: bold;
+}
+
+
+/* Contenedor que muestra calendario y resumen juntos en fila */
+.asistencia-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 32px; /* espacio entre calendario y resumen */
+  align-items: flex-start; /* alinea al tope */
+  max-width: 900px;
+  margin: 0 auto 40px auto;
+}
+
+/* Para que el calendario ocupe todo el espacio disponible menos el resumen */
+.asistencia-wrapper > div {
+  flex: 1 1 auto; /* crecer y reducir */
+  min-width: 300px; /* evitar que quede muy pequeño */
+}
+
+/* Estilo del resumen de asistencia */
+.resumen-asistencia {
+  background-color: #f6e9f9;
+  border: 2px solid #dfc4ec;
+  border-radius: 12px;
+  padding: 24px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  max-width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  color: #562f54;
+  flex-shrink: 0; /* no se reduce */
+}
+
