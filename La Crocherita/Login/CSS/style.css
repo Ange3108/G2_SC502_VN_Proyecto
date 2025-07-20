@@ -22,3 +22,8 @@ body{
 .text-center {
     font-family: Tahoma, sans-serif;
 }
+.btn {
+  font-family: 'Gill Sans', sans-serif;
+  font-weight: normal;
+  font-size: 16px;
+}
