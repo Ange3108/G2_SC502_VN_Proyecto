@@ -31,6 +31,19 @@
     display: block;
 }
 
+.retos{
+    background-color: rgb(205, 252, 248);
+    border: 2px solid rgb(250, 209, 253);
+}
+.proyectos {
+    background-color: rgb(250, 209, 253);
+    border: 2px solid rgb(255, 240, 220);;
+}
+.patronesD {
+    background-color: rgb(255, 240, 220);
+    border: 2px solid rgb(224, 206, 255);
+}
+
 .retos:hover,
 .proyectos:hover,
 .patronesD:hover,
@@ -66,7 +79,7 @@
     color: #562f54;
 }
 
-.contenedor-tutoriales {
+.contenedor-tutoriales, .contenedor-retos {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -77,7 +90,7 @@
     margin: 40px auto;
 }
 
-.tarjeta-tutorial {
+.tarjeta-tutorial, .tarjeta-reto, .tarjeta-patron {
     padding: 30px;
     border-radius: 10px;
     background-color: rgb(224, 206, 255);
@@ -88,17 +101,27 @@
     box-shadow: none;
 }
 
-.tarjeta-tutorial h3 {
+.tarjeta-reto {
+    background-color:rgb(194, 255, 255) ;
+    border: 2px solid rgb(250, 209, 253);
+}
+
+.tarjeta-patron {
+    background-color: rgb(254, 227, 255);
+    
+}
+
+.tarjeta-tutorial h3, .tarjeta-reto h3 {
     margin-top: 0;
     color: #562f54;
     font-size: 18px;
 }
 
-.tarjeta-tutorial p {
+.tarjeta-tutorial p, .tarjeta-reto p {
     margin: 8px 0 12px;
 }
 
-.tarjeta-tutorial a {
+.tarjeta-tutorial a, .tarjeta-reto a, .tarjeta-patron a {
     text-decoration: none;
     color: #562f54;
     font-weight: bold;
@@ -107,7 +130,12 @@
     border-radius: 6px;
     display: inline-block;
 }
-
+.tarjeta-reto a {
+    background-color: rgb(250, 221, 252);
+}
+.tarjeta-reto a:hover{
+    background-color: rgb(211, 189, 212);
+}
 .tarjeta-tutorial a:hover {
     background-color: rgb(190, 240, 235);
 }
@@ -139,6 +167,7 @@
     border-color: rgb(205, 252, 248);
     color: #562f54;
 }
+
 
 .btn-outline-primary:hover {
     background-color: rgb(205, 252, 248);
@@ -199,6 +228,10 @@ footer .iconitos span:hover {
     }
 
     .contenedor-tutoriales {
+        width: 100%;
+        padding: 0 15px;
+    }
+    .contenedor-retos {
         width: 100%;
         padding: 0 15px;
     }
