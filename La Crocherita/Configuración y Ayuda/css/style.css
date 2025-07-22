@@ -220,3 +220,43 @@ input:checked + .slider:before {
         font-size: 1.1em;
     }
 }
+
+/* Limitaciones de ancho para elementos de configuración */
+.notificaciones,
+.cuenta,
+.favoritos,
+.ayuda,
+.cerrar-sesion {
+  max-width: 500px;
+}
+
+.contenedor-perfil {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fff3f8;
+  padding: 2rem;
+}
+
+.tarjeta-perfil {
+  background-color: #ffe4ec;
+  border: 2px solid #f9c5d5;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 0 15px rgba(240, 180, 200, 0.2);
+  text-align: center;
+}
+
+.tarjeta-perfil h2 {
+  color: #b45e85;
+  margin-bottom: 1rem;
+}
+
+.info-usuario p {
+  font-size: 1.1rem;
+  color: #6a4d57;
+  margin: 0.5rem 0;
+}
