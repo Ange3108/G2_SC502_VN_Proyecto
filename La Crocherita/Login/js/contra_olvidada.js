@@ -1,3 +1,4 @@
+// LaCrocherita/Login/js/contra_olvidada.js
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("forgotPasswordForm");
   const recoveryModal = document.getElementById("recoveryModal");
@@ -10,10 +11,27 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     const email = emailInput.value.trim();
     recoveryEmailDisplay.textContent = email; // Muestra el correo en el popup
-    recoveryModal.style.display = "flex"; // Muestra el modal
+
+    const formData = new FormData(form); // Obtiene los datos del formulario
+
+    fetch("../php/auth_process.php", {
+        method: "POST",
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Aunque el PHP solo devuelve un mensaje informativo, se puede mostrar aquí
+        // o usar el modal para la confirmación visual.
+        // Aquí se puede decidir si seguir usando el modal para la confirmación
+        recoveryModal.style.display = "flex"; // Muestra el modal
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Ocurrió un error al intentar recuperar la contraseña. Por favor, inténtalo de nuevo.");
+    });
   });
 
-  // Cuando el usuario hace clic en <span> (x), cierra el modal
+  // Cuando el usuario hace clic en(x), cierra el modal
   closeButton.addEventListener("click", function () {
     recoveryModal.style.display = "none";
   });
