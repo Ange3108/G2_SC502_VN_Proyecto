@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const formData = new FormData(form); // Obtiene los datos del formulario
 
-    fetch("../php/proceso_autenticacion.php", {
+    fetch("../php/proceso_autenticacion.php", { //ruta al PHP que procesa el registro
       method: "POST",
       body: formData,
     })
