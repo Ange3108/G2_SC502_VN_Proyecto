@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['nombre'])) {
+    header("Location: ../../Home/home.php"); 
+    exit(); 
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -7,10 +14,10 @@
     <title>La Crocherita - Inicio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <link rel="stylesheet" href="../Comunidad/css/style.css" /> 
-    
-    <link rel="stylesheet" href="CSS/style.css"> 
+
+    <link rel="stylesheet" href="../Comunidad/css/style.css" />
+
+    <link rel="stylesheet" href="CSS/style.css">
 </head>
 
 <body>
@@ -30,8 +37,8 @@
         <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="Home.html">Principal</a> </li>
-                
+                    <a class="nav-link active" aria-current="page" href="home.php">Principal</a> </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="../Comunidad/comunidad.html">Comunidad y Participación</a>
                 </li>
@@ -45,7 +52,7 @@
                     <a class="nav-link" href="../Configuración y Ayuda/configuracion.html">Configuración y Ayuda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../Login/Login.html">Cerrar Sesión</a>
+                    <a class="nav-link" href="include/logout.php">Cerrar Sesión</a>
                 </li>
             </ul>
         </div>
@@ -147,7 +154,7 @@
             </a>
         </div>
     </main>
-    
+
     <div class="modal fade" id="contactaProfesoraModal" tabindex="-1" aria-labelledby="contactaProfesoraModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
