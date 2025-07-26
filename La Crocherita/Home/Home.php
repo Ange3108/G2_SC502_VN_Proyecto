@@ -52,7 +52,7 @@ if (!isset($_SESSION['nombre'])) {
                     <a class="nav-link" href="../Configuración y Ayuda/configuracion.html">Configuración y Ayuda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="include/logout.php">Cerrar Sesión</a>
+                    <a class="nav-link" href="../include/logout.php">Cerrar Sesión</a>
                 </li>
             </ul>
         </div>

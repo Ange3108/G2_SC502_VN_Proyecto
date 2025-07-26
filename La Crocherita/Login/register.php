@@ -156,7 +156,7 @@ if (isset($_GET['registro']) && $_GET['registro'] == 'exito') {
           >
             Regresar
           </button>
-          <button onclick="location.href='../../Home/Home.php'" class="btn btn-link btn-sm">
+          <button onclick="location.href='../Home/Home.php'" class="btn btn-link btn-sm">
             Siguiente
           </button>
         </div>
