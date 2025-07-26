@@ -5,13 +5,14 @@
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 // Datos de conexión
-$host = 'localhost';
+$host = '127.0.0.1';
 $usuario = 'root';
 $contrasenia = ''; // Debe agregar la contraseña de su respectivo MySQL
 $base_datos = 'la_crocherita';
+$port = 3307; 
 
 // Crear conexión
-$mysqli = new mysqli($host, $usuario, $contrasenia, $base_datos);
+$mysqli = new mysqli($host, $usuario, $contrasenia, $base_datos, $port);
 
 // Verificar conexión
 if ($mysqli->connect_error) {
