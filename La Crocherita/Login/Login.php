@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once("../../include/conexion.php"); 
+require_once("../include/conexion.php"); 
 
 $mensaje = ""; // Variable para almacenar mensajes de éxito o error
 
@@ -30,7 +30,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 $_SESSION['email'] = $usuario['correo'];
                 
                 // Redirección a Home/Home.php
-                header("Location: ../../Home/Home.php"); 
+                header("Location: ../Home/Home.php"); 
                 exit();
             } else {
                 $mensaje = "Contraseña incorrecta.";

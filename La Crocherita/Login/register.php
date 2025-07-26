@@ -11,9 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $email = trim($_POST['emailRegister'] ?? '');
     $password = $_POST['passwordRegister'] ?? '';
     $confirmPassword = $_POST['confirmPassword'] ?? '';
-    // Eliminado: $role = $_POST['role'] ?? 'estudiante'; // Ya no se usará la columna 'rol'
-
-    // 1. Validaciones básicas (campos vacíos)
+    
+    // 1. Validacion campos vacíos
     if (empty($nombre) || empty($email) || empty($password) || empty($confirmPassword)) {
         $mensaje = "<div class='alert alert-danger'>Todos los campos son obligatorios.</div>";
     } 
@@ -155,9 +154,6 @@ if (isset($_GET['registro']) && $_GET['registro'] == 'exito') {
             class="btn btn-secondary btn-sm"
           >
             Regresar
-          </button>
-          <button onclick="location.href='../Home/Home.php'" class="btn btn-link btn-sm">
-            Siguiente
           </button>
         </div>
       </div>
