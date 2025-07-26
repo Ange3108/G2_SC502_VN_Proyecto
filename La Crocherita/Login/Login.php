@@ -1,3 +1,48 @@
+<?php
+session_start();
+
+require_once("../../include/conexion.php"); 
+
+$mensaje = ""; // Variable para almacenar mensajes de éxito o error
+
+if($_SERVER['REQUEST_METHOD'] == "POST"){
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+    
+    // Validar datos
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $mensaje = "Correo electrónico inválido.";
+    } else {
+        // Buscar si el correo existe en la base de datos 'la_crocherita'
+        $stmt = $mysqli->prepare("SELECT id_usuario, nombre, correo, contraseña FROM Usuarios WHERE correo = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+
+        if($resultado->num_rows === 1) {
+            $usuario = $resultado->fetch_assoc();
+
+            // Verificar la contraseña
+            if(password_verify($password, $usuario['contraseña'])){
+                // Inicio de sesión exitoso
+                $_SESSION['id_usuario'] = $usuario['id_usuario'];
+                $_SESSION['nombre'] = $usuario['nombre'];
+                $_SESSION['email'] = $usuario['correo'];
+                
+                // Redirección a Home/Home.php
+                header("Location: ../../Home/Home.php"); 
+                exit();
+            } else {
+                $mensaje = "Contraseña incorrecta.";
+            }
+        } else {
+            $mensaje = "Correo electrónico no registrado.";
+        }
+        $stmt->close();
+    }
+    $mysqli->close(); // Cerrar la conexión aquí, después de todas las operaciones de la DB.
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -21,8 +66,11 @@
     >
       <div class="card p-4 shadow-lg w-100" style="max-width: 400px">
         <h3 class="card-title text-center mb-4">Login</h3>
-        <form id="loginForm" action="../php/proceso_autenticacion.php" method="POST">
-          <input type="hidden" name="action" value="login" />
+        <?php if (!empty($mensaje)): ?>
+            <div class="alert alert-danger text-center" role="alert"><?php echo $mensaje; ?></div>
+        <?php endif; ?>
+        
+        <form id="loginForm" method="POST">
           <div class="input-group mb-3">
             <span class="input-group-text"
               ><i class="fas fa-envelope"></i
@@ -53,18 +101,13 @@
             </button>
           </div>
         </form>
-        <div id="login-message" class="mt-3 text-center" style="display: none;"></div>
-        <p class="text-center mt-2">
-          <a href="contra_olvidada.html">¿Olvidaste tu contraseña?</a>
-        </p>
+        
         <p class="text-center mt-3">
-          ¿No tienes una cuenta? <a href="register.html">Regístrate aquí</a>
+          ¿No tienes una cuenta? <a href="register.php">Regístrate aquí</a>
         </p>
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/Login.js"></script>
   </body>
 </html>
