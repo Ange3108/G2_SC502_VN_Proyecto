@@ -51,11 +51,11 @@ main {
 /* Grid principal y contenedores */
 .contenedor {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  justify-content: center;
-  align-items: flex-start;
-  max-width: 1200px;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 32px; 
+  justify-content: center; 
+  align-items: flex-start; 
+  max-width: 1200px; 
   margin: 40px auto;
   font-size: medium;
   padding: 0 15px;
