@@ -69,10 +69,10 @@ if (!isset($_SESSION['nombre'])) {
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="./Imagenes/Mercedita.jpg" class="d-block w-100" alt="Mulequita mercedita, con vestido rojo, y diadema de Mickey Mouse">
+                            <img src="./Imagenes/Mercedita.jpg" class="d-block w-100" alt="Muñequita mercedita, con vestido rojo, y diadema de Mickey Mouse">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5>Mercedita con diadema de Mickey Mouse</h5>
-                                <p>Está linda muñequita fue hecha por doña ...</p>
+                                <p>Está linda muñequita fue hecha por doña Marta</p>
                             </div>
                         </div>
                         <div class="carousel-item">
