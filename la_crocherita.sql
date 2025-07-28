@@ -7,9 +7,7 @@ CREATE TABLE Usuarios (
   id_usuario INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100) NOT NULL,
   correo VARCHAR(100) NOT NULL UNIQUE,
-  contraseña VARCHAR(255) NOT NULL,
-  rol ENUM('profesora', 'estudiante') NOT NULL,
-  fecha_registro DATE
+  contraseña VARCHAR(255) NOT NULL
 );
 
 /*Se crea la tabla Proyectos*/
