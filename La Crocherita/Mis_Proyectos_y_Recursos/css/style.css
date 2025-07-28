@@ -236,3 +236,23 @@ footer .iconitos span:hover {
         padding: 0 15px;
     }
 }
+
+
+/* Forzar buscador a la izquierda y "mostrar registros" a la derecha */
+.dataTables_wrapper .dt-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+}
+
+.dataTables_wrapper .dt-header .col-sm-6:first-child {
+    display: flex !important;
+    justify-content: flex-start !important;
+}
+
+.dataTables_wrapper .dt-header .col-sm-6:last-child {
+    display: flex !important;
+    justify-content: flex-end !important;
+}
+
