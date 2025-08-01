@@ -7,9 +7,7 @@ CREATE TABLE Usuarios (
   id_usuario INT AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100) NOT NULL,
   correo VARCHAR(100) NOT NULL UNIQUE,
-  contraseña VARCHAR(255) NOT NULL,
-  rol ENUM('profesora', 'estudiante') NOT NULL,
-  fecha_registro DATE
+  contraseña VARCHAR(255) NOT NULL
 );
 
 /*Se crea la tabla Proyectos*/
@@ -18,7 +16,6 @@ CREATE TABLE Proyectos (
   id_usuario INT,
   nombre_proyecto VARCHAR(100) NOT NULL,
   descripcion TEXT,
-  tipo_reto ENUM('personal', 'reto') DEFAULT 'personal',
   nivel_dificultad ENUM('principiante', 'intermedio', 'avanzado'),
   estado ENUM('en proceso', 'terminado') DEFAULT 'en proceso',
   imagen_url VARCHAR(255),
@@ -35,7 +32,6 @@ CREATE TABLE Clases (
   dia_semana VARCHAR(20) NOT NULL,
   hora_inicio TIME NOT NULL,
   hora_fin TIME NOT NULL,
-  ubicacion VARCHAR(255),
   FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
 );
 
@@ -54,8 +50,6 @@ CREATE TABLE Eventos (
   nombre_evento VARCHAR(100) NOT NULL,
   descripcion TEXT,
   fecha_evento DATE NOT NULL,
-  id_usuario INT,
-  FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
 );
 
 CREATE TABLE Patrones (

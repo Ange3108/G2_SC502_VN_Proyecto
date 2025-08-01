@@ -9,7 +9,7 @@ $host = '127.0.0.1';
 $usuario = 'root';
 $contrasenia = ''; // Debe agregar la contraseña de su respectivo MySQL
 $base_datos = 'la_crocherita';
-$port = 3307; 
+$port = 3306; 
 
 // Crear conexión
 $mysqli = new mysqli($host, $usuario, $contrasenia, $base_datos, $port);

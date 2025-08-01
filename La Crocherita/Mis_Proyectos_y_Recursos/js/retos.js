@@ -1,29 +1,29 @@
 const retos = [
   {
     titulo:
-      "Crochet para principiantes | 8 Puntos básicos para hacer Amiguramis 🧸🍯",
+      "Tutorial de dijes de mar a Crochet",
     descripcion:
-      "Aprendé técnica básicas de crochet, puntos más usados y consejos.",
-    enlace: "https://youtu.be/GaYaVjM71xg",
+      "Teje diferentes dijes de mar a crochet con este tutorial paso a paso.",
+    enlace: "https://youtu.be/yawoBn6bSFo?si=-fTmt-dtuSryyH_W",
   },
   {
-    titulo: "Conejito Base a Crochet | Tutorial Paso a Paso | Fácil y Rápido",
-    descripcion: "Una guía fácil para empezar con una bonita figura.",
-    enlace: "https://youtu.be/PdX2Ex1ciJk",
-  },
-  {
-    titulo:
-      "CÓMO TEJER GRANNY SQUARE BÁSICO FÁCIL | Ganchillo - Crochet | Lanas y Ovillos",
-    descripcion:
-      "Aprende a tejer el granny square más básico de una forma sencill y rápida.",
-    enlace: "https://youtu.be/h0UXeUn7PDI",
+    titulo: "🙊MONITO a crochet 🩷 - Changuito tierno para llavero- TUTORIAL paso a paso, SUB ENG",
+    descripcion: " tutorial de como tejer este hermoso monito para llavero. Espero que lo disfrutes  y a tejer !  🧡",
+    enlace: "https://youtu.be/ki0vKcn5Q3o?si=u7yOrUDcrSJpK0ys",
   },
   {
     titulo:
-      "Cómo Hacer un MINI CORAZÓN a Crochet Fácil y Rápido ❤️ Paso a Paso",
+      "♡ Tutorial de llavero de un mini ramo a crochet | No cosido necesario ♡",
     descripcion:
-      "Un tutorial super fácil y rápido de hacer, ideal para principiantes",
-    enlace: "https://youtu.be/FRPKcZpsxk4",
+      "Aprende a tejer el llavero de un mini ramo a crochet de una forma sencilla y rápida.",
+    enlace: "https://youtu.be/d8O58f5UeYc?si=aBYCAPCJj-c5DOx-",
+  },
+  {
+    titulo:
+      "🍓🍫CHOCOFRESA coquette🍓🎀❤️ crochet ideas, Fácil para principiantes de ganchillo ❤️",
+    descripcion:
+      "Un tutorial fácil y rápido de una fresa con chocolate a crochet, ideal para principiantes.",
+    enlace: "https://youtu.be/bkHYnnGOtYE?si=OX9HH0UhdHNqd4AM",
   },
 ];
 
