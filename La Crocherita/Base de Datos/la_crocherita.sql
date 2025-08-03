@@ -16,11 +16,12 @@ CREATE TABLE Proyectos (
   id_usuario INT,
   nombre_proyecto VARCHAR(100) NOT NULL,
   descripcion TEXT,
-  nivel_dificultad ENUM('principiante', 'intermedio', 'avanzado'),
   estado ENUM('en proceso', 'terminado') DEFAULT 'en proceso',
   imagen_url VARCHAR(255),
   puntos_utilizados TEXT,
-  FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
+  materiales TEXT,
+  FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario), 
+  FOREIGN KEY (id_patron) REFERENCES Patrones(id_patron)
 );
 
 

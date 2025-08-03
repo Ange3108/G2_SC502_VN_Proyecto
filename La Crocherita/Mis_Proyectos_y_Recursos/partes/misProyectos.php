@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // 1. Recoger los datos del formulario
     $id_patron = intval($_POST['id_patron'] ?? 0);
     $nombre_proyecto = $_POST['nombre_proyecto'] ?? '';
-    $tipo_reto = $_POST['tipo_reto'] ?? 'personal';
     $estado = 'en proceso'; // Los proyectos nuevos siempre inician 'en proceso'
     $puntos_utilizados = 0; // Valor inicial
 
@@ -49,10 +48,28 @@ $patrones_result = $mysqli->query("SELECT id_patron, nombre_patron FROM patrones
 // 2. Cargar los proyectos del usuario actual usando un JOIN para obtener los datos del patrón
 $stmt = $mysqli->prepare("
     SELECT 
+        pat.id_patron,
+        pat.nombre_patron,
+        pat.descripcion,
+        pat.imagen_url,
+        pat.nivel_dificultad
+    FROM
+        patrones AS pat
+    WHERE 
+        pat.id_usuario = ?
+    ORDER BY 
+        pat.id_patron DESC
+");
+$stmt->bind_param("i", $id_usuario);
+$stmt->execute();
+$mis_proyectos_result = $stmt->get_result();
+
+//3. Mostrar los proyectos ligados al usuario
+$stmt = $mysqli->prepare("
+    SELECT 
         proy.id_proyecto,
         proy.nombre_proyecto,
         proy.estado,
-        proy.tipo_reto,
         pat.nombre_patron,
         pat.descripcion AS patron_descripcion,
         pat.imagen_url AS patron_imagen_url,
@@ -69,6 +86,7 @@ $stmt = $mysqli->prepare("
 $stmt->bind_param("i", $id_usuario);
 $stmt->execute();
 $mis_proyectos_result = $stmt->get_result();
+
 
 ?>
 <!DOCTYPE html>
