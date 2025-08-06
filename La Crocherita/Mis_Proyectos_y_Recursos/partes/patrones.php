@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre_patron = $_POST['nombre_patron'] ?? '';
     $descripcion = $_POST['descripcion'] ?? '';
     $nivel_dificultad = $_POST['nivel_dificultad'] ?? '';
-    $tiempo_aproximado = $_POST['tiempo_aproximado'] ?? '';
+    $puntos_utilizados = $_POST['puntos_utilizados'] ?? '';
     $materiales = $_POST['materiales'] ?? '';
     
     $imagen_url_db = '';
@@ -49,16 +49,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insertar en la Base de Datos solo si no hubo errores de subida
     if (!$error_subida) {
         $stmt = $mysqli->prepare("
-            INSERT INTO patrones (nombre_patron, descripcion, imagen_url, nivel_dificultad, tiempo_aproximado, materiales, pdf_url) 
+            INSERT INTO patrones (nombre_patron, descripcion, imagen_url, nivel_dificultad, puntos_utilizados, materiales, pdf_url) 
             VALUES (?, ?, ?, ?, ?, ?, ?)
         ");
-        $stmt->bind_param("sssssss", $nombre_patron, $descripcion, $imagen_url_db, $nivel_dificultad, $tiempo_aproximado, $materiales, $pdf_url_db);
+        $stmt->bind_param("sssssss", $nombre_patron, $descripcion, $imagen_url_db, $nivel_dificultad, $puntos_utilizados, $materiales, $pdf_url_db);
         if ($stmt->execute()) {
             // Redirigir a la misma página con un parámetro de éxito
             header("Location: " . $_SERVER['PHP_SELF'] . "?status=success");
             exit(); // Detener la ejecución del script es crucial después de redirigir
         }
         $stmt->close();
+    }
+
+    //validaciones
+    if(empty($nombre_patron)){
+        echo "El nombre del patrón es requerido";
+        exit();
+    }
+    if(empty($descripcion)){
+        echo "La descripción es requerida";
+        exit();
+    }
+    if(empty($nivel_dificultad)){
+        echo "El nivel de dificultad es requerido";
+        exit();
+    }
+    if(empty($puntos_utilizados)){
+        echo "Los puntos utilizados son requeridos";
+        exit();
+    }
+    if(empty($materiales)){
+        echo "Los materiales son requeridos";
+        exit();
+    }
+    if(empty($imagen_url_db) && empty($pdf_url_db)){
+        echo "Debe subir al menos una imagen o un PDF";
+        exit();
     }
 }
 // =========== FIN: LÓGICA PARA PROCESAR FORMULARIO ===========
@@ -135,20 +161,15 @@ $result = $mysqli->query($query);
                         </div>
                         <div class="col-md-8">
                             <h3><?= htmlspecialchars($patron['nombre_patron']) ?></h3>
-                            <ul>
-                                <strong>Tiempo aproximado:</strong>
-                                <li><?= htmlspecialchars($patron['tiempo_aproximado']) ?></li>
-                                <strong>Materiales:</strong>
-                                <?php
-                                $materiales = explode(';', $patron['materiales']);
-                                foreach ($materiales as $material):
-                                ?>
-                                    <li><?= htmlspecialchars(trim($material)) ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                            <a href="<?= htmlspecialchars($patron['pdf_url']) ?>" class="btn btn-primary" download>
-                                <i class="fas fa-download"></i> Descargar patrón PDF
-                            </a>
+                            <p><strong>Descripción:</strong> <?= htmlspecialchars($patron['descripcion']) ?></p>
+                            <p><strong>Nivel:</strong> <?= htmlspecialchars($patron['nivel_dificultad']) ?></p>
+                            <p><strong>Puntos utilizados:</strong> <?= htmlspecialchars($patron['puntos_utilizados']) ?></p>
+                            <p><strong>Materiales:</strong> <?= htmlspecialchars($patron['materiales']) ?></p>
+                            <?php if (!empty($patron['pdf_url'])): ?>
+                                <a href="<?= htmlspecialchars($patron['pdf_url']) ?>" class="btn btn-primary" download>
+                                    <i class="fas fa-download"></i> Descargar patrón PDF
+                                </a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -187,8 +208,8 @@ $result = $mysqli->query($query);
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="tiempo_aproximado" class="form-label">Tiempo Aproximado</label>
-                                <input type="text" name="tiempo_aproximado" id="tiempo_aproximado" class="form-control" placeholder="Ej: 2h 30m">
+                                <label for="puntos_utilizados" class="form-label">Puntos Utilizados</label>
+                                <input type="text" name="puntos_utilizados" id="puntos_utilizados" class="form-control" placeholder="Ej: Punto bajo, punto alto, anillo mágico">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="nivel_dificultad" class="form-label">Nivel de Dificultad</label>
@@ -202,8 +223,8 @@ $result = $mysqli->query($query);
                         </div>
                         <div class="mb-3">
                             <label for="materiales" class="form-label">Materiales</label>
-                            <textarea name="materiales" id="materiales" class="form-control" rows="4"></textarea>
-                            <div class="form-text">Separa cada material con un punto y coma (;).</div>
+                            <textarea name="materiales" id="materiales" class="form-control" rows="4" placeholder="Ej: Hilo acrílico, aguja 4mm, relleno, ojos de seguridad"></textarea>
+                            <div class="form-text">Describe todos los materiales necesarios para el proyecto.</div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
