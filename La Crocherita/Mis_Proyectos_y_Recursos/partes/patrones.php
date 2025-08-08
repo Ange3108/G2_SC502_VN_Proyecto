@@ -124,7 +124,7 @@ $result = $mysqli->query($query);
         </div>
         <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                <li class="nav-item"><a class="nav-link" href="../../Home/Home.html">Principal</a></li>
+                <li class="nav-item"><a class="nav-link" href="../../Home/Home.php">Principal</a></li>
                 <li class="nav-item"><a class="nav-link" href="../../Comunidad/comunidad.html">Comunidad y Participación</a></li>
                 <li class="nav-item"><a class="nav-link" href="../../Mis_Proyectos_y_Recursos/Proyectos.html">Mis Proyectos y Recursos</a></li>
                 <li class="nav-item"><a class="nav-link" href="../../Herramienta%20de%20C%C3%A1lculo/calculadora.html">Herramientas De Cálculo</a></li>
