@@ -30,9 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         //4. Muestra error
         if ($stmt->sqlstate == '00000') {
-            echo "Reservación actualizada correctamente";
+            echo "Proyecto actualizada correctamente";
         } else {
-            echo "Error al actualizar la reservación, código: " . $stmt->sqlstate;
+            echo "Error al actualizar el proyecto, código: " . $stmt->sqlstate;
         }
 
         //5. Redirige para evitar reenvio del formulario
