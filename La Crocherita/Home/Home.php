@@ -26,7 +26,6 @@ if (!isset($_SESSION['nombre'])) {
             <i class="fas fa-bars"></i>
         </button>
         <h1 class="h4 mb-0">La Crocherita</h1>
-        <div></div>
     </header>
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">

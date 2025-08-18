@@ -74,9 +74,9 @@ CREATE TABLE Favoritos_Patrones (
 
 -- Insertar usuario de ejemplo
 INSERT INTO Usuarios (nombre, correo, contraseña) VALUES
-('Usuario Demo', 'demo@ejemplo.com', '$2y$10$example_hash_password');
+('Profesora Vanessa', 'usuario@admin.com', 'contrasena123');
 
-INSERT INTO Patrones (nombre_patron, descripcion, imagen_url, nivel_dificultad, puntos_utilizados, materiales) VALUES
-('Oso de Peluche', 'Adorable oso de peluche perfecto para regalar', '../img/oso.jpg', 'intermedio', 'Punto bajo, punto alto, anillo mágico', 'Hilo acrílico, aguja 4mm, relleno, ojos de seguridad'),
-('Ratoncito', 'Pequeño ratón tejido muy fácil de hacer', '../img/ratoncito.jpg', 'principiante', 'Punto bajo, aumentos, disminuciones', 'Hilo algodón, aguja 3.5mm, relleno'),
-('Tulipán', 'Hermosa flor tulipán para decorar', '../img/Tulipan.jpg', 'intermedio', 'Punto alto, punto bajo, cadenas', 'Hilo algodón de colores, aguja 3mm, alambre floral');
+INSERT INTO Patrones (nombre_patron, descripcion, imagen_url, nivel_dificultad, puntos_utilizados, materiales, pdf_url) VALUES
+('Oso de Peluche', 'Adorable oso de peluche perfecto para regalar', '../img/oso.jpg', 'intermedio', 'Punto bajo, punto alto, anillo mágico', 'Hilo acrílico, aguja 4mm, relleno, ojos de seguridad', ''),
+('Ratoncito', 'Pequeño ratón tejido muy fácil de hacer', '../img/ratoncito.jpg', 'principiante', 'Punto bajo, aumentos, disminuciones', 'Hilo algodón, aguja 3.5mm, relleno', '../pdf/ratoncito.pdf'),
+('Tulipán', 'Hermosa flor tulipán para decorar', '../img/Tulipan.jpg', 'principiante', 'Punto alto, punto bajo, cadenas', 'Hilo algodón de colores, aguja 3mm, alambre floral', '../pdf/tulipan.pdf');
