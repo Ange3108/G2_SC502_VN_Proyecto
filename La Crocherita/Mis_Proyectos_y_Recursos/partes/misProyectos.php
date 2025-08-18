@@ -180,8 +180,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <span class="badge bg-primary"><?= htmlspecialchars($proyecto['estado']) ?></span>
                                 </td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm">Editar</button>
-
+                                    <!-- Formulario para editar el estado del proyecto -->
+                                    <form method="POST" action="misProyectos.php" class="d-inline">
+                                        <input type="hidden" name="id_proyecto" value="<?= $proyecto['id_proyecto'] ?>">
+                                        <select name="estado" class="form-select form-select-sm d-inline w-auto" required>
+                                            <option value="en proceso" <?= $proyecto['estado'] == 'en proceso' ? 'selected' : '' ?>>En Proceso</option>
+                                            <option value="terminado" <?= $proyecto['estado'] == 'terminado' ? 'selected' : '' ?>>Terminado</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-warning btn-sm">Actualizar</button>
+                                    </form>
                                     <a href="misProyectos.php?eliminar=<?= $proyecto['id_proyecto'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar este proyecto?')">Eliminar</a>
                                 </td>
                             </tr>
@@ -237,17 +244,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </div>
-    <!--Formulario para la edicion del estado-->
-    <div form method="POST" id="formNuevoProyecto" action="misProyectos.php">
-        <div class="mb-3">
-            <input type="hidden" name="id_proyecto" value="<?= $proyecto['id_proyecto'] ?>">
-            <span class="badge bg-primary"><?= htmlspecialchars($proyecto['estado']) ?></span>
-            <select name="estado" id="estado" class="form-select" required>
-                <option value="" disabled selected>-- Elige un estado --</option>
-                <option value="en proceso" <?= $proyecto['estado'] == 'en proceso' ? 'selected' : '' ?>>En Proceso</option>
-                <option value="terminado" <?= $proyecto['estado'] == 'terminado' ? 'selected' : '' ?>>Terminado</option>
-            </select>
-            </form>
+    <!-- El formulario de edición de estado ahora está dentro de la tabla, junto a cada proyecto -->
 
 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
