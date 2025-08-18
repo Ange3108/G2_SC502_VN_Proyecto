@@ -6,85 +6,177 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Patrones Digitales de Crochet</title>
 
-    <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <!-- Tu CSS personalizado -->
     <link rel="stylesheet" href="../css/style.css">
 
 </head>
 
 <body>
+    <header class="d-flex justify-content-between align-items-center p-3 bg-light shadow-sm">
+        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="h4 mb-0">La Crocherita</h1>
+        <div></div>
+    </header>
 
-    <div class="container py-5">
-        <h2 class="titulo">Patrones Digitales de Crochet</h2>
-
-        <!-- Patrón: Llavero de Tulipán -->
-        <div class="tarjeta-tutorial">
-            <div class="row align-items-center">
-                <div class="col-md-4 text-center mb-3 mb-md-0">
-                    <img src="../img/tulipan.jpg" alt="Llavero de tulipán" class="imagen-patron">
-                </div>
-                <div class="col-md-8">
-                    <h3>Llavero de Tulipán</h3>
-                    <p><strong>Flor:</strong><br>
-                        1) AM 6pb<br>
-                        2) Aumentos (12pb)<br>
-                        3) 1pb, 1 aumento (18pb)<br>
-                        4) 2pb, 1 aumento (24pb)<br>
-                        5) 3pb, 1 aumento (30pb)<br>
-                        6–13) Punto sobre punto (30pb)<br>
-                        7) Cerrar con puntada invisible<br>
-                        8) Rellenar, cerrar el tulipán en 2 mitades, esconder hebra
-                    </p>
-                    <p><strong>Tallo:</strong> 30 cadenas con hebras largas al inicio y final.</p>
-                    <p><strong>Hojas:</strong><br>
-                        Pequeña: 8 cad, 1 pd, 1 pma, 4 pa, aum de 6 pa. Otro lado: 3 pa, 1 mpa, 1 pd.<br>
-                        Grande: 10 cad, 1 pd, 1 pma, 6 pa, otro lado: 5 pa, 1 mp, 1 pd.
-                    </p>
-                    <a href="#">Descargar patrón PDF</a>
-                </div>
-            </div>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú de Navegación</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-
-        <!-- Patrón: Oso Amigurumi -->
-        <div class="tarjeta-tutorial">
-            <div class="row align-items-center">
-                <div class="col-md-4 text-center mb-3 mb-md-0">
-                    <img src="../img/oso.jpg" alt="Oso tejido a crochet" class="imagen-patron">
-                </div>
-                <div class="col-md-8">
-                    <h3>Oso Amigurumi</h3>
-                    <p><strong>Cuerpo y cabeza:</strong><br>
-                        1) AM 6pb<br>
-                        2) Aumento (12pb)<br>
-                        3) 1pb, 1 aumento (18pb)<br>
-                        4) 2pb, 1 aumento (24pb)<br>
-                        5) 3pb, 1 aumento (30pb)<br>
-                        6) 4pb, 1 aumento (36pb)<br>
-                        7–21) Punto sobre punto (36pb)<br>
-                        22) 4pb, 1 dism (30pb)<br>
-                        23) 3pb, 1 dism (24pb)<br>
-                        24) 2pb, 1 dism (18pb), colocar ojos<br>
-                        25) 1pb, 1 dism (12pb), rellenar<br>
-                        26) 6 dism<br>
-                        27) Cerrar con aguja
-                    </p>
-                    <p><strong>Manos y Piernas:</strong><br>
-                        Manos: AM 6pb → 9pb, 3–5) punto sobre punto. Cerrar, rellenar.<br>
-                        Piernas: AM 6pb → 12pb, 3–4) punto sobre punto. Cerrar, coser.
-                    </p>
-                    <p><strong>Extras:</strong><br>
-                        Nariz: 5 cad, 4pb por lado → 12pb. Bordar nariz.<br>
-                        Orejas: AM 4pb, girar, aum en cada punto.<br>
-                        Huellas: AM 6pb, cerrar y pegar.
-                    </p>
-                    <a href="#">Descargar patrón PDF</a>
-                </div>
-            </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="../../Home/Home.php">Principal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../Comunidad/comunidad.html">Comunidad y Participación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../Mis_Proyectos_y_Recursos/Proyectos.html">Mis Proyectos y
+                        Recursos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../Herramienta%20de%20C%C3%A1lculo/calculadora.html">Herramientas De
+                        Cálculo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../Configuración%20y%20Ayuda/configuracion.html">Configuración y
+                        Ayuda</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../Login/Login.html">Cerrar Sesión</a>
+                </li>
+            </ul>
         </div>
     </div>
+    <main>
+        <div class="container py-5">
+            <h2 class="titulo">Patrones Digitales de Crochet</h2>
 
+            <div class="tarjeta-patron">
+                <div class="row align-items-center">
+                    <div class="col-md-4 text-center mb-3 mb-md-0">
+                        <img src="../img/tulipan.jpg" alt="Llavero de tulipán" class="imagen-patron">
+                    </div>
+                    <div class="col-md-8">
+                        <h3>Llavero de Tulipán</h3>
+                        <ul>
+                            <strong>Tiempo aproximado:</strong>
+                            <li>2h</li>
+                            <strong>Materiales:</strong>
+                            <li>Hilo abuelita, de color del que de su escogencia y verde</li>
+                            <li>Ganchillo de 3 mm</li>
+                            <li>Relleno</li>
+                            <li>Cable para el tallo</li>
+                        </ul>
+                        <a href="/La Crocherita/Mis_Proyectos_y_Recursos/pdf/Llavero de Tulipán.pdf">Descargar patrón PDF</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tarjeta-patron">
+                <div class="row align-items-center">
+                    <div class="col-md-4 text-center mb-3 mb-md-0">
+                        <img src="../img/oso.jpg" alt="Oso tejido a crochet" class="imagen-patron">
+                    </div>
+                    <div class="col-md-8">
+                        <h3>Oso Amigurumi</h3>
+                        <ul>
+                            <strong>Tiempo aproximado:</strong>
+                            <li>9h</li>
+                            <strong>Materiales:</strong>
+                            <li>Hilo chenille color champagne</li>
+                            <li>Ganchillo de 5 mm</li>
+                            <li>Ojos de seguridad de 8mm</li>
+                            <li>Relleno</li>
+                            <li>Articulaciones</li>
+                        </ul>
+                        <a href="/La Crocherita/Mis_Proyectos_y_Recursos/pdf/🧸 Oso.pdf">Descargar patrón PDF</a>
+                    </div>
+                </div>
+            </div>
+            <div class="tarjeta-patron">
+                <div class="row align-items-center">
+                    <div class="col-md-4 text-center mb-3 mb-md-0">
+                        <img src="../img/ratoncito.jpg" alt="Ratoncito color gris" class="imagen-patron">
+                    </div>
+                    <div class="col-md-8">
+                        <h3>Ratoncito</h3>
+                        <ul>
+                            <strong>Tiempo aproximado:</strong>
+                            <li>5h</li>
+                            <strong>Materiales:</strong>
+                            <li>Hilo de algodón, marca abuelita en color gris y rosado</li>
+                            <li>Ganchillo de 3.5 mm</li>
+                            <li>Ojos de seguridad de 5mm</li>
+                            <li>Relleno</li>
+                        </ul>
+                        <a href="/La Crocherita/Mis_Proyectos_y_Recursos/pdf/Ratoncito.pdf">Descargar patrón PDF</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tarjeta-patron">
+                <div class="row align-items-center">
+                    <div class="col-md-4 text-center mb-3 mb-md-0">
+                        <img src="/La Crocherita/Home/Imagenes/Mercedita.jpg" alt="Mercedita con orejas de Minnie Mouse"
+                            class="imagen-patron">
+                    </div>
+                    <div class="col-md-8">
+                        <h3>Mercedita con orejas de Minnie Mouse</h3>
+                        <ul>
+                            <strong>Tiempo aproximado:</strong>
+                            <li>15h</li>
+                            <strong>Materiales:</strong>
+                            <li>Hilo de algodón, marca sinfonia de color rojo, blanco y piel</li>
+                            <li>Ganchillo de 3 mm</li>
+                            <li>Ojos de seguridad de 5mm</li>
+                            <li>Relleno</li>
+                        </ul>
+                        <a href="#">Descargar patrón PDF</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tarjeta-patron">
+                <div class="row align-items-center">
+                    <div class="col-md-4 text-center mb-3 mb-md-0">
+                        <img src="/La Crocherita/Home/Imagenes/Pukka-Garu.jpg"
+                            alt="Mercedita con orejas de Minnie Mouse" class="imagen-patron">
+                    </div>
+                    <div class="col-md-8">
+                        <h3>Pukka y Garu</h3>
+                        <ul>
+                            <strong>Tiempo aproximado:</strong>
+                            <li>10h</li>
+                            <strong>Materiales:</strong>
+                            <li>Hilo de algodón, marca abuelita de color rojo, blanco y negro</li>
+                            <li>Ganchillo de 3.5 mm</li>
+                            <li>Relleno</li>
+                        </ul>
+                        <a href="#">Descargar patrón PDF</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="frase">Síguenos en nuestras redes sociales!</div>
+        <div class="iconitos">
+            <span><i class="fab fa-facebook"></i></span>
+            <span><i class="fab fa-instagram"></i></span>
+            <span><i class="fab fa-pinterest"></i></span>
+        </div>
+        <p>&copy; 2025 La Crocherita. Todos los derechos reservados.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

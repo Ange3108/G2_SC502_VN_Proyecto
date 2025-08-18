@@ -1,15 +1,84 @@
-.contenedor {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  justify-content: center;
-  align-items: flex-start;
-  max-width: 1200px;
-  margin: 40px auto;
-  font-family: "Trebuchet MS", sans-serif;
-  font-size: medium;
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Trebuchet MS', sans-serif;
+  color: #333;
+}
+
+main {
+  flex-grow: 1;
+  padding-bottom: 20px;
+}
+
+/* ========================================= */
+/* CSS PARA COMUNIDAD.HTML */
+/* ========================================= */
+
+/* Títulos y secciones de página */
+.page-title-section {
+  text-align: center;
+  margin: 30px 0 40px;
+  padding: 20px 15px;
+  background-color: #fce4ec;
+  border: 2px solid #e4b4db;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.page-title-section h2,
+.titulo-pagina {
+  font-size: 2.2rem;
+  color: #5b2c6f;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.page-title-section p {
+  font-size: 1.1rem;
+  color: #7b4e8d;
+  margin-bottom: 0;
+}
+
+/* Grid principal y contenedores */
+.contenedor {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 32px; 
+  justify-content: center; 
+  align-items: flex-start; 
+  max-width: 1200px; 
+  margin: 40px auto;
+  font-size: medium;
+  padding: 0 15px;
+}
+
+.contenedor h4 {
+  text-align: center;
+  color: #5b2c6f;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.contenedor p {
+  text-align: center;
+  color: #666;
+  font-size: 0.95em;
+  line-height: 1.5;
+}
+
+/* Tarjetas de navegación (clases, chat, eventos, etc.) */
 .clases,
 .Chat,
 .eventos,
@@ -19,9 +88,25 @@
   border-radius: 10px;
   background-color: rgb(194, 255, 255);
   margin-bottom: 20px;
-  box-sizing: border-box; /* Asegura que el padding no rompa el grid */
+  box-sizing: border-box;
   cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
+
+.clases:hover,
+.Chat:hover,
+.eventos:hover,
+.recordatorio:hover,
+.asistencia:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Colores específicos para cada tarjeta */
 .eventos {
   background-color: rgb(250, 244, 161);
 }
@@ -31,7 +116,37 @@
   background-color: rgb(250, 209, 253);
 }
 
-/* Estilo de Clases */
+/* Botón de WhatsApp */
+.Chat .btn.btn-success.btn-block {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 15px;
+  width: auto;
+  padding: 10px 20px;
+  border-radius: .25rem;
+  text-decoration: none;
+}
+
+.Chat .btn.btn-success.btn-block:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+/* ========================================= */
+/* FIN CSS PARA COMUNIDAD.HTML */
+/* ========================================= */
+
+/* ========================================= */
+/* CSS PARA CLASES.HTML */
+/* ========================================= */
+
+/* Sección principal de clases */
 .seccion-clases {
   display: flex;
   flex-direction: column;
@@ -40,8 +155,15 @@
   font-size: 16px;
   width: 900px;
   margin: 90px auto;
+  background-color: #c4f7f7;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px;
 }
 
+/* Cards de horarios para clases */
 .horario-card {
   background-color: #c4f7f7;
   padding: 30px;
@@ -50,12 +172,19 @@
   text-align: center;
   width: 100%;
   max-width: 500px;
-  margin-bottom: 20px;
+  margin: 20px auto;
 }
 
+<<<<<<< HEAD
 #selectHorario,
 #btnReservar {
   font-family: "Poppins", sans-serif;
+=======
+/* Inputs y botones específicos de clases */
+#selectHorario,
+#btnReservar {
+  font-family: 'Poppins', sans-serif;
+>>>>>>> main
   padding: 10px;
   margin-top: 10px;
   width: 100%;
@@ -63,6 +192,24 @@
   border: 1px solid #ccc;
 }
 
+/* Botón personalizado para clases */
+.btn-custom {
+  background-color: #a14da0;
+  border-color: #a14da0;
+  color: white;
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+  background-color: #8e44ad;
+  border-color: #8e44ad;
+  color: white;
+}
+
+/* Mensaje de SINPE para clases */
 .mensaje-sinpe {
   text-align: center;
   background-color: #fff0f5;
@@ -77,14 +224,21 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.titulo-pagina {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 32px;
-  color: #562f54;
+/* ========================================= */
+/* FIN CSS PARA CLASES.HTML */
+/* ========================================= */
+
+/* ========================================= */
+/* CSS PARA EVENTOS.HTML */
+/* ========================================= */
+
+/* Navegación de calendario para eventos */
+.navegacion-calendario {
   text-align: center;
+  margin-bottom: 20px;
 }
 
+<<<<<<< HEAD
 /*Estilo de Eventos*/
 /* Estilo general */
 .titulo-pagina {
@@ -101,6 +255,11 @@
 }
 
 .navegar-mes {
+=======
+/* Botones de navegación de mes */
+.navegar-mes,
+.boton-mes {
+>>>>>>> main
   background-color: #f0d1d6;
   border: none;
   padding: 8px 16px;
@@ -109,11 +268,23 @@
   cursor: pointer;
   margin: 0 8px;
   transition: background-color 0.2s ease;
+<<<<<<< HEAD
 }
 
 .navegar-mes:hover {
   background-color: #e3b8c1;
 }
+=======
+  color: #5b2c6f;
+}
+
+.navegar-mes:hover,
+.boton-mes:hover {
+  background-color: #e3b8c1;
+}
+
+/* Grid del calendario */
+>>>>>>> main
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -125,6 +296,19 @@
   margin: auto;
 }
 
+/* Encabezado del calendario (días de la semana) */
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  text-align: center;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-family: 'Trebuchet MS', sans-serif;
+  color: #562f54;
+}
+
+/* Días del calendario */
 .calendar-day {
   background-color: #fff;
   border-radius: 8px;
@@ -140,12 +324,14 @@
   justify-content: center;
 }
 
+/* Días con eventos */
 .calendar-day.evento {
   background-color: #c1d8c3;
   font-weight: bold;
   color: #5b2c6f;
 }
 
+<<<<<<< HEAD
 
 .boton-mes {
   background-color: #f0d1d6;
@@ -157,6 +343,9 @@
   color: #5b2c6f;
 }
 
+=======
+/* Días de la semana (encabezado) */
+>>>>>>> main
 .dia-semana {
   font-weight: bold;
   background-color: transparent;
@@ -166,9 +355,183 @@
   cursor: default;
 }
 
+<<<<<<< HEAD
+=======
+/* Días invisibles (para completar el grid) */
+>>>>>>> main
 .invisible {
   background-color: transparent;
   box-shadow: none;
   border: none;
   cursor: default;
 }
+<<<<<<< HEAD
+=======
+
+/* ========================================= */
+/* FIN CSS PARA EVENTOS.HTML */
+/* ========================================= */
+
+/* Cards generales */
+.horario-card:not(.seccion-clases) {
+  background-color: #c4f7f7;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+/* ========================================= */
+/* CSS PARA ASISTENCIA.HTML */
+/* ========================================= */
+
+/* Indicador de asistencia */
+.calendar-day.asistido::after {
+  content: '';
+  width: 14px;
+  height: 14px;
+  background-color: #562f54;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Sección de asistencia */
+.asistencia-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  align-items: flex-start;
+  max-width: 900px;
+  margin: 0 auto 40px auto;
+}
+
+.asistencia-wrapper > div {
+  flex: 1 1 auto;
+  min-width: 300px;
+}
+
+.resumen-asistencia {
+  background-color: #f6e9f9;
+  border: 2px solid #dfc4ec;
+  border-radius: 12px;
+  padding: 24px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 16px;
+  max-width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  color: #562f54;
+  flex-shrink: 0;
+}
+
+.resumen-asistencia p {
+  margin-bottom: 12px;
+}
+
+.resumen-asistencia span {
+  font-weight: bold;
+}
+
+
+footer {
+  background-color: #f5e6f7;
+  color: #5b2c6f;
+  text-align: center;
+  padding: 25px 15px;
+  font-size: 0.95rem;
+  border-top: 3px solid #e4b4db;
+  font-family: 'Trebuchet MS', sans-serif;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+}
+
+footer a {
+  color: #a14da0;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: #8e44ad;
+}
+
+footer .frase {
+  font-style: italic;
+  font-size: 1rem;
+  margin-top: 10px;
+  color: #88417c;
+}
+
+footer .iconitos {
+  font-size: 1.2rem;
+  margin-top: 8px;
+}
+
+footer .iconitos span {
+  margin: 0 8px;
+  color: #5b2c6f;
+  transition: color 0.2s ease;
+}
+
+footer .iconitos span:hover {
+  color: #a14da0;
+}
+
+/* ========================================= */
+/* RESPONSIVE DESIGN - MEDIA QUERIES */
+/* ========================================= */
+@media (max-width: 768px) {
+  /* Grid principal */
+  .contenedor {
+    grid-template-columns: 1fr;
+    padding: 0 15px;
+  }
+
+  /* Tarjetas de navegación */
+  .clases,
+  .Chat,
+  .eventos,
+  .recordatorio,
+  .asistencia {
+    min-width: unset;
+    width: 100%;
+  }
+
+  /* Sección de clases */
+  .seccion-clases {
+    width: 100%;
+    padding: 0 15px;
+  }
+
+  /* Calendario */
+  .calendar-grid {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  }
+
+  /* Títulos */
+  .page-title-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .page-title-section p {
+    font-size: 1rem;
+  }
+
+  /* Sección de asistencia */
+  .asistencia-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .asistencia-wrapper>div,
+  .resumen-asistencia {
+    width: 100%;
+    max-width: 500px;
+  }
+}
+>>>>>>> main

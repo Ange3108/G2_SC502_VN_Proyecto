@@ -1,0 +1,189 @@
+<?php
+session_start();
+if (!isset($_SESSION['nombre'])) {
+    header("Location: ../Home/Home.php"); 
+    exit(); 
+}
+?>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Crocherita - Inicio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" href="../Comunidad/css/style.css" />
+
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+    <header class="d-flex justify-content-between align-items-center p-3 bg-light shadow-sm">
+        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="h4 mb-0">La Crocherita</h1>
+        <div></div>
+    </header>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú de Navegación</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="home.php">Principal</a> </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="../Comunidad/comunidad.html">Comunidad y Participación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../Mis_Proyectos_y_Recursos/Proyectos.html">Mis Proyectos y Recursos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../Herramienta de Cálculo/calculadora.html">Herramientas De Cálculo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../Configuración y Ayuda/configuracion.html">Configuración y Ayuda</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../include/logout.php">Cerrar Sesión</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <main>
+        <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+            <div style="max-width: 450px; width: 100%; ">
+                <div id="Carrusel" class="carousel slide">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#Carrusel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#Carrusel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#Carrusel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="./Imagenes/Mercedita.jpg" class="d-block w-100" alt="Muñequita mercedita, con vestido rojo, y diadema de Mickey Mouse">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Mercedita con diadema de Mickey Mouse</h5>
+                                <p>Está linda muñequita fue hecha por doña Marta</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="./Imagenes/Capibara.jpg" class="d-block w-100" alt="Capibara, con una flor rosada en la cabeza y un bolso verde">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Capibara</h5>
+                                <p>Este capibara con decorado de flor y un bolso en forma de tortuga fue hecho por...</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="./Imagenes/Pinguino.jpg" class="d-block w-100" alt="Pinguino gris y blanco, con un gorro de lana">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Pinguino</h5>
+                                <p>Este tierno pinguino con gorrito fue hecho por...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#Carrusel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#Carrusel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Siguiente</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="contenedor">
+            <section class="Patrones">
+                <h2>Patrones populares</h2>
+                <h4>Pukka y Garu</h4>
+                <div class="flex-contenido-img">
+                    <ul>
+                        <strong>Tiempo aproximado:</strong>
+                        <li>15h</li>
+                        <strong>Materiales:</strong>
+                        <li>Hilo de algodón, abuelita</li>
+                        <li>Ganchillo de 3.5 mm</li>
+                    </ul>
+                    <a href="../Mis_Proyectos_y_Recursos/partes/patrones.html" class="btnImagen">
+                        <img src="./Imagenes/Pukka-Garu.jpg" alt="Pukka y Garu" class="imagen">
+                    </a>
+                </div>
+                <h4>Muñeca mercedita</h4>
+                <div class="flex-contenido-img">
+                    <ul>
+                        <strong>Tiempo aproximado:</strong>
+                        <li>10h</li>
+                        <strong>Materiales:</strong>
+                        <li>Hilo de algodón, marca sinfonia</li>
+                        <li>Ganchillo de 3.5 mm</li>
+                    </ul>
+                    <a href="../Mis_Proyectos_y_Recursos/partes/patrones.html" class="btnImagen">
+                        <img src="./Imagenes/Mercedita.jpg" alt="Muñeca Mercedita" class="imagen">
+                    </a>
+                </div>
+            </section>
+            <section class="Eventos">
+                <div class="eventos-grid">
+                    <h2>Eventos</h2>
+                    <button class="btnEvento" id="btnEvento" onclick="window.location.href='../Comunidad/secciones/eventos.html'">
+                        <strong>Cafecito Del Día De Las Madres</strong>
+                    </button>
+                    <p>¡Este 22 de agosto trae algo para compartir!</p>
+
+                    <button class="btnEvento" id="btnEvento" onclick="window.location.href='../Comunidad/secciones/eventos.html'">
+                        <strong>Fiesta de la Alegría con temática del día de las Madres</strong>
+                    </button>
+                    <p>Con una cuota de 5 mil, sorprende a una persona con algo relacionado al crochet. ¡Que esperas para participar!</p>
+
+                </div>
+            </section>
+        </div>
+
+        <div class="contact-button-container">
+            <a href="#" class="btn-contacto-profesora" data-bs-toggle="modal" data-bs-target="#contactaProfesoraModal">
+                <i class="fas fa-chalkboard-teacher"></i> Contacto con la Profesora
+            </a>
+        </div>
+    </main>
+
+    <div class="modal fade" id="contactaProfesoraModal" tabindex="-1" aria-labelledby="contactaProfesoraModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactaProfesoraModalLabel">Contacto de la Profesora</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="contact-info">
+                        <p><i class="fas fa-user"></i> Profesora Vanessa</p>
+                        <p><i class="fas fa-phone"></i> Teléfono: <a href="tel:+50688887777">+506 8888-7777</a></p>
+                        <p><i class="fas fa-envelope"></i> Correo: <a href="mailto:info@lacrocherita.com">info@lacrocherita.com</a></p>
+                        <p><i class="fas fa-globe"></i> Página: <a href="#">La Crocherita</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="frase">Siguenos en nuestras redes sociales!</div>
+        <div class="iconitos">
+            <span><i class="fab fa-facebook"></i></span>
+            <span><i class="fab fa-instagram"></i></span>
+            <span><i class="fab fa-pinterest"></i></span>
+        </div>
+        <p>&copy; 2025 La Crocherita. Todos los derechos reservados.</p>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </footer>
+</body>
+
+</html>
