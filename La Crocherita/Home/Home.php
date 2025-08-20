@@ -4,6 +4,19 @@ if (!isset($_SESSION['nombre'])) {
     header("Location: ../Home/Home.php"); 
     exit(); 
 }
+
+
+
+require_once __DIR__ . '/../include/conexion.php';
+$patrones = array();
+$sql = "SELECT nombre_patron, imagen_url FROM patrones ORDER BY id_patron DESC LIMIT 10";
+$result = $mysqli->query($sql);
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $patrones[] = $row;
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -67,27 +80,36 @@ if (!isset($_SESSION['nombre'])) {
                         <button type="button" data-bs-target="#Carrusel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                     </div>
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="./Imagenes/Mercedita.jpg" class="d-block w-100" alt="Muñequita mercedita, con vestido rojo, y diadema de Mickey Mouse">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Mercedita con diadema de Mickey Mouse</h5>
-                                <p>Está linda muñequita fue hecha por doña Marta</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="./Imagenes/Capibara.jpg" class="d-block w-100" alt="Capibara, con una flor rosada en la cabeza y un bolso verde">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Capibara</h5>
-                                <p>Este capibara con decorado de flor y un bolso en forma de tortuga fue hecho por...</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="./Imagenes/Pinguino.jpg" class="d-block w-100" alt="Pinguino gris y blanco, con un gorro de lana">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Pinguino</h5>
-                                <p>Este tierno pinguino con gorrito fue hecho por...</p>
-                            </div>
-                        </div>
+                        <!--Primer objeto del carrusel-->
+
+    <div id="Carrusel" class="carousel slide">
+        <div class="carousel-indicators">
+            <?php foreach ($patrones as $i => $patron): ?>
+            <button type="button" data-bs-target="#Carrusel" data-bs-slide-to="<?php echo $i; ?>" class="<?php echo ($i === 0 ? 'active' : ''); ?>" aria-current="<?php echo ($i === 0 ? 'true' : 'false'); ?>" aria-label="Slide <?php echo ($i+1); ?>"></button>
+            <?php endforeach; ?>
+        </div>
+        <div class="carousel-inner">
+            <?php foreach ($patrones as $i => $patron): ?>
+                    <?php
+                        // Siempre usar la ruta absoluta del proyecto para las imágenes
+                        $nombreArchivo = basename($patron['imagen_url']);
+                        $img = '/G2_SC502_VN_Proyecto/La Crocherita/Mis_Proyectos_y_Recursos/partes/uploads/img/' . $nombreArchivo;
+                    ?>
+<div class="carousel-item <?php echo ($i === 0 ? 'active' : ''); ?>">
+    <img src="<?php echo htmlspecialchars($img); ?>" class="d-block w-100" alt="<?php echo htmlspecialchars($patron['nombre_patron']); ?>">
+    <div class="carousel-caption d-none d-md-block">
+        <h5><?php echo htmlspecialchars($patron['nombre_patron']); ?></h5>
+    </div>
+</div>
+            <?php endforeach; ?>
+            <?php if (empty($patrones)): ?>
+                <div class="carousel-item active">
+                    <img src="./Imagenes/Pinguino.jpg" class="d-block w-100" alt="Sin patrones">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>No hay patrones disponibles</h5>
+                    </div>
+                </div>
+            <?php endif; ?>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#Carrusel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>

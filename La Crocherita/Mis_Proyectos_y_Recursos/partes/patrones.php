@@ -13,26 +13,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!empty($id_patron_fav) && empty($nombre_patron_post)) {
         $id_usuario = $_SESSION['id_usuario'] ?? 0;
         if (!empty($id_usuario)) {
-            $stmt = $mysqli->prepare("
-                INSERT INTO Favoritos_Patrones
-                (id_usuario, id_patron)
-                VALUES (?, ?)
-            ");
+            // Toggle favoritos: si existe, elimina; si no, inserta
+            $stmt = $mysqli->prepare("SELECT 1 FROM Favoritos_Patrones WHERE id_usuario = ? AND id_patron = ?");
             $stmt->bind_param("ii", $id_usuario, $id_patron_fav);
-            if ($stmt->execute()) {
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->num_rows > 0) {
+                // Ya es favorito, eliminar
+                $stmt->close();
+                $stmt = $mysqli->prepare("DELETE FROM Favoritos_Patrones WHERE id_usuario = ? AND id_patron = ?");
+                $stmt->bind_param("ii", $id_usuario, $id_patron_fav);
+                $stmt->execute();
+                if ($is_ajax) {
+                    echo "Patrón eliminado de favoritos.";
+                    exit();
+                } else {
+                    header("Location: " . $_SERVER['PHP_SELF'] . "?status=removed");
+                    exit();
+                }
+            } else {
+                // No es favorito, agregar
+                $stmt->close();
+                $stmt = $mysqli->prepare("INSERT INTO Favoritos_Patrones (id_usuario, id_patron) VALUES (?, ?)");
+                $stmt->bind_param("ii", $id_usuario, $id_patron_fav);
+                $stmt->execute();
                 if ($is_ajax) {
                     echo "Patrón agregado a favoritos correctamente.";
                     exit();
                 } else {
                     header("Location: " . $_SERVER['PHP_SELF'] . "?status=success");
-                    exit();
-                }
-            } else {
-                if ($is_ajax) {
-                    echo "Error al agregar a favoritos.";
-                    exit();
-                } else {
-                    echo "<script>alert('Error al agregar a favoritos');window.location='patrones.php';</script>";
                     exit();
                 }
             }
@@ -72,7 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tipo_archivo_img = strtolower(pathinfo($ruta_completa_img, PATHINFO_EXTENSION));
         $tipos_permitidos_img = ['jpg', 'jpeg', 'png', 'gif'];
         if (in_array($tipo_archivo_img, $tipos_permitidos_img) && move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta_completa_img)) {
-            $imagen_url_db = $ruta_completa_img;
+            // Guardar solo la ruta relativa
+            $imagen_url_db = $directorio_imagenes . $nombre_archivo_img;
         } else {
             $error_subida = true;
         }
@@ -98,7 +108,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ruta_completa_pdf = $directorio_pdfs . $nombre_archivo_pdf;
         $tipo_archivo_pdf = strtolower(pathinfo($ruta_completa_pdf, PATHINFO_EXTENSION));
         if ($tipo_archivo_pdf == 'pdf' && move_uploaded_file($_FILES['pdf']['tmp_name'], $ruta_completa_pdf)) {
-            $pdf_url_db = $ruta_completa_pdf;
+            // Guardar solo la ruta relativa
+            $pdf_url_db = $directorio_pdfs . $nombre_archivo_pdf;
         } else {
             $error_subida = true;
         }

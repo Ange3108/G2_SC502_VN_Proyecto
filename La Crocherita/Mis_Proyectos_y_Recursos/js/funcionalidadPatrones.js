@@ -154,34 +154,47 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    $(document).on('click', '.btnFavoritos', function () {
-        var $icon = $(this).find('i.fa-heart');
-        var esFavorito = $icon.hasClass('text-danger');
-        var id_patron = $(this).data('id');
-        if (!esFavorito) {
-            $icon.removeClass('text-secondary').addClass('text-danger');
-        }
-        // (Opcional: Si quieres permitir quitar de favoritos, aquí puedes alternar el color y hacer otra petición AJAX)
-    });
+    // $(document).on('click', '.btnFavoritos', function () {
+    //     var $icon = $(this).find('i.fa-heart');
+    //     var esFavorito = $icon.hasClass('text-danger');
+    //     var id_patron = $(this).data('id');
+    //     if (!esFavorito) {
+    //         $icon.removeClass('text-secondary').addClass('text-danger');
+    //     }
+    //     // (Opcional: Si quieres permitir quitar de favoritos, aquí puedes alternar el color y hacer otra petición AJAX)
+    // });
     // Funcionalidad para el botón de favoritos
     $(document).on('click', '.btnFavoritos', function (e) {
         e.preventDefault();
-        const id_patron = $(this).data('id');
-        // Puedes agregar animación o cambio de color aquí si quieres
+        const $btn = $(this);
+        const id_patron = $btn.data('id');
+        const $icon = $btn.find('i.fa-heart');
+        // Cambia el color inmediatamente para feedback visual
+        if ($icon.hasClass('text-danger')) {
+            $icon.removeClass('text-danger').addClass('text-secondary');
+        } else {
+            $icon.removeClass('text-secondary').addClass('text-danger');
+        }
         $.ajax({
             url: 'patrones.php',
             type: 'POST',
             data: { id_patron: id_patron },
             success: function(respuesta) {
-                // Si la respuesta contiene la palabra 'error' (insensible a mayúsculas), mostrar como error
-                if (respuesta.toLowerCase().includes('error')) {
+                const resp = respuesta.toLowerCase();
+                if (resp.includes('eliminado')) {
+                    mostrarMensaje(respuesta, 'info');
+                } else if (resp.includes('agregado')) {
+                    mostrarMensaje(respuesta, 'success');
+                } else if (resp.includes('error')) {
                     mostrarMensaje(respuesta, 'danger');
                 } else {
-                    mostrarMensaje(respuesta, 'success');
+                    mostrarMensaje(respuesta, 'info');
                 }
+                // Opcional: recargar patrones si quieres sincronizar el estado visual con la base de datos
+                // cargarPatrones();
             },
             error: function(xhr, status, error) {
-                mostrarMensaje('Error al agregar a favoritos: ' + error, 'danger');
+                mostrarMensaje('Error al procesar favoritos: ' + error, 'danger');
             }
         });
     });
