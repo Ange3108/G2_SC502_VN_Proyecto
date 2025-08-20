@@ -4,10 +4,51 @@ session_start();
 require_once __DIR__ . '/../../include/conexion.php';
 
 
-// =========== INICIO: LÓGICA PARA PROCESAR FORMULARIO DEL MODAL ===========
-// Este bloque solo se ejecuta si se envía el formulario (método POST)
+// --- Lógica para añadir a favoritos (solo si POST tiene id_patron y NO nombre_patron, etc.) ---
 $is_ajax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_patron_fav = isset($_POST['id_patron']) ? intval($_POST['id_patron']) : 0;
+    $nombre_patron_post = $_POST['nombre_patron'] ?? '';
+    // Si solo se recibe id_patron y NO nombre_patron, es favoritos
+    if (!empty($id_patron_fav) && empty($nombre_patron_post)) {
+        $id_usuario = $_SESSION['id_usuario'] ?? 0;
+        if (!empty($id_usuario)) {
+            $stmt = $mysqli->prepare("
+                INSERT INTO Favoritos_Patrones
+                (id_usuario, id_patron)
+                VALUES (?, ?)
+            ");
+            $stmt->bind_param("ii", $id_usuario, $id_patron_fav);
+            if ($stmt->execute()) {
+                if ($is_ajax) {
+                    echo "Patrón agregado a favoritos correctamente.";
+                    exit();
+                } else {
+                    header("Location: " . $_SERVER['PHP_SELF'] . "?status=success");
+                    exit();
+                }
+            } else {
+                if ($is_ajax) {
+                    echo "Error al agregar a favoritos.";
+                    exit();
+                } else {
+                    echo "<script>alert('Error al agregar a favoritos');window.location='patrones.php';</script>";
+                    exit();
+                }
+            }
+        } else {
+            if ($is_ajax) {
+                echo "Error: usuario no autenticado.";
+                exit();
+            } else {
+                echo "<script>alert('Error: usuario no autenticado');window.location='patrones.php';</script>";
+                exit();
+            }
+        }
+    }
+// =========== INICIO: LÓGICA PARA PROCESAR FORMULARIO DEL MODAL ===========
+// Este bloque solo se ejecuta si se envía el formulario (método POST)
+    // Si viene nombre_patron, es alta/edición de patrón (flujo original)
     // Recoger datos de texto
     $nombre_patron = $_POST['nombre_patron'] ?? '';
     $descripcion = $_POST['descripcion'] ?? '';
@@ -205,31 +246,9 @@ if (isset($_GET['eliminar'])) {
     }
 }
 
-//============= Logica para el boton favoritos  ===============
-$id_usuario = $_SESSION['id_usuario'];
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_patron = intval($_POST['id_patron'] ?? 0);
-    $is_ajax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 
-    if (empty($id_patron) > 0 && !empty($id_usuario)) {
-        // Agregar nuevo patron a favoritos
-        $stmt = $mysqli->prepare("
-            INSERT INTO Favoritos_Patrones
-            (id_usuario, id_patron)
-            VALUES (?, ?)
-        ");
-        $stmt->bind_param("ii", $id_usuario, $id_patron);
-        if ($stmt->execute()) {
-            if ($is_ajax) {
-                echo "Patrón agregado a favoritos correctamente.";
-                exit();
-            } else {
-                header("Location: " . $_SERVER['PHP_SELF'] . "?status=success");
-                exit();
-            }
-        }
-    }
-}
+
+
 
 
 

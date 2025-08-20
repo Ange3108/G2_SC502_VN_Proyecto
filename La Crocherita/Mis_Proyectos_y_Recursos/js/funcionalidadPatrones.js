@@ -39,19 +39,24 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Eliminar reservación
-    $(document).on('click', '.btnEliminar', function (e) {
-        e.preventDefault();
-        if (!confirm('¿Está seguro de eliminar este patrón?')) return;
-
-        const id = $(this).data('id_patron');
-
-        $.get(`patrones.php?eliminar=${id}`, function(respuesta) {
-            mostrarMensaje(respuesta, 'info');
-    
-        }).fail(function(xhr, status, error) {
-            mostrarMensaje('Error al eliminar el patrón: ' + error, 'danger');
-        });
+    // Eliminar patron
+    $(document).on('click', '.btnEliminar', function () {
+        const btn = $(this);
+        const id = btn.data('id');
+        if (!confirm('¿Seguro que quieres eliminar este patrón?')) return;
+        // Usa la ruta absoluta para AJAX
+        var rutaAjax = '/G2_SC502_VN_Proyecto/La Crocherita/Mis_Proyectos_y_Recursos/partes/patrones.php?eliminar=' + id;
+        fetch(rutaAjax, {
+            method: 'GET',
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        })
+            .then(res => res.text())
+            .then(msg => {
+                mostrarMensaje(msg.trim(), 'info');
+                // Recarga la lista de patrones por AJAX para mantener la UI sincronizada
+                cargarPatrones();
+            })
+            .catch(err => mostrarMensaje('Error: ' + err, 'danger'));
     });
 
     // Editar reservación
@@ -168,7 +173,12 @@ document.addEventListener('DOMContentLoaded', function () {
             type: 'POST',
             data: { id_patron: id_patron },
             success: function(respuesta) {
-                mostrarMensaje(respuesta, 'success');
+                // Si la respuesta contiene la palabra 'error' (insensible a mayúsculas), mostrar como error
+                if (respuesta.toLowerCase().includes('error')) {
+                    mostrarMensaje(respuesta, 'danger');
+                } else {
+                    mostrarMensaje(respuesta, 'success');
+                }
             },
             error: function(xhr, status, error) {
                 mostrarMensaje('Error al agregar a favoritos: ' + error, 'danger');
