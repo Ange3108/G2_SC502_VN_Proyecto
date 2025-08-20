@@ -29,7 +29,7 @@ CREATE TABLE Proyectos (
   id_patron INT,
   nombre_proyecto VARCHAR(100) NOT NULL,
   descripcion TEXT,
-  estado ENUM('en proceso', 'terminado') DEFAULT 'en proceso',
+  estado ENUM('en proceso', 'terminado') ,
   imagen_url VARCHAR(255),
   FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario), 
   FOREIGN KEY (id_patron) REFERENCES Patrones(id_patron)

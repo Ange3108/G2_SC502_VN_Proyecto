@@ -10,74 +10,80 @@ if (!isset($_SESSION['id_usuario'])) {
 
 $id_usuario = $_SESSION['id_usuario'];
 
-// --- Lógica para procesar el formulario de un nuevo proyecto O editar el estado---
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // 1. Recoger los datos del formulario
-    $id_patron = intval($_POST['id_patron'] ?? 0);
-    $nombre_proyecto = $_POST['nombre_proyecto'] ?? '';
-    $estado = $_POST['estado'] ?? '';
-    $estados_validos = ['en proceso', 'terminado'];
-    $id_proyecto = $_POST['id_proyecto'];
-
-    if (!empty($id_proyecto) && in_array($estado, $estados_validos)) {
-        //2.Actualiza el estado
-        $sql = "UPDATE Proyectos SET estado = ? WHERE id_proyecto = ?";
-        $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param('si', $estado, $id_proyecto);
-        //3.Ejecuta y cerrar
-        $stmt->execute();
-        $stmt->close();
-
-        //4. Muestra error
-        if ($stmt->sqlstate == '00000') {
-            echo "Proyecto actualizada correctamente";
-        } else {
-            echo "Error al actualizar el proyecto, código: " . $stmt->sqlstate;
-        }
-
-        //5. Redirige para evitar reenvio del formulario
-        header("Location: misProyectos.php");
-        exit();
-    }
-    // 3. Agregar Proyecto
-    if ($id_patron > 0 && !empty($nombre_proyecto) && in_array($estado, $estados_validos)) {
-        // 4. Preparar la consulta INSERT sin puntos_utilizados
-        $stmt = $mysqli->prepare("
-            INSERT INTO Proyectos 
-            (id_usuario, id_patron, nombre_proyecto, estado)
-            VALUES (?, ?, ?, ?)
-        ");
-
-        // 5. Vincular los parámetros
-        $stmt->bind_param("iiss", $id_usuario, $id_patron, $nombre_proyecto, $estado);
-
-        // 6. Ejecutar y cerrar
-        $stmt->execute();
-        $stmt->close();
-
-        // 7. Redirigir para evitar reenvío del formulario
-        header("Location: misProyectos.php");
-        exit();
-    }
-}
-//Logica para eliminar un proyecto---
+// --- Lógica para eliminar un proyecto (GET) ---
 if (isset($_GET['eliminar'])) {
     $id = $_GET['eliminar'];
     $sql = "DELETE FROM Proyectos WHERE id_proyecto = ?";
     $stmt = $mysqli->prepare($sql);
     $stmt->bind_param("i", $id);
     $stmt->execute();
-    if ($stmt->affected_rows < 0) {
-        echo "Error, usuario: " . $id . " no se elimino, código de error: " . $stmt->sqlstate;
+    $is_ajax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+    if ($stmt->affected_rows > 0) {
+        $msg = "Proyecto: " . $id . " eliminado correctamente ";
     } else {
-        echo "Proyecto: " . $id . " eliminado correctamente ";
+        $msg = "Error, proyecto: " . $id . " no se eliminó o no existe.";
     }
     $stmt->close();
     $mysqli->close();
-    exit();
+    if ($is_ajax) {
+        echo $msg;
+        exit();
+    } else {
+        echo "<script>alert('" . addslashes($msg) . "');window.location='misProyectos.php';</script>";
+        exit();
+    }
 }
 
 
+// --- Lógica para agregar o editar proyecto (POST) ---
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id_proyecto = $_POST['id_proyecto'] ?? '';
+    $id_patron = intval($_POST['id_patron'] ?? 0);
+    $nombre_proyecto = $_POST['nombre_proyecto'] ?? '';
+    $estado = $_POST['estado'] ?? '';
+    $estados_validos = ['en proceso', 'terminado'];
+    $is_ajax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+
+    if (!empty($id_proyecto) && in_array($estado, $estados_validos)) {
+        // Debug: mostrar datos recibidos
+        if ($is_ajax) {
+            echo "[DEBUG] id_proyecto: $id_proyecto, estado: $estado\n";
+        }
+        // Editar solo estado
+        $sql = "UPDATE Proyectos SET estado = ? WHERE id_proyecto = ?";
+        $stmt = $mysqli->prepare($sql);
+        $stmt->bind_param('si', $estado, $id_proyecto);
+        $stmt->execute();
+        if ($is_ajax) {
+            echo "[DEBUG] affected_rows: " . $stmt->affected_rows . "\n";
+        }
+        $stmt->close();
+        if ($is_ajax) {
+            echo ($stmt->affected_rows > 0) ? "Estado actualizado correctamente." : "No se actualizó ningún proyecto.";
+            exit();
+        } else {
+            header("Location: misProyectos.php");
+            exit();
+        }
+    } elseif (empty($id_proyecto) && $id_patron > 0 && !empty($nombre_proyecto) && in_array($estado, $estados_validos)) {
+        // Agregar nuevo proyecto
+        $stmt = $mysqli->prepare("
+            INSERT INTO Proyectos 
+            (id_usuario, id_patron, nombre_proyecto, estado)
+            VALUES (?, ?, ?, ?)
+        ");
+        $stmt->bind_param("iiss", $id_usuario, $id_patron, $nombre_proyecto, $estado);
+        $stmt->execute();
+        $stmt->close();
+        if ($is_ajax) {
+            echo "Proyecto agregado correctamente.";
+            exit();
+        } else {
+            header("Location: misProyectos.php");
+            exit();
+        }
+    }
+}
 
 // --- Consultas para mostrar la página ---
 
@@ -107,26 +113,8 @@ $stmt->bind_param("i", $id_usuario);
 $stmt->execute();
 $mis_proyectos_result = $stmt->get_result();
 
-//--Logica para editar el estado
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_proyecto = $_POST['id_proyecto'];
-    if (!empty($id_proyecto)) {
-        // MODIFICAR 
-        $sql = "UPDATE Proyectos SET estado = ? WHERE id_proyecto = ?";
-        $stmt = $mysqli->prepare($sql);
-        $stmt->bind_param('si', $estado, $id_proyecto);
-        $stmt->execute();
-        $stmt->close();
 
-        if ($stmt->sqlstate == '00000') {
-            echo "Reservación actualizada correctamente";
-        } else {
-            echo "Error al actualizar la reservación, código: " . $stmt->sqlstate;
-        }
-    }
-}
 
-//Logica para botoncito corazon
 
 ?>
 <!DOCTYPE html>
@@ -139,6 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css" />
+                        
 </head>
 
 <body>
@@ -164,6 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <th>Descripción del Patrón</th>
                             <th>Nivel</th>
                             <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -180,17 +170,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <span class="badge bg-primary"><?= htmlspecialchars($proyecto['estado']) ?></span>
                                 </td>
                                 <td>
-                                    <!-- Formulario para editar el estado del proyecto -->
-                                    <form method="POST" action="misProyectos.php" class="d-inline">
-                                        <input type="hidden" name="id_proyecto" value="<?= $proyecto['id_proyecto'] ?>">
-                                        <select name="estado" class="form-select form-select-sm d-inline w-auto" required>
-                                            <option value="en proceso" <?= $proyecto['estado'] == 'en proceso' ? 'selected' : '' ?>>En Proceso</option>
-                                            <option value="terminado" <?= $proyecto['estado'] == 'terminado' ? 'selected' : '' ?>>Terminado</option>
-                                        </select>
-                                        <button type="submit" class="btn btn-warning btn-sm">Actualizar</button>
-                                    </form>
-                                    <a href="misProyectos.php?eliminar=<?= $proyecto['id_proyecto'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar este proyecto?')">Eliminar</a>
+                                    <!-- Botón para abrir modal de cambio de estado -->
+                                    <button type="button" class="btn btn-warning btn-sm btnEditar"
+                                        data-id="<?= $proyecto['id_proyecto'] ?>"
+                                        data-estado="<?= $proyecto['estado'] ?>"
+                                        data-bs-toggle="modal" data-bs-target="#formCambiarEstado">
+                                        <i class='fas fa-edit'></i> Editar
+                                    </button>
+                                    <!-- Botón para eliminar proyecto -->
+                                    <button class="btn-eliminar" data-id="<?= $proyecto['id_proyecto'] ?>">Eliminar</button>
+
                                 </td>
+
                             </tr>
                         <?php endwhile; ?>
                     </tbody>
@@ -244,13 +235,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </div>
-    <!-- El formulario de edición de estado ahora está dentro de la tabla, junto a cada proyecto -->
+    <!-- Mensajes para feedback -->
+    <div id="mensaje" style="display:none;"></div>
+    <!-- Modal para cambiar el estado del proyecto  -->
+    <div class="modal fade" id="formCambiarEstado" tabindex="-1" aria-labelledby="modalCambiarEstadoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCambiarEstadoLabel">Cambiar el estado del proyecto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="POST" id="formCambiarEstado" action="misProyectos.php">
+                    <div class="modal-body">
+                        <input type="hidden" id="id_proyecto_modal" name="id_proyecto" value="">
+                        <div class="mb-3">
+                            <label for="estado_modal" class="form-label">Estado</label>
+                            <select name="estado" id="estado_modal" class="form-select" required>
+                                <option value="en proceso">En Proceso</option>
+                                <option value="terminado">Terminado</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
 
 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
             <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
             <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
             <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+            <script src="../js/funcionalidadMP.js"></script>
             <script>
                 $(document).ready(function() {
                     $('#tabla-proyectos').DataTable({
