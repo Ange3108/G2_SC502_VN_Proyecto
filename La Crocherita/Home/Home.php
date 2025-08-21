@@ -5,8 +5,7 @@ if (!isset($_SESSION['nombre'])) {
     exit(); 
 }
 
-
-
+// Conexión a la base de datos
 require_once __DIR__ . '/../include/conexion.php';
 $patrones = array();
 $sql = "SELECT nombre_patron, imagen_url FROM patrones ORDER BY id_patron DESC LIMIT 10";
@@ -186,7 +185,7 @@ if ($result && $result->num_rows > 0) {
                 <div class="modal-body">
                     <div class="contact-info">
                         <p><i class="fas fa-user"></i> Profesora Vanessa</p>
-                        <p><i class="fas fa-phone"></i> Teléfono: <a href="tel:+50688887777">+506 8888-7777</a></p>
+                        <p><i class="fas fa-phone"></i> Teléfono: <a href="tel:+50687824009">+506 8782-4009</a></p>
                         <p><i class="fas fa-envelope"></i> Correo: <a href="mailto:info@lacrocherita.com">info@lacrocherita.com</a></p>
                         <p><i class="fas fa-globe"></i> Página: <a href="#">La Crocherita</a></p>
                     </div>
@@ -199,8 +198,7 @@ if ($result && $result->num_rows > 0) {
         <div class="frase">Siguenos en nuestras redes sociales!</div>
         <div class="iconitos">
             <span><i class="fab fa-facebook"></i></span>
-            <span><i class="fab fa-instagram"></i></span>
-            <span><i class="fab fa-pinterest"></i></span>
+            <span><i class="fab fa-tiktok"></i></span>
         </div>
         <p>&copy; 2025 La Crocherita. Todos los derechos reservados.</p>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
