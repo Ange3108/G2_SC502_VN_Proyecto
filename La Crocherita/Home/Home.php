@@ -197,8 +197,16 @@ if ($result && $result->num_rows > 0) {
     <footer>
         <div class="frase">Siguenos en nuestras redes sociales!</div>
         <div class="iconitos">
-            <span><i class="fab fa-facebook"></i></span>
-            <span><i class="fab fa-tiktok"></i></span>
+            <span>
+                <a href="https://www.facebook.com/profile.php?id=100076225050581" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-facebook"></i>
+                </a>
+            </span>
+            <span>
+                <a href="https://www.tiktok.com/@lacrocherita" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            </span>
         </div>
         <p>&copy; 2025 La Crocherita. Todos los derechos reservados.</p>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
