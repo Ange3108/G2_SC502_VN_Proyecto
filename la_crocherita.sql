@@ -32,7 +32,7 @@ CREATE TABLE Proyectos (
   estado ENUM('en proceso', 'terminado') ,
   imagen_url VARCHAR(255),
   FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario), 
-  FOREIGN KEY (id_patron) REFERENCES Patrones(id_patron)
+  FOREIGN KEY (id_patron) REFERENCES Patrones(id_patron) ON DELETE CASCADE
 );
 
 
@@ -54,7 +54,7 @@ CREATE TABLE Asistencia (
   fecha DATE NOT NULL,
   estado ENUM('asistió', 'faltó') DEFAULT 'asistió',
   FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
-  FOREIGN KEY (id_clase) REFERENCES Clases(id_clase)
+  FOREIGN KEY (id_clase) REFERENCES Clases(id_clase) ON DELETE CASCADE
 );
 
 CREATE TABLE Eventos (
@@ -69,14 +69,12 @@ CREATE TABLE Favoritos_Patrones (
   id_patron INT,
   PRIMARY KEY (id_usuario, id_patron),
   FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
-  FOREIGN KEY (id_patron) REFERENCES Patrones(id_patron)
+  FOREIGN KEY (id_patron) REFERENCES Patrones(id_patron) ON DELETE CASCADE
 );
 
--- Insertar usuario de ejemplo
-INSERT INTO Usuarios (nombre, correo, contraseña) VALUES
-('Profesora Vanessa', 'usuario@admin.com', 'contrasena123');
+
 
 INSERT INTO Patrones (nombre_patron, descripcion, imagen_url, nivel_dificultad, puntos_utilizados, materiales, pdf_url) VALUES
-('Oso de Peluche', 'Adorable oso de peluche perfecto para regalar', '../img/oso.jpg', 'intermedio', 'Punto bajo, punto alto, anillo mágico', 'Hilo acrílico, aguja 4mm, relleno, ojos de seguridad', ''),
-('Ratoncito', 'Pequeño ratón tejido muy fácil de hacer', '../img/ratoncito.jpg', 'principiante', 'Punto bajo, aumentos, disminuciones', 'Hilo algodón, aguja 3.5mm, relleno', '../pdf/ratoncito.pdf'),
-('Tulipán', 'Hermosa flor tulipán para decorar', '../img/Tulipan.jpg', 'principiante', 'Punto alto, punto bajo, cadenas', 'Hilo algodón de colores, aguja 3mm, alambre floral', '../pdf/tulipan.pdf');
+('Oso de Peluche', 'Adorable oso de peluche perfecto para regalar', '../img/oso.jpg', 'intermedio', 'Punto bajo, punto alto, anillo mágico', 'Hilo acrílico, aguja 4mm, relleno, ojos de seguridad', 'uploads/pdfs/🧸 Oso.pdf'),
+('Ratoncito', 'Pequeño ratón tejido muy fácil de hacer', '../img/ratoncito.jpg', 'principiante', 'Punto bajo, aumentos, disminuciones', 'Hilo algodón, aguja 3.5mm, relleno', 'uploads/pdfs/Ratoncito.pdf'),
+('Tulipán', 'Hermosa flor tulipán para decorar', '../img/Tulipan.jpg', 'principiante', 'Punto alto, punto bajo, cadenas', 'Hilo algodón de colores, aguja 3mm, alambre floral', 'uploads/pdfs/Llavero de Tulipán.pdf');
