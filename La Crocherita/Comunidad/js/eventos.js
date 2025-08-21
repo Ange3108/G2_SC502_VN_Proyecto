@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnNext = document.getElementById("nextMonth");
   const listaEventos = document.getElementById("listaEventos"); // del modal existente
 
-  //Acceso al archivo puente
+  // Acceso al archivo puente (en /secciones/)
   var API = "eventos_api.php";
 
   const meses = [
@@ -26,6 +26,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let currentMonth = new Date().getMonth(); // 0..11
   let currentYear = new Date().getFullYear();
+
+  // Soporte para modal (si existe); si no existe, se mantiene prompt/confirm
+  var modalEl = document.getElementById("modalGestionEvento");
+  var modalGestion = modalEl ? new bootstrap.Modal(modalEl) : null;
+  var usandoModal = !!modalGestion; // true si hay modal en el HTML
+  var edicionActual = null; // {modo:'crear'|'editar', evento?:obj, fecha?:'YYYY-MM-DD'}
 
   var eventosMes = []; // [{id_evento, nombre_evento, descripcion, fecha_evento:'YYYY-MM-DD'}]
 
@@ -57,6 +63,51 @@ document.addEventListener("DOMContentLoaded", function () {
       eventosMes = [];
       cb();
     });
+  }
+
+  // Feedback visual pequeño al guardar
+  function marcarDiaFlash(fechaYmd) {
+    var parts = fechaYmd.split("-");
+    var d = +parts[2];
+    document.querySelectorAll(".calendar-day").forEach(function (el) {
+      // Marcamos la celda cuyo texto arranca con el número del día
+      if (el.innerText.trim().startsWith(String(d))) {
+        el.classList.add("day-flash");
+        setTimeout(function () {
+          el.classList.remove("day-flash");
+        }, 800);
+      }
+    });
+  }
+  function recargarFlash(fecha) {
+    cargarEventos(currentYear, currentMonth, function () {
+      renderCalendar(currentMonth);
+      marcarDiaFlash(fecha);
+    });
+  }
+
+  // Helpers para abrir modal en modo crear/editar
+  function abrirModalCrear(fecha) {
+    edicionActual = { modo: "crear", fecha: fecha };
+    $("#ev_id").val("");
+    $("#ev_fecha").val(fecha);
+    $("#ev_nombre").val("");
+    $("#ev_desc").val("");
+    $("#btnEliminar").addClass("d-none");
+    $("#modalGestionEvento .modal-title").text("Crear evento (" + fecha + ")");
+    modalGestion.show();
+  }
+  function abrirModalEditar(ev) {
+    edicionActual = { modo: "editar", evento: ev };
+    $("#ev_id").val(ev.id_evento);
+    $("#ev_fecha").val(ev.fecha_evento);
+    $("#ev_nombre").val(ev.nombre_evento);
+    $("#ev_desc").val(ev.descripcion || "");
+    $("#btnEliminar").removeClass("d-none");
+    $("#modalGestionEvento .modal-title").text(
+      "Editar evento (" + ev.fecha_evento + ")"
+    );
+    modalGestion.show();
   }
 
   function renderCalendar(mes) {
@@ -99,6 +150,14 @@ document.addEventListener("DOMContentLoaded", function () {
         // Click: editar o eliminar el primero
         diaDiv.addEventListener("click", function () {
           const ev = delDia[0];
+
+          // Si hay modal -> usar modal bonito
+          if (usandoModal) {
+            abrirModalEditar(ev);
+            return;
+          }
+
+          // Fallback sin modal: confirm/prompt
           const elegirEditar = confirm("OK = Editar\nCancelar = Eliminar");
           if (elegirEditar) {
             const nuevoNombre = prompt(
@@ -156,10 +215,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Doble click: crear
       diaDiv.addEventListener("dblclick", function () {
+        const fecha = ymd(currentYear, mes, i);
+
+        // Si hay modal -> usar modal bonito
+        if (usandoModal) {
+          abrirModalCrear(fecha);
+          return;
+        }
+
+        // Fallback sin modal: prompts
         const nombre = prompt("Nombre del evento:");
         if (!nombre) return;
         const desc = prompt("Descripción (opcional):", "") || "";
-        const fecha = ymd(currentYear, mes, i);
         $.post(
           API,
           {
@@ -184,7 +251,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       calendar.appendChild(diaDiv);
 
-      // Llenar lista del modal
+      // Llenar lista del modal (resumen mensual)
       if (listaEventos && delDia.length > 0) {
         delDia.forEach(function (ev) {
           const li = document.createElement("li");
@@ -219,5 +286,91 @@ document.addEventListener("DOMContentLoaded", function () {
     recargar();
   });
 
+  // --- Manejadores del modal (solo si existe) ---
+  if (usandoModal) {
+    // Guardar (crear/editar)
+    $("#formEvento").on("submit", function (e) {
+      e.preventDefault();
+      var id = $("#ev_id").val();
+      var fecha = $("#ev_fecha").val();
+      var nombre = $("#ev_nombre").val().trim();
+      var desc = $("#ev_desc").val().trim();
+
+      if (!nombre) {
+        alert("El nombre es obligatorio");
+        return;
+      }
+
+      if (edicionActual && edicionActual.modo === "editar") {
+        $.post(
+          API,
+          {
+            accion: "actualizar",
+            id_evento: id,
+            nombre_evento: nombre,
+            descripcion: desc,
+            fecha_evento: fecha,
+          },
+          function (res) {
+            try {
+              res = typeof res === "string" ? JSON.parse(res) : res;
+            } catch (e) {
+              res = { ok: false };
+            }
+            if (res && res.ok) {
+              modalGestion.hide();
+              recargarFlash(fecha);
+            } else alert("No se pudo actualizar");
+          }
+        ).fail(function () {
+          alert("Error de red al actualizar");
+        });
+      } else {
+        $.post(
+          API,
+          {
+            accion: "crear",
+            nombre_evento: nombre,
+            descripcion: desc,
+            fecha_evento: fecha,
+          },
+          function (res) {
+            try {
+              res = typeof res === "string" ? JSON.parse(res) : res;
+            } catch (e) {
+              res = { ok: false };
+            }
+            if (res && res.ok) {
+              modalGestion.hide();
+              recargarFlash(fecha);
+            } else alert("No se pudo crear");
+          }
+        ).fail(function () {
+          alert("Error de red al crear");
+        });
+      }
+    });
+
+    // Eliminar
+    $("#btnEliminar").on("click", function () {
+      var id = $("#ev_id").val();
+      if (!confirm("¿Eliminar este evento?")) return;
+      $.post(API, { accion: "eliminar", id_evento: id }, function (res) {
+        try {
+          res = typeof res === "string" ? JSON.parse(res) : res;
+        } catch (e) {
+          res = { ok: false };
+        }
+        if (res && res.ok) {
+          modalGestion.hide();
+          recargar();
+        } else alert("No se pudo eliminar");
+      }).fail(function () {
+        alert("Error de red al eliminar");
+      });
+    });
+  }
+
+  // Primera carga
   recargar();
 });

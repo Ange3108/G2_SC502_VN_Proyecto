@@ -14,111 +14,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <link rel="stylesheet" href="../css/style.css" />
-    <style>
-      /*
-        * NOTA IMPORTANTE:
-        * Los estilos para 'html, body' (height: 100%; margin: 0; padding: 0;)
-        * y para 'body' (display: flex; flex-direction: column;)
-        * DEBEN estar SOLAMENTE en ../../CSS/style.css para asegurar que el footer se fije.
-        */
-
-      /* Este background-color puede permanecer aquí si es específico para esta página. */
-      body {
-        background-color: #f8f9fa; /* Example background, adjust as needed */
-      }
-
-      main.container {
-        flex-grow: 1; /* Ensures main content expands to push footer down */
-        padding-top: 20px; /* Adjust top padding for main content */
-        padding-bottom: 40px; /* Adjust bottom padding for main content before footer */
-      }
-
-      /* Adjust the calendar navigation buttons' size and style if desired */
-      .navegacion-calendario .btn {
-        font-size: 1.1rem;
-        padding: 8px 15px;
-      }
-
-      /* Responsive adjustments for calendar grid if needed */
-      @media (max-width: 768px) {
-        .calendar-grid {
-          grid-template-columns: repeat(
-            auto-fit,
-            minmax(80px, 1fr)
-          ); /* Adjust grid columns */
-        }
-      }
-      /* === Estilos mínimos para que el calendario se vea en grilla === */
-      .calendar-grid {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 12px;
-        background-color: #f0d1d6;
-        padding: 20px;
-        border-radius: 12px;
-        max-width: 900px;
-        margin: 0 auto;
-      }
-
-      /* Encabezados: Dom, Lun, ... */
-      .calendar-day.dia-semana {
-        font-weight: 700;
-        text-align: center;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        color: #5b2c6f;
-        min-height: auto;
-      }
-
-      /* Celdas de cada día */
-      .calendar-day {
-        background: #fff;
-        border-radius: 8px;
-        padding: 10px;
-        text-align: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        font-family: "Trebuchet MS", sans-serif;
-        font-size: 0.95rem;
-        min-height: 90px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-      }
-
-      /* Número grande del día */
-      .calendar-day > strong {
-        display: inline-block;
-        font-weight: 700;
-        margin-bottom: 4px;
-      }
-
-      /* Días con evento */
-      .calendar-day.evento {
-        background: #c1d8c3;
-        color: #5b2c6f;
-        font-weight: 700;
-      }
-
-      /* Espacios vacíos previos al día 1 */
-      .calendar-day.invisible {
-        background: transparent;
-        border: none;
-        box-shadow: none;
-      }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-        .calendar-grid {
-          gap: 8px;
-          padding: 12px;
-        }
-        .calendar-day {
-          min-height: 70px;
-          font-size: 0.9rem;
-        }
-      }
-    </style>
   </head>
 
   <body>
@@ -199,6 +94,15 @@
         <i class="fa-solid fa-calendar-days"></i> Calendario de Eventos
       </h2>
 
+      <p class="text-center text-muted mb-3 small">
+        💡 <strong>Tip:</strong>
+        <span class="d-none d-md-inline">Doble clic</span
+        ><span class="d-inline d-md-none">Doble toque</span> en un día para
+        <strong>crear</strong> un evento. Un <strong>clic</strong> sobre un día
+        con evento te permite <strong>editar</strong> o
+        <strong>eliminar</strong>.
+      </p>
+
       <div
         class="navegacion-calendario d-flex justify-content-center align-items-center mb-4"
       >
@@ -245,6 +149,73 @@
             </button>
           </div>
         </div>
+      </div>
+    </div>
+    <!-- Modal: Crear/Editar Evento -->
+    <div
+      class="modal fade"
+      id="modalGestionEvento"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <form id="formEvento" class="modal-content">
+          <div class="modal-header" style="background: #eac2d0">
+            <h5 class="modal-title">Gestionar evento</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Cerrar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" id="ev_id" />
+            <input type="hidden" id="ev_fecha" />
+
+            <div class="mb-3">
+              <label class="form-label">Nombre</label>
+              <input
+                type="text"
+                id="ev_nombre"
+                class="form-control"
+                required
+                maxlength="100"
+                placeholder="Ej: Clase de crochet"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Descripción (opcional)</label>
+              <textarea
+                id="ev_desc"
+                class="form-control"
+                rows="3"
+                maxlength="300"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="modal-footer d-flex justify-content-between">
+            <button
+              type="button"
+              id="btnEliminar"
+              class="btn btn-outline-danger d-none"
+            >
+              Eliminar
+            </button>
+            <div class="ms-auto">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
 

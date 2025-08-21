@@ -8,7 +8,7 @@ body {
 body {
   display: flex;
   flex-direction: column;
-  font-family: 'Trebuchet MS', sans-serif;
+  font-family: "Trebuchet MS", sans-serif;
   color: #333;
 }
 
@@ -51,11 +51,11 @@ main {
 /* Grid principal y contenedores */
 .contenedor {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); 
-  gap: 32px; 
-  justify-content: center; 
-  align-items: flex-start; 
-  max-width: 1200px; 
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 1200px;
   margin: 40px auto;
   font-size: medium;
   padding: 0 15px;
@@ -129,7 +129,7 @@ main {
   margin-top: 15px;
   width: auto;
   padding: 10px 20px;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   text-decoration: none;
 }
 
@@ -178,7 +178,7 @@ main {
 /* Inputs y botones específicos de clases */
 #selectHorario,
 #btnReservar {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   padding: 10px;
   margin-top: 10px;
   width: 100%;
@@ -225,6 +225,9 @@ main {
 /* ========================================= */
 /* CSS PARA EVENTOS.HTML */
 /* ========================================= */
+body#eventos {
+  background-color: #f8f9fa;
+}
 
 /* Navegación de calendario */
 .navegacion-calendario {
@@ -242,11 +245,13 @@ main {
   border-radius: 8px;
   cursor: pointer;
   margin: 0 8px;
-  transition: background-color .2s ease;
+  transition: background-color 0.2s ease;
   color: #5b2c6f;
 }
 .navegar-mes:hover,
-.boton-mes:hover { background-color: #e3b8c1; }
+.boton-mes:hover {
+  background-color: #e3b8c1;
+}
 
 /* Grid del calendario */
 .calendar-grid {
@@ -256,7 +261,7 @@ main {
   background-color: #f0d1d6;
   padding: 20px;
   border-radius: 12px;
-  max-width: 900px;      /* antes 700px, así respira más */
+  max-width: 900px; /* antes 700px, así respira más */
   margin: 0 auto;
 }
 
@@ -277,9 +282,9 @@ main {
   border-radius: 8px;
   padding: 10px;
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: "Trebuchet MS", sans-serif;
-  font-size: .95rem;
+  font-size: 0.95rem;
   min-height: 90px;
   display: flex;
   flex-direction: column;
@@ -309,13 +314,43 @@ main {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .calendar-grid { gap: 8px; padding: 12px; }
-  .calendar-day { min-height: 70px; font-size: .9rem; }
+  .calendar-grid {
+    gap: 8px;
+    padding: 12px;
+  }
+  .calendar-day {
+    min-height: 70px;
+    font-size: 0.9rem;
+  }
 }
+/* Mejoras sutiles de interacción */
+.calendar-day {
+  transition: transform 0.08s ease, box-shadow 0.2s ease;
+}
+.calendar-day:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Feedback visual al guardar */
+.day-flash {
+  outline: 2px solid #7c3aed;
+  outline-offset: 2px;
+}
+.calendar-day {
+  cursor: default;
+}
+.calendar-day.evento {
+  cursor: pointer;
+}
+.calendar-day:not(.dia-semana):not(.invisible):hover {
+  outline: 2px solid rgba(0, 0, 0, 0.06);
+  outline-offset: 2px;
+}
+
 /* ========================================= */
 /* FIN CSS PARA EVENTOS.HTML */
 /* ========================================= */
-
 
 /* Cards generales */
 .horario-card:not(.seccion-clases) {
@@ -335,7 +370,7 @@ main {
 
 /* Indicador de asistencia */
 .calendar-day.asistido::after {
-  content: '';
+  content: "";
   width: 14px;
   height: 14px;
   background-color: #562f54;
@@ -366,7 +401,7 @@ main {
   border: 2px solid #dfc4ec;
   border-radius: 12px;
   padding: 24px;
-  font-family: 'Trebuchet MS', sans-serif;
+  font-family: "Trebuchet MS", sans-serif;
   font-size: 16px;
   max-width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
@@ -382,7 +417,6 @@ main {
   font-weight: bold;
 }
 
-
 footer {
   background-color: #f5e6f7;
   color: #5b2c6f;
@@ -390,7 +424,7 @@ footer {
   padding: 25px 15px;
   font-size: 0.95rem;
   border-top: 3px solid #e4b4db;
-  font-family: 'Trebuchet MS', sans-serif;
+  font-family: "Trebuchet MS", sans-serif;
   box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -473,10 +507,9 @@ footer .iconitos span:hover {
     align-items: center;
   }
 
-  .asistencia-wrapper>div,
+  .asistencia-wrapper > div,
   .resumen-asistencia {
     width: 100%;
     max-width: 500px;
   }
 }
-
