@@ -1,18 +1,67 @@
-.calendar-cell {
-    border: 1px solid #ccc;
-    padding: 10px;
+/* Estructura principal del calendario y su cabecera */
+.calendar-grid, .calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* Crea 7 columnas de igual tamaño */
+    gap: 5px; /* Espacio entre las celdas */
+    width: 100%;
+    max-width: 600px; /* Ancho máximo para el calendario */
+    margin: 0 auto; /* Centrar el calendario */
+}
+
+/* Estilo para la cabecera (Lunes, Martes, etc.) */
+.calendar-header > div {
+    font-weight: bold;
     text-align: center;
-    height: 50px;
+    padding: 10px 5px;
+    background-color: #f8f9fa; /* Un fondo gris claro */
+    border-radius: 4px;
 }
 
-.calendar-cell.asistio {
-    background-color: #d4edda; /* verde claro */
+/* Estilo general para cada celda de día */
+.calendar-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px; /* Altura fija para las celdas */
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease-in-out;
+    color: #343a40; /* CORREGIDO: Color de texto oscuro para asegurar visibilidad */
 }
 
-.calendar-cell.falto {
-    background-color: #f8d7da; /* rojo claro */
-}
-
+/* Estilo para las celdas vacías al inicio del mes */
 .calendar-cell.empty {
-    background-color: #f0f0f0;
+    background-color: transparent;
+    border: none;
+}
+
+/* --- ESTILOS DE ASISTENCIA --- */
+
+/* Estilo para un día con asistencia (verde) */
+.calendar-cell.asistio {
+    background-color: #d4edda; /* Verde suave */
+    color: #155724;
+    font-weight: bold;
+    border-color: #c3e6cb;
+    cursor: pointer;
+}
+
+.calendar-cell.asistio:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Estilo para un día con falta (rojo) */
+.calendar-cell.falto {
+    background-color: #f8d7da; /* Rojo suave */
+    color: #721c24;
+    border-color: #f5c6cb;
+    text-decoration: line-through;
+    cursor: pointer;
+}
+
+.calendar-cell.falto:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }

@@ -5,6 +5,7 @@ require_once __DIR__ . '/../../include/conexion.php';
 // --- Verificar si el usuario está logueado ---
 $id_usuario = $_SESSION['id_usuario'] ?? 0;
 if ($id_usuario == 0) {
+    // Es mejor no mezclar JS con PHP así, pero mantengo tu lógica original
     echo "<script>alert('Debe iniciar sesión para reservar una clase');window.location='../../Login/Login.html';</script>";
     exit();
 }
@@ -18,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // El formato esperado es algo como "Lunes|18:00|20:00"
     $partes = explode("|", $horario);
     if (count($partes) !== 3) {
         echo "Error en el formato del horario.";
@@ -28,33 +28,83 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dia_semana = $partes[0];
     $hora_inicio = $partes[1];
     $hora_fin = $partes[2];
-    $nombre_clase = "Clase de Crochet"; // puedes cambiarlo dinámico si quieres
+    $nombre_clase = "Clase de Crochet"; // Puedes cambiarlo dinámico si quieres
 
     // Verificar que el usuario no tenga ya reserva en ese mismo horario
-    $stmt = $mysqli->prepare("SELECT 1 FROM Clases WHERE id_usuario = ? AND dia_semana = ? AND hora_inicio = ?");
-    $stmt->bind_param("iss", $id_usuario, $dia_semana, $hora_inicio);
-    $stmt->execute();
-    $stmt->store_result();
+    $stmt_check = $mysqli->prepare("SELECT 1 FROM Clases WHERE id_usuario = ? AND dia_semana = ? AND hora_inicio = ?");
+    $stmt_check->bind_param("iss", $id_usuario, $dia_semana, $hora_inicio);
+    $stmt_check->execute();
+    $stmt_check->store_result();
 
-    if ($stmt->num_rows > 0) {
+    if ($stmt_check->num_rows > 0) {
         echo "Ya tienes reservada esta clase.";
+        $stmt_check->close();
         exit();
     }
-    $stmt->close();
+    $stmt_check->close();
 
-    // Insertar la nueva reserva
-    $stmt = $mysqli->prepare("
-        INSERT INTO Clases (id_usuario, nombre_clase, dia_semana, hora_inicio, hora_fin)
-        VALUES (?, ?, ?, ?, ?)
-    ");
-    $stmt->bind_param("issss", $id_usuario, $nombre_clase, $dia_semana, $hora_inicio, $hora_fin);
+    // ===== INICIO DE LA LÓGICA MODIFICADA (TRANSACCIÓN) =====
+    
+    // Iniciar una transacción para asegurar que todo se ejecute correctamente
+    $mysqli->begin_transaction();
 
-    if ($stmt->execute()) {
-        echo "✅ Clase reservada exitosamente.";
-    } else {
-        echo "❌ Error al reservar: " . $stmt->error;
+    try {
+        // 1. Insertar la nueva reserva en la tabla `Clases`
+        $stmt_clase = $mysqli->prepare("INSERT INTO Clases (id_usuario, nombre_clase, dia_semana, hora_inicio, hora_fin) VALUES (?, ?, ?, ?, ?)");
+        $stmt_clase->bind_param("issss", $id_usuario, $nombre_clase, $dia_semana, $hora_inicio, $hora_fin);
+        $stmt_clase->execute();
+        
+        // Obtener el ID de la clase que acabamos de insertar. ¡Es crucial!
+        $id_clase_nueva = $mysqli->insert_id;
+        $stmt_clase->close();
+
+        // 2. Generar los registros de asistencia para las próximas semanas
+        $dias_map = [
+            'Lunes' => 'Monday', 'Martes' => 'Tuesday', 'Miércoles' => 'Wednesday',
+            'Jueves' => 'Thursday', 'Viernes' => 'Friday', 'Sábado' => 'Saturday', 'Domingo' => 'Sunday'
+        ];
+        $dia_en_ingles = $dias_map[$dia_semana];
+
+        // Preparar la consulta para insertar en `Asistencia` una sola vez
+        $stmt_asistencia = $mysqli->prepare("INSERT INTO Asistencia (id_usuario, id_clase, fecha, estado) VALUES (?, ?, ?, 'asistió')");
+
+        // Generar asistencia para lo que resta del mes actual y los siguientes 2 meses
+        $fecha_inicio = new DateTime();
+        $fecha_fin = (new DateTime())->modify('first day of +3 month')->modify('-1 day');
+
+        // Buscar la primera ocurrencia del día de la semana
+        $fecha_actual = new DateTime();
+        if ($fecha_actual->format('l') !== $dia_en_ingles) {
+            $fecha_actual->modify("next $dia_en_ingles");
+        }
+
+        // Iterar cada semana hasta la fecha final y crear un registro de asistencia
+        while ($fecha_actual <= $fecha_fin) {
+            $fecha_para_db = $fecha_actual->format('Y-m-d');
+            
+            $stmt_asistencia->bind_param("iis", $id_usuario, $id_clase_nueva, $fecha_para_db);
+            $stmt_asistencia->execute();
+            
+            // Avanzar a la siguiente semana
+            $fecha_actual->modify('+1 week');
+        }
+        $stmt_asistencia->close();
+
+        // 3. Si todo salió bien, confirmar los cambios en la base de datos
+        $mysqli->commit();
+
+        echo "✅ ¡Clase reservada y asistencia generada exitosamente!";
+
+    } catch (Exception $e) {
+        // Si algo falló, revertir todos los cambios
+        $mysqli->rollback();
+        // Mostrar un mensaje de error genérico y registrar el error real para depuración
+        error_log("Error en reserva: " . $e->getMessage());
+        echo "❌ Error al procesar la reserva. Por favor, inténtelo de nuevo.";
     }
-    $stmt->close();
+
+    // ===== FIN DE LA LÓGICA MODIFICADA =====
+
     $mysqli->close();
     exit();
 }
@@ -70,7 +120,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
-    <!-- Mantengo tu diseño -->
     <header class="d-flex justify-content-between align-items-center p-3 bg-light shadow-sm">
         <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
@@ -145,10 +194,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $("#mensajeReserva").text("⚠️ Debes seleccionar un horario.").css("color","red");
                 return;
             }
+            // Añadimos un estado de "cargando" para mejor feedback al usuario
+            $("#btnReservar").prop('disabled', true).text('Procesando...');
+            
             $.post("reservar_clase.php", {horario: horario}, function(respuesta){
-                $("#mensajeReserva").text(respuesta).css("color","green");
+                $("#mensajeReserva").html(respuesta).css("color", respuesta.includes("❌") ? "red" : "green");
             }).fail(function(){
-                $("#mensajeReserva").text("❌ Error al procesar la reserva.").css("color","red");
+                $("#mensajeReserva").text("❌ Error de conexión al procesar la reserva.").css("color","red");
+            }).always(function() {
+                // Habilitar el botón de nuevo al finalizar
+                $("#btnReservar").prop('disabled', false).text('Reservar');
             });
         });
     });
