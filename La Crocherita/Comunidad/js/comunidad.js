@@ -8,7 +8,7 @@ function inicializarRedirecciones() {
   asignarRedireccion(".eventos", "secciones/eventos.html");
   asignarRedireccion(".recordatorio", "secciones/recordatorio.html");
   asignarRedireccion(".asistencia", "secciones/asistencia.html");
-  asignarRedireccion(".Chat", "#"); // Actualiza esta línea cuando esté lista la página de chat
+  asignarRedireccion(".Chat", "#");
 }
 
 function asignarRedireccion(selector, rutaDestino) {
