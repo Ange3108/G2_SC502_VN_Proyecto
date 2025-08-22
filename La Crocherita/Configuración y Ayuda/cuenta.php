@@ -1,3 +1,18 @@
+<?php
+session_start();
+
+/*
+// Verificar si el usuario está logueado
+if (!isset($_SESSION['nombre']) || !isset($_SESSION['correo'])) {
+    header("Location: ../Login/Login.php");
+    exit();
+}
+*/
+
+// Obtener datos del usuario de la sesión
+$nombre_usuario = $_SESSION['nombre'];
+$correo_usuario = $_SESSION['email'];
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -89,6 +104,7 @@
             color: #7f8c8d;
             font-size: 0.95rem;
             word-break: break-word;
+            font-weight: 500;
         }
         
         .titulo-cuenta {
@@ -107,6 +123,12 @@
         .icono-correo {
             color: #4ecdc4;
             font-size: 1.2rem;
+        }
+
+        .alert-session {
+            max-width: 400px;
+            margin: 0 auto 1rem auto;
+            border-radius: 10px;
         }
         
         /* Responsive */
@@ -172,6 +194,11 @@
     </div>
 
     <main class="cuenta-container">
+        <!-- Mensaje de bienvenida -->
+        <div class="alert alert-success alert-session" role="alert">
+            <i class="fas fa-user-check"></i> ¡Bienvenido/a, <?php echo htmlspecialchars($nombre_usuario); ?>!
+        </div>
+
         <h2 class="titulo-cuenta">Mi Cuenta</h2>
         
         <div class="perfil-card">
@@ -182,9 +209,9 @@
             <div class="info-usuario">
                 <div class="info-label">
                     <i class="fas fa-user icono-usuario"></i>
-                    Nombre:
+                    Usuario:
                 </div>
-                <div class="info-value">xxxx</div>
+                <div class="info-value"><?php echo htmlspecialchars($nombre_usuario); ?></div>
             </div>
             
             <div class="info-usuario">
@@ -192,7 +219,7 @@
                     <i class="fas fa-envelope icono-correo"></i>
                     Correo:
                 </div>
-                <div class="info-value">ejemplo@ejemplo.com</div>
+                <div class="info-value"><?php echo htmlspecialchars($correo_usuario); ?></div>
             </div>
         </div>
     </main>
@@ -205,6 +232,7 @@
         </div>
         <p style="margin: 0; font-size: 0.9rem;">&copy; 2025 La Crocherita. Todos los derechos reservados.</p>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

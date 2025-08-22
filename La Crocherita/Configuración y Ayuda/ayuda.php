@@ -1,3 +1,52 @@
+<?php
+session_start();
+
+/*
+// Verificar si el usuario está logueado
+if (!isset($_SESSION['nombre']) || !isset($_SESSION['id_usuario'])) {
+    header("Location: ../Login/Login.php");
+    exit();
+}
+*/
+
+// Incluir conexión a la base de datos
+require_once '../include/conexion.php';
+
+// Variables para mensajes
+$mensaje = '';
+$tipo_mensaje = '';
+
+// Procesar el formulario cuando se envía
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['consulta'])) {
+    $consulta = trim($_POST['consulta']);
+    $id_usuario = $_SESSION['id_usuario'];
+    
+    if (!empty($consulta)) {
+        try {
+            // Preparar la consulta SQL
+            $stmt = $mysqli->prepare("INSERT INTO consultas_ayuda (id_usuario, consulta) VALUES (?, ?)");
+            $stmt->bind_param("is", $id_usuario, $consulta);
+            
+            // Ejecutar la consulta
+            if ($stmt->execute()) {
+                $mensaje = 'Tu consulta ha sido enviada exitosamente. Nuestro equipo te contactará pronto.';
+                $tipo_mensaje = 'success';
+            } else {
+                $mensaje = 'Hubo un error al enviar tu consulta. Por favor, inténtalo de nuevo.';
+                $tipo_mensaje = 'error';
+            }
+            
+            $stmt->close();
+        } catch (Exception $e) {
+            $mensaje = 'Error del sistema. Por favor, inténtalo más tarde.';
+            $tipo_mensaje = 'error';
+        }
+    } else {
+        $mensaje = 'Por favor, escribe tu consulta antes de enviar.';
+        $tipo_mensaje = 'error';
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -82,6 +131,12 @@
             box-shadow: 0 5px 15px rgba(107, 76, 122, 0.3);
         }
         
+        .btn-enviar:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
         .contacto-info {
             display: flex;
             flex-direction: column;
@@ -119,66 +174,27 @@
             font-size: 0.95rem;
         }
         
-        /* Modal personalizado */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            transform: scale(0.7);
-            transition: transform 0.3s ease;
-        }
-        
-        .modal-overlay.show .modal-content {
-            transform: scale(1);
-        }
-        
-        .modal-icon {
-            font-size: 3rem;
-            color: #6b4c7a;
-            margin-bottom: 1rem;
-        }
-        
-        .modal-title {
-            color: #6b4c7a;
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .modal-text {
-            color: #7f8c8d;
-            margin-bottom: 1.5rem;
-        }
-        
-        .btn-cerrar-modal {
-            background: #6b4c7a;
-            color: white;
+        /* Alertas personalizadas */
+        .alert-custom {
             border: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
-        .btn-cerrar-modal:hover {
-            background: #5a3f68;
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
         }
         
         /* Responsive */
@@ -220,7 +236,6 @@
         <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
-
                     <a class="nav-link" href="../Home/Home.php">Principal</a>
                 </li>
                 <li class="nav-item">
@@ -235,9 +250,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="../Configuración y Ayuda/configuracion.html">Configuración y Ayuda</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../Login/Login.php">Cerrar Sesión</a>
-                </li>
             </ul>
         </div>
     </div>
@@ -245,22 +257,32 @@
     <main class="ayuda-container">
         <h2 class="titulo-ayuda">Centro de Ayuda y Soporte</h2>
         
+        <!-- Mostrar mensajes de resultado -->
+        <?php if (!empty($mensaje)): ?>
+            <div class="alert-custom alert-<?php echo $tipo_mensaje; ?>">
+                <i class="fas fa-<?php echo ($tipo_mensaje === 'success') ? 'check-circle' : 'exclamation-triangle'; ?>"></i>
+                <?php echo htmlspecialchars($mensaje); ?>
+            </div>
+        <?php endif; ?>
+        
         <!-- Formulario de ayuda -->
         <div class="ayuda-card">
             <h3 class="seccion-titulo">
                 <i class="fas fa-question-circle"></i>
                 Enviar Consulta o Reporte
             </h3>
-            <div class="formulario-ayuda">
+            <form class="formulario-ayuda" method="POST" action="">
                 <textarea 
+                    name="consulta" 
                     id="consultaTexto" 
                     class="input-ayuda" 
                     placeholder="Describe tu consulta, problema o sugerencia aquí. Nuestro equipo te responderá lo antes posible..."
+                    required
                 ></textarea>
-                <button class="btn-enviar" onclick="enviarConsulta()">
+                <button type="submit" class="btn-enviar">
                     <i class="fas fa-paper-plane"></i> Enviar Consulta
                 </button>
-            </div>
+            </form>
         </div>
 
         <!-- Información de contacto -->
@@ -297,16 +319,6 @@
         </div>
     </main>
 
-    <!-- Modal de confirmación -->
-    <div class="modal-overlay" id="modalConfirmacion">
-        <div class="modal-content">
-            <i class="fas fa-check-circle modal-icon"></i>
-            <h3 class="modal-title">¡Reporte de Ayuda Enviado!</h3>
-            <p class="modal-text">Tu consulta ha sido enviada exitosamente. Nuestro equipo te contactará pronto.</p>
-            <button class="btn-cerrar-modal" onclick="cerrarModal()">Entendido</button>
-        </div>
-    </div>
-
     <footer style="background-color: #f0d4f0; padding: 2rem 1rem; text-align: center; color: #6b4c7a; font-style: italic; margin-top: auto;">
         <div style="margin-bottom: 1rem; font-size: 1rem;">Síguenos en nuestras redes sociales!</div>
         <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
@@ -317,44 +329,5 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Script de JavaScript -->
-    <!-- <script src="../js/ayuda.js"></script> -->
-    <!-- Queda mejor dejar el script en la misma clase, es más comodo! -->
-    <script>
-        function enviarConsulta() {
-            const texto = document.getElementById('consultaTexto').value.trim();
-            
-            if (texto === '') {
-                alert('Por favor, escribe tu consulta antes de enviar.');
-                return;
-            }
-            
-            // Limpiar el textarea
-            document.getElementById('consultaTexto').value = '';
-            
-            // Mostrar modal
-            const modal = document.getElementById('modalConfirmacion');
-            modal.style.display = 'flex';
-            setTimeout(() => {
-                modal.classList.add('show');
-            }, 10);
-        }
-        
-        function cerrarModal() {
-            const modal = document.getElementById('modalConfirmacion');
-            modal.classList.remove('show');
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 300);
-        }
-        
-        // Cerrar modal al hacer clic en el fondo
-        document.getElementById('modalConfirmacion').addEventListener('click', function(e) {
-            if (e.target === this) {
-                cerrarModal();
-            }
-        });
-    </script>
 </body>
 </html>
