@@ -16,6 +16,7 @@ $correo_usuario = $_SESSION['email'];
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<<<<<<<< HEAD:La Crocherita/Configuración y Ayuda/cuenta.php
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mi Cuenta - La Crocherita</title>
@@ -234,5 +235,19 @@ $correo_usuario = $_SESSION['email'];
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+========
+  <meta charset="UTF-8" />
+  <title>Mi Cuenta - La Crocherita</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="contenedor-perfil">
+    <section class="tarjeta-perfil">
+      <h2>Mi Cuenta</h2>
+      <div id="info-usuario" class="info-usuario"></div>
+    </section>
+  </main>
+  <script src="js/cuenta.js"></script>
+>>>>>>>> main:La Crocherita/Configuración y Ayuda/cuenta.html
 </body>
 </html>
