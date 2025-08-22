@@ -62,13 +62,10 @@ if ($result && $result->num_rows > 0) {
                 <li class="nav-item">
                     <a class="nav-link" href="../Configuración y Ayuda/configuracion.html">Configuración y Ayuda</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../include/logout.php">Cerrar Sesión</a>
-                </li>
             </ul>
         </div>
     </div>
-
+    
     <main>
         <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
             <div style="max-width: 450px; width: 100%; ">

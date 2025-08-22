@@ -299,7 +299,6 @@ if (isset($_GET['eliminar'])) {
                 <li class="nav-item"><a class="nav-link" href="../../Mis_Proyectos_y_Recursos/Proyectos.html">Mis Proyectos y Recursos</a></li>
                 <li class="nav-item"><a class="nav-link" href="../../Herramienta%20de%20C%C3%A1lculo/calculadora.html">Herramientas De Cálculo</a></li>
                 <li class="nav-item"><a class="nav-link" href="../../Configuración%20y%20Ayuda/configuracion.html">Configuración y Ayuda</a></li>
-                <li class="nav-item"><a class="nav-link" href="../../Login/Login.html">Cerrar Sesión</a></li>
             </ul>
         </div>
     </div>
