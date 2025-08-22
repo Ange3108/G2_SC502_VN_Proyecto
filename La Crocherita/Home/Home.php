@@ -33,11 +33,14 @@ if ($result && $result->num_rows > 0) {
 </head>
 
 <body>
-    <header class="d-flex justify-content-between align-items-center p-3 bg-light shadow-sm">
-        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i>
-        </button>
+    <header class="d-flex justify-content-between align-items-center p-3 bg-light shadow-sm header-container">
+    <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="flex-grow-1 text-center">
         <h1 class="h4 mb-0">La Crocherita</h1>
+    </div>
+    <div style="width: 42px;"></div>
     </header>
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
@@ -130,7 +133,7 @@ if ($result && $result->num_rows > 0) {
                         <li>Hilo de algodón, abuelita</li>
                         <li>Ganchillo de 3.5 mm</li>
                     </ul>
-                    <a href="../Mis_Proyectos_y_Recursos/partes/patrones.html" class="btnImagen">
+                    <a href="../Mis_Proyectos_y_Recursos/partes/patrones.php" class="btnImagen">
                         <img src="./Imagenes/Pukka-Garu.jpg" alt="Pukka y Garu" class="imagen">
                     </a>
                 </div>
@@ -143,7 +146,7 @@ if ($result && $result->num_rows > 0) {
                         <li>Hilo de algodón, marca sinfonia</li>
                         <li>Ganchillo de 3.5 mm</li>
                     </ul>
-                    <a href="../Mis_Proyectos_y_Recursos/partes/patrones.html" class="btnImagen">
+                    <a href="../Mis_Proyectos_y_Recursos/partes/patrones.php" class="btnImagen">
                         <img src="./Imagenes/Mercedita.jpg" alt="Muñeca Mercedita" class="imagen">
                     </a>
                 </div>

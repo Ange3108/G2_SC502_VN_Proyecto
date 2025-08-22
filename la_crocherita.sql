@@ -10,6 +10,16 @@ CREATE TABLE Usuarios (
   contraseña VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS consultas_ayuda (
+  id_consulta int(11) NOT NULL AUTO_INCREMENT,
+  id_usuario int(11) NOT NULL,
+  consulta text NOT NULL,
+  fecha_consulta timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id_consulta),
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+select * from consultas_ayuda;
+
 /*Se crea la tabla Patrones - debe estar antes que Proyectos*/
 CREATE TABLE Patrones (
   id_patron INT AUTO_INCREMENT PRIMARY KEY,
@@ -75,6 +85,8 @@ CREATE TABLE Favoritos_Patrones (
 
 
 INSERT INTO Patrones (nombre_patron, descripcion, imagen_url, nivel_dificultad, puntos_utilizados, materiales, pdf_url) VALUES
-('Oso de Peluche', 'Adorable oso de peluche perfecto para regalar', '../img/oso.jpg', 'intermedio', 'Punto bajo, punto alto, anillo mágico', 'Hilo acrílico, aguja 4mm, relleno, ojos de seguridad', 'uploads/pdfs/🧸 Oso.pdf'),
-('Ratoncito', 'Pequeño ratón tejido muy fácil de hacer', '../img/ratoncito.jpg', 'principiante', 'Punto bajo, aumentos, disminuciones', 'Hilo algodón, aguja 3.5mm, relleno', 'uploads/pdfs/Ratoncito.pdf'),
-('Tulipán', 'Hermosa flor tulipán para decorar', '../img/Tulipan.jpg', 'principiante', 'Punto alto, punto bajo, cadenas', 'Hilo algodón de colores, aguja 3mm, alambre floral', 'uploads/pdfs/Llavero de Tulipán.pdf');
+('Oso de Peluche', 'Adorable oso de peluche perfecto para regalar', 'uploads/img/oso.jpg', 'intermedio', 'Punto bajo, punto alto, anillo mágico', 'Hilo acrílico, aguja 4mm, relleno, ojos de seguridad', 'uploads/pdfs/🧸 Oso.pdf'),
+('Ratoncito', 'Pequeño ratón tejido muy fácil de hacer', 'uploads/img/ratoncito.jpg', 'principiante', 'Punto bajo, aumentos, disminuciones', 'Hilo algodón, aguja 3.5mm, relleno', 'uploads/pdfs/Ratoncito.pdf'),
+('Tulipán', 'Hermosa flor tulipán para decorar', 'uploads/img/Tulipan.jpg', 'principiante', 'Punto alto, punto bajo, cadenas', 'Hilo algodón de colores, aguja 3mm, alambre floral', 'uploads/pdfs/Llavero de Tulipán.pdf');
+
+
