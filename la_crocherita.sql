@@ -10,6 +10,16 @@ CREATE TABLE Usuarios (
   contraseña VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS consultas_ayuda (
+  id_consulta int(11) NOT NULL AUTO_INCREMENT,
+  id_usuario int(11) NOT NULL,
+  consulta text NOT NULL,
+  fecha_consulta timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id_consulta),
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+select * from consultas_ayuda;
+
 /*Se crea la tabla Patrones - debe estar antes que Proyectos*/
 CREATE TABLE Patrones (
   id_patron INT AUTO_INCREMENT PRIMARY KEY,
@@ -29,10 +39,10 @@ CREATE TABLE Proyectos (
   id_patron INT,
   nombre_proyecto VARCHAR(100) NOT NULL,
   descripcion TEXT,
-  estado ENUM('en proceso', 'terminado') DEFAULT 'en proceso',
+  estado ENUM('en proceso', 'terminado') ,
   imagen_url VARCHAR(255),
   FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario), 
-  FOREIGN KEY (id_patron) REFERENCES Patrones(id_patron)
+  FOREIGN KEY (id_patron) REFERENCES Patrones(id_patron) ON DELETE CASCADE
 );
 
 
@@ -54,7 +64,7 @@ CREATE TABLE Asistencia (
   fecha DATE NOT NULL,
   estado ENUM('asistió', 'faltó') DEFAULT 'asistió',
   FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
-  FOREIGN KEY (id_clase) REFERENCES Clases(id_clase)
+  FOREIGN KEY (id_clase) REFERENCES Clases(id_clase) ON DELETE CASCADE
 );
 
 CREATE TABLE Eventos (
@@ -69,14 +79,12 @@ CREATE TABLE Favoritos_Patrones (
   id_patron INT,
   PRIMARY KEY (id_usuario, id_patron),
   FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
-  FOREIGN KEY (id_patron) REFERENCES Patrones(id_patron)
+  FOREIGN KEY (id_patron) REFERENCES Patrones(id_patron) ON DELETE CASCADE
 );
 
--- Insertar usuario de ejemplo
-INSERT INTO Usuarios (nombre, correo, contraseña) VALUES
-('Usuario Demo', 'demo@ejemplo.com', '$2y$10$example_hash_password');
 
-INSERT INTO Patrones (nombre_patron, descripcion, imagen_url, nivel_dificultad, puntos_utilizados, materiales) VALUES
-('Oso de Peluche', 'Adorable oso de peluche perfecto para regalar', '../img/oso.jpg', 'intermedio', 'Punto bajo, punto alto, anillo mágico', 'Hilo acrílico, aguja 4mm, relleno, ojos de seguridad'),
-('Ratoncito', 'Pequeño ratón tejido muy fácil de hacer', '../img/ratoncito.jpg', 'principiante', 'Punto bajo, aumentos, disminuciones', 'Hilo algodón, aguja 3.5mm, relleno'),
-('Tulipán', 'Hermosa flor tulipán para decorar', '../img/Tulipan.jpg', 'intermedio', 'Punto alto, punto bajo, cadenas', 'Hilo algodón de colores, aguja 3mm, alambre floral');
+
+INSERT INTO Patrones (nombre_patron, descripcion, imagen_url, nivel_dificultad, puntos_utilizados, materiales, pdf_url) VALUES
+('Oso de Peluche', 'Adorable oso de peluche perfecto para regalar', '../img/oso.jpg', 'intermedio', 'Punto bajo, punto alto, anillo mágico', 'Hilo acrílico, aguja 4mm, relleno, ojos de seguridad', 'uploads/pdfs/🧸 Oso.pdf'),
+('Ratoncito', 'Pequeño ratón tejido muy fácil de hacer', '../img/ratoncito.jpg', 'principiante', 'Punto bajo, aumentos, disminuciones', 'Hilo algodón, aguja 3.5mm, relleno', 'uploads/pdfs/Ratoncito.pdf'),
+('Tulipán', 'Hermosa flor tulipán para decorar', '../img/Tulipan.jpg', 'principiante', 'Punto alto, punto bajo, cadenas', 'Hilo algodón de colores, aguja 3mm, alambre floral', 'uploads/pdfs/Llavero de Tulipán.pdf');

@@ -4,6 +4,18 @@ if (!isset($_SESSION['nombre'])) {
     header("Location: ../Home/Home.php"); 
     exit(); 
 }
+
+// Conexión a la base de datos
+require_once __DIR__ . '/../include/conexion.php';
+$patrones = array();
+$sql = "SELECT nombre_patron, imagen_url FROM patrones ORDER BY id_patron DESC LIMIT 10";
+$result = $mysqli->query($sql);
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $patrones[] = $row;
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -21,12 +33,14 @@ if (!isset($_SESSION['nombre'])) {
 </head>
 
 <body>
-    <header class="d-flex justify-content-between align-items-center p-3 bg-light shadow-sm">
-        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i>
-        </button>
+    <header class="d-flex justify-content-between align-items-center p-3 bg-light shadow-sm header-container">
+    <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="flex-grow-1 text-center">
         <h1 class="h4 mb-0">La Crocherita</h1>
-        <div></div>
+    </div>
+    <div style="width: 42px;"></div>
     </header>
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
@@ -51,13 +65,10 @@ if (!isset($_SESSION['nombre'])) {
                 <li class="nav-item">
                     <a class="nav-link" href="../Configuración y Ayuda/configuracion.html">Configuración y Ayuda</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../include/logout.php">Cerrar Sesión</a>
-                </li>
             </ul>
         </div>
     </div>
-
+    
     <main>
         <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
             <div style="max-width: 450px; width: 100%; ">
@@ -68,27 +79,36 @@ if (!isset($_SESSION['nombre'])) {
                         <button type="button" data-bs-target="#Carrusel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                     </div>
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="./Imagenes/Mercedita.jpg" class="d-block w-100" alt="Muñequita mercedita, con vestido rojo, y diadema de Mickey Mouse">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Mercedita con diadema de Mickey Mouse</h5>
-                                <p>Está linda muñequita fue hecha por doña Marta</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="./Imagenes/Capibara.jpg" class="d-block w-100" alt="Capibara, con una flor rosada en la cabeza y un bolso verde">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Capibara</h5>
-                                <p>Este capibara con decorado de flor y un bolso en forma de tortuga fue hecho por...</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="./Imagenes/Pinguino.jpg" class="d-block w-100" alt="Pinguino gris y blanco, con un gorro de lana">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>Pinguino</h5>
-                                <p>Este tierno pinguino con gorrito fue hecho por...</p>
-                            </div>
-                        </div>
+                        <!--Primer objeto del carrusel-->
+
+    <div id="Carrusel" class="carousel slide">
+        <div class="carousel-indicators">
+            <?php foreach ($patrones as $i => $patron): ?>
+            <button type="button" data-bs-target="#Carrusel" data-bs-slide-to="<?php echo $i; ?>" class="<?php echo ($i === 0 ? 'active' : ''); ?>" aria-current="<?php echo ($i === 0 ? 'true' : 'false'); ?>" aria-label="Slide <?php echo ($i+1); ?>"></button>
+            <?php endforeach; ?>
+        </div>
+        <div class="carousel-inner">
+            <?php foreach ($patrones as $i => $patron): ?>
+                    <?php
+                        // Siempre usar la ruta absoluta del proyecto para las imágenes
+                        $nombreArchivo = basename($patron['imagen_url']);
+                        $img = '/G2_SC502_VN_Proyecto/La Crocherita/Mis_Proyectos_y_Recursos/partes/uploads/img/' . $nombreArchivo;
+                    ?>
+<div class="carousel-item <?php echo ($i === 0 ? 'active' : ''); ?>">
+    <img src="<?php echo htmlspecialchars($img); ?>" class="d-block w-100" alt="<?php echo htmlspecialchars($patron['nombre_patron']); ?>">
+    <div class="carousel-caption d-none d-md-block">
+        <h5><?php echo htmlspecialchars($patron['nombre_patron']); ?></h5>
+    </div>
+</div>
+            <?php endforeach; ?>
+            <?php if (empty($patrones)): ?>
+                <div class="carousel-item active">
+                    <img src="./Imagenes/Pinguino.jpg" class="d-block w-100" alt="Sin patrones">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>No hay patrones disponibles</h5>
+                    </div>
+                </div>
+            <?php endif; ?>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#Carrusel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -113,7 +133,7 @@ if (!isset($_SESSION['nombre'])) {
                         <li>Hilo de algodón, abuelita</li>
                         <li>Ganchillo de 3.5 mm</li>
                     </ul>
-                    <a href="../Mis_Proyectos_y_Recursos/partes/patrones.html" class="btnImagen">
+                    <a href="../Mis_Proyectos_y_Recursos/partes/patrones.php" class="btnImagen">
                         <img src="./Imagenes/Pukka-Garu.jpg" alt="Pukka y Garu" class="imagen">
                     </a>
                 </div>
@@ -126,7 +146,7 @@ if (!isset($_SESSION['nombre'])) {
                         <li>Hilo de algodón, marca sinfonia</li>
                         <li>Ganchillo de 3.5 mm</li>
                     </ul>
-                    <a href="../Mis_Proyectos_y_Recursos/partes/patrones.html" class="btnImagen">
+                    <a href="../Mis_Proyectos_y_Recursos/partes/patrones.php" class="btnImagen">
                         <img src="./Imagenes/Mercedita.jpg" alt="Muñeca Mercedita" class="imagen">
                     </a>
                 </div>
@@ -165,7 +185,7 @@ if (!isset($_SESSION['nombre'])) {
                 <div class="modal-body">
                     <div class="contact-info">
                         <p><i class="fas fa-user"></i> Profesora Vanessa</p>
-                        <p><i class="fas fa-phone"></i> Teléfono: <a href="tel:+50688887777">+506 8888-7777</a></p>
+                        <p><i class="fas fa-phone"></i> Teléfono: <a href="tel:+50687824009">+506 8782-4009</a></p>
                         <p><i class="fas fa-envelope"></i> Correo: <a href="mailto:info@lacrocherita.com">info@lacrocherita.com</a></p>
                         <p><i class="fas fa-globe"></i> Página: <a href="#">La Crocherita</a></p>
                     </div>
@@ -177,9 +197,16 @@ if (!isset($_SESSION['nombre'])) {
     <footer>
         <div class="frase">Siguenos en nuestras redes sociales!</div>
         <div class="iconitos">
-            <span><i class="fab fa-facebook"></i></span>
-            <span><i class="fab fa-instagram"></i></span>
-            <span><i class="fab fa-pinterest"></i></span>
+            <span>
+                <a href="https://www.facebook.com/profile.php?id=100076225050581" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-facebook"></i>
+                </a>
+            </span>
+            <span>
+                <a href="https://www.tiktok.com/@lacrocherita" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            </span>
         </div>
         <p>&copy; 2025 La Crocherita. Todos los derechos reservados.</p>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

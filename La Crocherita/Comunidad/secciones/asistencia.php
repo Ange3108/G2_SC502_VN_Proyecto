@@ -1,40 +1,70 @@
+<?php
+session_start();
+require_once __DIR__ . '/../../include/conexion.php'; // Tu archivo de conexión
+
+if (!isset($_SESSION['id_usuario'])) {
+    header("Location: ../../Login/Login.html");
+    exit;
+}
+
+$id_usuario = $_SESSION['id_usuario'];
+
+// Traer todas las asistencias del usuario con la clase
+$sql = "
+    SELECT a.fecha, a.estado, c.nombre_clase
+    FROM Asistencia a
+    INNER JOIN Clases c ON a.id_clase = c.id_clase
+    WHERE a.id_usuario = ?
+";
+$stmt = $mysqli->prepare($sql);
+$stmt->bind_param("i", $id_usuario);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$asistencias = [];
+while ($row = $result->fetch_assoc()) {
+    $asistencias[] = $row;
+}
+
+$stmt->close();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Asistencia de Estudiantes - La Crocherita</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistencia de Estudiantes - La Crocherita</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css" />
     <link rel="stylesheet" href="../css/calendar.css" />
     <style>
-        /* Specific styles for this page (if any, not general layout) */
-        /* For instance, if 'main' in style.css doesn't center content,
-           you might add centering here if desired for the calendar. */
         main.container {
-            flex-grow: 1; /* Ensures main content expands to push footer down */
-            /* Add any specific padding/margin adjustments for this page's main content */
-            padding-top: 20px; /* Example: add some top padding */
-            padding-bottom: 40px; /* Example: add some bottom padding before footer */
+            flex-grow: 1;
+            padding-top: 20px;
+            padding-bottom: 40px;
         }
-
-       
     </style>
 </head>
 
 <body>
     <header class="d-flex justify-content-between align-items-center p-3 bg-light shadow-sm">
-        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
         </button>
         <h1 class="h4 mb-0">La Crocherita</h1>
         <div></div>
     </header>
 
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+        aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú de Navegación</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
@@ -45,13 +75,19 @@
                     <a class="nav-link" href="../../Comunidad/comunidad.html">Comunidad y Participación</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../Mis_Proyectos_y_Recursos/Proyectos.html">Mis Proyectos y Recursos</a>
+                    <a class="nav-link" href="../../Mis_Proyectos_y_Recursos/Proyectos.html">Mis Proyectos y
+                        Recursos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../Herramienta%20de%20C%C3%A1lculo/calculadora.html">Herramientas De Cálculo</a>
+                    <a class="nav-link"
+                        href="../../Herramienta%20de%20C%C3%A1lculo/calculadora.html">Herramientas De Cálculo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../../Configuración%20y%20Ayuda/configuracion.html">Configuración y Ayuda</a>
+                    <a class="nav-link"
+                        href="../../Configuración%20y%20Ayuda/configuracion.html">Configuración y Ayuda</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../Login/Login.html">Cerrar Sesión</a>
                 </li>
             </ul>
         </div>
@@ -95,7 +131,7 @@
     </main>
 
     <footer>
-        <div class="frase">Síguenos en nuestras redes sociales!</div>
+        <div class="frase">Siguenos en nuestras redes sociales!</div>
         <div class="iconitos">
             <span>
                 <a href="https://www.facebook.com/profile.php?id=100076225050581" target="_blank" rel="noopener noreferrer">
@@ -109,9 +145,13 @@
             </span>
         </div>
         <p>&copy; 2025 La Crocherita. Todos los derechos reservados.</p>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const asistencias = <?php echo json_encode($asistencias); ?>;
+    </script>
     <script src="../js/asistencia.js"></script>
 </body>
 
