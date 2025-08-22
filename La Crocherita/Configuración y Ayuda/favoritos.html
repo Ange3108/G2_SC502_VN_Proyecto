@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mis Favoritos - La Crocherita</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+        .favoritos-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            min-height: calc(100vh - 200px);
+        }
+        
+        .titulo-favoritos {
+            color: #6b4c7a;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .seccion-favoritos {
+            margin-bottom: 3rem;
+        }
+        
+        .seccion-titulo {
+            color: #6b4c7a;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 2px solid #f0d4f0;
+            padding-bottom: 0.5rem;
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .favorito-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid #f0d4f0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .favorito-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(107, 76, 122, 0.2);
+        }
+        
+        .card-imagen {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f0d4f0, #e6c7e6);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #6b4c7a;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-imagen::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .card-titulo {
+            color: #6b4c7a;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-descripcion {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        
+        .card-detalles {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .card-tiempo, .card-dificultad {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.8rem;
+            color: #6b4c7a;
+        }
+        
+        .btn-favorito {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #e74c3c;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-favorito:hover {
+            background: #e74c3c;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .btn-ver-mas {
+            background: linear-gradient(135deg, #6b4c7a, #8e6ba8);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            width: 100%;
+        }
+        
+        .btn-ver-mas:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(107, 76, 122, 0.3);
+        }
+        
+        .evento-card {
+            background: linear-gradient(135deg, #f0d4f0, #e6c7e6);
+            border: 2px solid #6b4c7a;
+        }
+        
+        .evento-fecha {
+            background: #6b4c7a;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .reto-card {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            border: 2px solid #ff9800;
+        }
+        
+        .reto-card .card-imagen {
+            background: linear-gradient(135deg, #ff9800, #ffb74d);
+            color: white;
+        }
+        
+        .sin-favoritos {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #7f8c8d;
+        }
+        
+        .sin-favoritos i {
+            font-size: 4rem;
+            color: #f0d4f0;
+            margin-bottom: 1rem;
+        }
+        
+        .sin-favoritos h3 {
+            color: #6b4c7a;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .favoritos-container {
+                padding: 1rem;
+            }
+            
+            .titulo-favoritos {
+                font-size: 1.8rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .seccion-titulo {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="d-flex justify-content-between align-items-center p-3 bg-light shadow-sm">
+        <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="h4 mb-0">La Crocherita</h1>
+        <div></div>
+    </header>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú de Navegación</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="../Home/Home.php">Principal</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../Comunidad/comunidad.html">Comunidad y Participación</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../Mis_Proyectos_y_Recursos/Proyectos.html">Mis Proyectos y Recursos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../Herramienta%20de%20C%C3%A1lculo/calculadora.html">Herramientas De Cálculo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../Configuración y Ayuda/configuracion.html">Configuración y Ayuda</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../Login/Login.php">Cerrar Sesión</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <main class="favoritos-container">
+        <h2 class="titulo-favoritos">Mis Favoritos y Lista de Deseos</h2>
+        
+        <!-- Sección de Patrones Favoritos -->
+        <section class="seccion-favoritos">
+            <h3 class="seccion-titulo">
+                <i class="fas fa-heart"></i>
+                Patrones Favoritos
+            </h3>
+            <div class="cards-grid">
+                <div class="favorito-card">
+                    <button class="btn-favorito" title="Quitar de favoritos">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="card-imagen">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h4 class="card-titulo">Amigurumi Pinguino</h4>
+                    <p class="card-descripcion">Adorable pingüino tejido a crochet perfecto para principiantes. Incluye patrones detallados paso a paso.</p>
+                    <div class="card-detalles">
+                        <span class="card-tiempo">
+                            <i class="fas fa-clock"></i>
+                            8-10 horas
+                        </span>
+                        <span class="card-dificultad">
+                            <i class="fas fa-star"></i>
+                            Fácil
+                        </span>
+                    </div>
+                    <button class="btn-ver-mas">Ver Patrón</button>
+                </div>
+
+                <div class="favorito-card">
+                    <button class="btn-favorito" title="Quitar de favoritos">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="card-imagen">
+                        <i class="fas fa-baby"></i>
+                    </div>
+                    <h4 class="card-titulo">Muñeca Mercedita</h4>
+                    <p class="card-descripcion">Hermosa muñeca de crochet con vestido detallado y cabello rizado. Ideal para regalar.</p>
+                    <div class="card-detalles">
+                        <span class="card-tiempo">
+                            <i class="fas fa-clock"></i>
+                            12-15 horas
+                        </span>
+                        <span class="card-dificultad">
+                            <i class="fas fa-star"></i>
+                            Intermedio
+                        </span>
+                    </div>
+                    <button class="btn-ver-mas">Ver Patrón</button>
+                </div>
+
+                <div class="favorito-card">
+                    <button class="btn-favorito" title="Quitar de favoritos">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="card-imagen">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h4 class="card-titulo">Cojines Decorativos</h4>
+                    <p class="card-descripcion">Set de cojines con diferentes texturas y patrones para decorar tu hogar.</p>
+                    <div class="card-detalles">
+                        <span class="card-tiempo">
+                            <i class="fas fa-clock"></i>
+                            6-8 horas
+                        </span>
+                        <span class="card-dificultad">
+                            <i class="fas fa-star"></i>
+                            Fácil
+                        </span>
+                    </div>
+                    <button class="btn-ver-mas">Ver Patrón</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Proyectos Personales -->
+        <section class="seccion-favoritos">
+            <h3 class="seccion-titulo">
+                <i class="fas fa-project-diagram"></i>
+                Mis Proyectos Personales
+            </h3>
+            <div class="cards-grid">
+                <div class="favorito-card">
+                    <button class="btn-favorito" title="Quitar de favoritos">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="card-imagen">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h4 class="card-titulo">Suéter de Invierno</h4>
+                    <p class="card-descripcion">Mi primer suéter tejido a crochet. Proyecto personal con patrón modificado para talla M.</p>
+                    <div class="card-detalles">
+                        <span class="card-tiempo">
+                            <i class="fas fa-clock"></i>
+                            25-30 horas
+                        </span>
+                        <span class="card-dificultad">
+                            <i class="fas fa-star"></i>
+                            Avanzado
+                        </span>
+                    </div>
+                    <button class="btn-ver-mas">Ver Proyecto</button>
+                </div>
+
+                <div class="favorito-card">
+                    <button class="btn-favorito" title="Quitar de favoritos">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="card-imagen">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h4 class="card-titulo">Mantas para Bebé</h4>
+                    <p class="card-descripcion">Colección de mantas tejidas para regalar en baby showers. Diferentes tamaños y colores.</p>
+                    <div class="card-detalles">
+                        <span class="card-tiempo">
+                            <i class="fas fa-clock"></i>
+                            15-20 horas
+                        </span>
+                        <span class="card-dificultad">
+                            <i class="fas fa-star"></i>
+                            Intermedio
+                        </span>
+                    </div>
+                    <button class="btn-ver-mas">Ver Proyecto</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Retos -->
+        <section class="seccion-favoritos">
+            <h3 class="seccion-titulo">
+                <i class="fas fa-trophy"></i>
+                Retos por Completar
+            </h3>
+            <div class="cards-grid">
+                <div class="favorito-card reto-card">
+                    <button class="btn-favorito" title="Quitar de favoritos">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="card-imagen">
+                        <i class="fas fa-calendar-week"></i>
+                    </div>
+                    <h4 class="card-titulo">Reto de 7 Días</h4>
+                    <p class="card-descripcion">Completa un amigurumi diferente cada día de la semana. ¡Desafía tu creatividad!</p>
+                    <div class="card-detalles">
+                        <span class="card-tiempo">
+                            <i class="fas fa-clock"></i>
+                            7 días
+                        </span>
+                        <span class="card-dificultad">
+                            <i class="fas fa-star"></i>
+                            Intermedio
+                        </span>
+                    </div>
+                    <button class="btn-ver-mas">Aceptar Reto</button>
+                </div>
+
+                <div class="favorito-card reto-card">
+                    <button class="btn-favorito" title="Quitar de favoritos">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="card-imagen">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h4 class="card-titulo">Reto Comunitario</h4>
+                    <p class="card-descripcion">Únete a la comunidad para crear una manta gigante colaborativa. ¡Cada persona aporta un cuadro!</p>
+                    <div class="card-detalles">
+                        <span class="card-tiempo">
+                            <i class="fas fa-clock"></i>
+                            1 mes
+                        </span>
+                        <span class="card-dificultad">
+                            <i class="fas fa-star"></i>
+                            Todos los niveles
+                        </span>
+                    </div>
+                    <button class="btn-ver-mas">Unirse al Reto</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Eventos -->
+        <section class="seccion-favoritos">
+            <h3 class="seccion-titulo">
+                <i class="fas fa-calendar-alt"></i>
+                Eventos de Interés
+            </h3>
+            <div class="cards-grid">
+                <div class="favorito-card evento-card">
+                    <button class="btn-favorito" title="Quitar de favoritos">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="evento-fecha">22 de Agosto</div>
+                    <div class="card-imagen">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <h4 class="card-titulo">Cafecito del Día de las Madres</h4>
+                    <p class="card-descripcion">¡Trae algo para compartir y disfruta de una tarde de crochet y buena compañía!</p>
+                    <button class="btn-ver-mas">Ver Detalles del Evento</button>
+                </div>
+
+                <div class="favorito-card evento-card">
+                    <button class="btn-favorito" title="Quitar de favoritos">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="evento-fecha">Próximamente</div>
+                    <div class="card-imagen">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h4 class="card-titulo">Fiesta de la Alegría</h4>
+                    <p class="card-descripcion">Con una cuota de 5 mil, sorprende a alguien con algo relacionado al crochet. ¡Participa!</p>
+                    <button class="btn-ver-mas">Ver Detalles del Evento</button>
+                </div>
+
+                <div class="favorito-card evento-card">
+                    <button class="btn-favorito" title="Quitar de favoritos">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="evento-fecha">Septiembre</div>
+                    <div class="card-imagen">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h4 class="card-titulo">Taller de Técnicas Avanzadas</h4>
+                    <p class="card-descripcion">Aprende técnicas avanzadas de crochet con la profesora Vanessa. Cupos limitados.</p>
+                    <button class="btn-ver-mas">Ver Detalles del Evento</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="background-color: #f0d4f0; padding: 2rem 1rem; text-align: center; color: #6b4c7a; font-style: italic; margin-top: auto;">
+        <div style="margin-bottom: 1rem; font-size: 1rem;">Síguenos en nuestras redes sociales!</div>
+        <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+            <i class="fab fa-facebook" style="font-size: 1.5rem; color: #6b4c7a;"></i>
+            <i class="fab fa-tiktok" style="font-size: 1.5rem; color: #6b4c7a;"></i>
+        </div>
+        <p style="margin: 0; font-size: 0.9rem;">&copy; 2025 La Crocherita. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Funcionalidad para quitar favoritos
+        document.querySelectorAll('.btn-favorito').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const card = this.closest('.favorito-card');
+                card.style.transform = 'scale(0.8)';
+                card.style.opacity = '0.5';
+                
+                setTimeout(() => {
+                    card.style.display = 'none';
+                }, 300);
+                
+                // Aquí se haría la llamada al backend para remover de favoritos
+                console.log('Removido de favoritos');
+            });
+        });
+        
+        // Funcionalidad para botones "Ver más" (creo que no es necesaria)
+        document.querySelectorAll('.btn-ver-mas').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const titulo = this.closest('.favorito-card').querySelector('.card-titulo').textContent;
+                alert(`Redirigiendo a: ${titulo}`);
+                // Aquí se haría la redirección correspondiente
+            });
+        });
+    </script>
+</body>
+</html>

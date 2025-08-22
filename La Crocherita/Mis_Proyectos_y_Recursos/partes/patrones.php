@@ -299,7 +299,6 @@ if (isset($_GET['eliminar'])) {
                 <li class="nav-item"><a class="nav-link" href="../../Mis_Proyectos_y_Recursos/Proyectos.html">Mis Proyectos y Recursos</a></li>
                 <li class="nav-item"><a class="nav-link" href="../../Herramienta%20de%20C%C3%A1lculo/calculadora.html">Herramientas De Cálculo</a></li>
                 <li class="nav-item"><a class="nav-link" href="../../Configuración%20y%20Ayuda/configuracion.html">Configuración y Ayuda</a></li>
-                <li class="nav-item"><a class="nav-link" href="../../Login/Login.html">Cerrar Sesión</a></li>
             </ul>
         </div>
     </div>
@@ -505,9 +504,16 @@ if (isset($_GET['eliminar'])) {
         <footer>
             <div class="frase">Síguenos en nuestras redes sociales!</div>
             <div class="iconitos">
-                <span><i class="fab fa-facebook"></i></span>
-                <span><i class="fab fa-instagram"></i></span>
-                <span><i class="fab fa-pinterest"></i></span>
+                <span>
+                <a href="https://www.facebook.com/profile.php?id=100076225050581" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-facebook"></i>
+                </a>
+            </span>
+            <span>
+                <a href="https://www.tiktok.com/@lacrocherita" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            </span>
             </div>
             <p>&copy; 2025 La Crocherita. Todos los derechos reservados.</p>
         </footer>
