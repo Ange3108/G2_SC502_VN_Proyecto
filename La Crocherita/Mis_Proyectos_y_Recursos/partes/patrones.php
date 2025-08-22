@@ -72,12 +72,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Manejar la subida de la IMAGEN
     if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === 0) {
-        $directorio_imagenes = 'uploads/imagenes/';
+    $directorio_imagenes = 'uploads/img/';
         if (!is_dir($directorio_imagenes)) {
             mkdir($directorio_imagenes, 0777, true);
         }
         $nombre_archivo_img = time() . '_' . basename($_FILES['imagen']['name']);
-        $ruta_completa_img = $directorio_imagenes . $nombre_archivo_img;
+    $ruta_completa_img = $directorio_imagenes . $nombre_archivo_img;
         $tipo_archivo_img = strtolower(pathinfo($ruta_completa_img, PATHINFO_EXTENSION));
         $tipos_permitidos_img = ['jpg', 'jpeg', 'png', 'gif'];
         if (in_array($tipo_archivo_img, $tipos_permitidos_img) && move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta_completa_img)) {
