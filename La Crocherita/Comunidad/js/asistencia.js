@@ -1,104 +1,69 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const calendar = document.getElementById("calendar");
-  const totalDias = document.getElementById("total-dias");
-  const totalPago = document.getElementById("total-pago");
-  const selectorMes = document.getElementById("mes-selector");
-  const planNombre = document.getElementById("plan-nombre");
-  const precioPlan = document.getElementById("precio-plan");
+const calendarEl = document.getElementById('calendar');
+const mesSelector = document.getElementById('mes-selector');
 
-  const asistenciaPorMes = {
-    6: [2, 5, 8, 10, 15, 22, 23, 30], // Julio
-    7: [1, 8, 9, 15, 22, 29],         // Agosto
-    8: [3, 6, 10, 11, 17, 24]         // Septiembre
-  };
+let mesActual = parseInt(mesSelector.value); // Mes inicial
+let yearActual = new Date().getFullYear();
 
-  const precios = {
-    plan1: 15000,
-    plan2: 25000,
-    extra: 7000 // Por cada día adicional fuera del plan
-  };
+// Función para generar el calendario
+function generarCalendario(mes, year) {
+    calendarEl.innerHTML = ''; // Limpiar calendario
 
-  function obtenerSemanaDelMes(dia, mesIndex, anio = 2025) {
-    const fecha = new Date(anio, mesIndex, dia);
-    const primerDia = new Date(anio, mesIndex, 1);
-    const diaSemanaPrimero = (primerDia.getDay() + 6) % 7; // Lunes como inicio
-    return Math.floor((dia + diaSemanaPrimero - 1) / 7) + 1;
-  }
+    // Primer día del mes
+    const primerDia = new Date(year, mes - 1, 1);
+    const ultimoDia = new Date(year, mes, 0);
+    const totalDias = ultimoDia.getDate();
 
-  function calcularPago(asistencias, mesIndex) {
-    const semanas = {};
+    // Cuántos días de la semana tiene que dejar vacíos antes del 1
+    let startDay = primerDia.getDay(); // 0=Domingo, 1=Lunes,...
+    startDay = startDay === 0 ? 6 : startDay - 1; // Ajustamos para que lunes=0
 
-    asistencias.forEach((dia) => {
-      const semana = obtenerSemanaDelMes(dia, mesIndex);
-      semanas[semana] = semanas[semana] ? semanas[semana] + 1 : 1;
-    });
-
-    let sumaSemanas = 0;
-    let totalSemanas = 0;
-
-    for (const cantidad of Object.values(semanas)) {
-      sumaSemanas += cantidad >= 2 ? 2 : 1;
-      totalSemanas++;
+    // Crear celdas vacías
+    for (let i = 0; i < startDay; i++) {
+        const celda = document.createElement('div');
+        celda.classList.add('calendar-cell', 'empty');
+        calendarEl.appendChild(celda);
     }
 
-    const promedio = totalSemanas > 0 ? sumaSemanas / totalSemanas : 0;
-    const diasTotales = asistencias.length;
+    // Contador de días asistidos
+    let diasAsistidos = 0;
 
-    let plan, base, limite;
+    // Crear celdas de los días
+    for (let dia = 1; dia <= totalDias; dia++) {
+        const celda = document.createElement('div');
+        celda.classList.add('calendar-cell');
+        celda.textContent = dia;
 
-    if (promedio >= 2) {
-      plan = "2 veces a la semana";
-      base = precios.plan2;
-      limite = 8;
-    } else {
-      plan = "1 vez a la semana";
-      base = precios.plan1;
-      limite = 4;
+        // Formatear fecha YYYY-MM-DD para comparar
+        const fechaStr = `${year}-${String(mes).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
+
+        // Buscar asistencia para ese día
+        const asistenciaDia = asistencias.find(a => a.fecha === fechaStr);
+
+        if (asistenciaDia) {
+            if (asistenciaDia.estado === 'asistió') {
+                celda.classList.add('asistio'); // Clase CSS verde
+                diasAsistidos++;
+            } else if (asistenciaDia.estado === 'faltó') {
+                celda.classList.add('falto'); // Clase CSS rojo
+            }
+            // Tooltip con nombre de clase
+            celda.title = asistenciaDia.nombre_clase + ' - ' + asistenciaDia.estado;
+        }
+
+        calendarEl.appendChild(celda);
     }
 
-    const diasExtra = diasTotales > limite ? diasTotales - limite : 0;
-    const total = base + (diasExtra * precios.extra);
+    // Actualizar resumen
+    document.getElementById('total-dias').textContent = diasAsistidos;
+    const precioPlan = parseInt(document.getElementById('precio-plan').textContent) || 0;
+    document.getElementById('total-pago').textContent = diasAsistidos * precioPlan;
+}
 
-    // Mostrar info
-    planNombre.textContent = plan;
-    precioPlan.textContent = base;
-    totalDias.textContent = diasTotales;
-    totalPago.textContent = total;
-  }
-
-  function crearCalendario(mesIndex) {
-    calendar.innerHTML = "";
-
-    const anio = 2025;
-    const diasEnMes = new Date(anio, mesIndex + 1, 0).getDate();
-    const primerDiaSemana = (new Date(anio, mesIndex, 1).getDay() + 6) % 7; // Lunes como inicio
-    const asistencia = asistenciaPorMes[mesIndex] || [];
-
-    for (let i = 0; i < primerDiaSemana; i++) {
-      const emptyDiv = document.createElement("div");
-      emptyDiv.className = "calendar-day";
-      emptyDiv.style.visibility = "hidden";
-      calendar.appendChild(emptyDiv);
-    }
-
-    for (let i = 1; i <= diasEnMes; i++) {
-      const diaDiv = document.createElement("div");
-      diaDiv.className = "calendar-day";
-      diaDiv.innerHTML = `<strong>${i}</strong>`;
-
-      if (asistencia.includes(i)) {
-        diaDiv.classList.add("asistido");
-      }
-
-      calendar.appendChild(diaDiv);
-    }
-
-    calcularPago(asistencia, mesIndex);
-  }
-
-  crearCalendario(parseInt(selectorMes.value));
-
-  selectorMes.addEventListener("change", function () {
-    crearCalendario(parseInt(this.value));
-  });
+// Evento de cambio de mes
+mesSelector.addEventListener('change', () => {
+    mesActual = parseInt(mesSelector.value);
+    generarCalendario(mesActual, yearActual);
 });
+
+// Inicializar calendario
+generarCalendario(mesActual, yearActual);
