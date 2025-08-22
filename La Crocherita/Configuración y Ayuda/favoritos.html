@@ -258,16 +258,27 @@
                 <li class="nav-item">
                     <a class="nav-link" href="../Configuración y Ayuda/configuracion.html">Configuración y Ayuda</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="../Login/Login.php">Cerrar Sesión</a>
-                </li>
             </ul>
         </div>
     </div>
 
     <main class="favoritos-container">
-        <h2 class="titulo-favoritos">Mis Favoritos y Lista de Deseos</h2>
-        
+        <h2 class="titulo-favoritos">Mi Lista de Favoritos</h2>
+        <!-- <div class="cards-grid">
+                <div class="favorito-card evento-card" data-tipo="evento">
+                    <button class="btn-favorito" title="Quitar de favoritos">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                    <div class="evento-fecha">22 de Agosto</div>
+                    <div class="card-imagen">
+                        <i class="fas fa-coffee"></i>
+                    </div>
+                    <h4 class="card-titulo">Cafecito del Día de las Madres</h4>
+                    <p class="card-descripcion">¡Trae algo para compartir y disfruta de una tarde de crochet y buena compañía!</p>
+                    <button class="btn-ver-mas" data-url="redireccionarPagina">Ver Detalles del Evento</button>
+                </div>
+
+        -->
         <!-- Sección de Patrones Favoritos -->
         <section class="seccion-favoritos">
             <h3 class="seccion-titulo">
@@ -275,15 +286,15 @@
                 Patrones Favoritos
             </h3>
             <div class="cards-grid">
-                <div class="favorito-card">
+                <div class="favorito-card" data-tipo="patron">
                     <button class="btn-favorito" title="Quitar de favoritos">
                         <i class="fas fa-heart"></i>
                     </button>
                     <div class="card-imagen">
-                        <i class="fas fa-cut"></i>
+                        <i class="fas fa-check-square"></i>
                     </div>
-                    <h4 class="card-titulo">Amigurumi Pinguino</h4>
-                    <p class="card-descripcion">Adorable pingüino tejido a crochet perfecto para principiantes. Incluye patrones detallados paso a paso.</p>
+                    <h4 class="card-titulo">Ratoncito</h4>
+                    <p class="card-descripcion">Adorable ratoncito tejido a crochet perfecto para principiantes. Incluye patrones detallados paso a paso.</p>
                     <div class="card-detalles">
                         <span class="card-tiempo">
                             <i class="fas fa-clock"></i>
@@ -291,21 +302,21 @@
                         </span>
                         <span class="card-dificultad">
                             <i class="fas fa-star"></i>
-                            Fácil
+                            Principiante
                         </span>
                     </div>
-                    <button class="btn-ver-mas">Ver Patrón</button>
+                    <button class="btn-ver-mas" data-url="../Mis_Proyectos_y_Recursos/partes/patrones.php">Ver Patrón</button>
                 </div>
 
-                <div class="favorito-card">
+                <div class="favorito-card" data-tipo="patron">
                     <button class="btn-favorito" title="Quitar de favoritos">
                         <i class="fas fa-heart"></i>
                     </button>
                     <div class="card-imagen">
-                        <i class="fas fa-baby"></i>
+                        <i class="fas fa-check-square"></i>
                     </div>
-                    <h4 class="card-titulo">Muñeca Mercedita</h4>
-                    <p class="card-descripcion">Hermosa muñeca de crochet con vestido detallado y cabello rizado. Ideal para regalar.</p>
+                    <h4 class="card-titulo">Tulipán</h4>
+                    <p class="card-descripcion">Hermosa flor tulipán de crochet para decorar.</p>
                     <div class="card-detalles">
                         <span class="card-tiempo">
                             <i class="fas fa-clock"></i>
@@ -316,31 +327,10 @@
                             Intermedio
                         </span>
                     </div>
-                    <button class="btn-ver-mas">Ver Patrón</button>
+                    <button class="btn-ver-mas" data-url="../Mis_Proyectos_y_Recursos/partes/patrones.php">Ver Patrón</button>
                 </div>
 
-                <div class="favorito-card">
-                    <button class="btn-favorito" title="Quitar de favoritos">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <div class="card-imagen">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <h4 class="card-titulo">Cojines Decorativos</h4>
-                    <p class="card-descripcion">Set de cojines con diferentes texturas y patrones para decorar tu hogar.</p>
-                    <div class="card-detalles">
-                        <span class="card-tiempo">
-                            <i class="fas fa-clock"></i>
-                            6-8 horas
-                        </span>
-                        <span class="card-dificultad">
-                            <i class="fas fa-star"></i>
-                            Fácil
-                        </span>
-                    </div>
-                    <button class="btn-ver-mas">Ver Patrón</button>
-                </div>
-            </div>
+                
         </section>
 
         <!-- Sección de Proyectos Personales -->
@@ -350,15 +340,15 @@
                 Mis Proyectos Personales
             </h3>
             <div class="cards-grid">
-                <div class="favorito-card">
+                <div class="favorito-card" data-tipo="proyecto">
                     <button class="btn-favorito" title="Quitar de favoritos">
                         <i class="fas fa-heart"></i>
                     </button>
                     <div class="card-imagen">
-                        <i class="fas fa-tshirt"></i>
+                        <i class="fas fa-award"></i>
                     </div>
-                    <h4 class="card-titulo">Suéter de Invierno</h4>
-                    <p class="card-descripcion">Mi primer suéter tejido a crochet. Proyecto personal con patrón modificado para talla M.</p>
+                    <h4 class="card-titulo">Oso de peluche</h4>
+                    <p class="card-descripcion">Mi primer peluche tejido a crochet. Proyecto personal en talla M.</p>
                     <div class="card-detalles">
                         <span class="card-tiempo">
                             <i class="fas fa-clock"></i>
@@ -366,87 +356,11 @@
                         </span>
                         <span class="card-dificultad">
                             <i class="fas fa-star"></i>
-                            Avanzado
-                        </span>
-                    </div>
-                    <button class="btn-ver-mas">Ver Proyecto</button>
-                </div>
-
-                <div class="favorito-card">
-                    <button class="btn-favorito" title="Quitar de favoritos">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <div class="card-imagen">
-                        <i class="fas fa-gift"></i>
-                    </div>
-                    <h4 class="card-titulo">Mantas para Bebé</h4>
-                    <p class="card-descripcion">Colección de mantas tejidas para regalar en baby showers. Diferentes tamaños y colores.</p>
-                    <div class="card-detalles">
-                        <span class="card-tiempo">
-                            <i class="fas fa-clock"></i>
-                            15-20 horas
-                        </span>
-                        <span class="card-dificultad">
-                            <i class="fas fa-star"></i>
                             Intermedio
                         </span>
                     </div>
-                    <button class="btn-ver-mas">Ver Proyecto</button>
+                    <button class="btn-ver-mas" data-url="../Mis_Proyectos_y_Recursos/partes/misProyectos.php">Ver Proyecto</button>
                 </div>
-            </div>
-        </section>
-
-        <!-- Sección de Retos -->
-        <section class="seccion-favoritos">
-            <h3 class="seccion-titulo">
-                <i class="fas fa-trophy"></i>
-                Retos por Completar
-            </h3>
-            <div class="cards-grid">
-                <div class="favorito-card reto-card">
-                    <button class="btn-favorito" title="Quitar de favoritos">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <div class="card-imagen">
-                        <i class="fas fa-calendar-week"></i>
-                    </div>
-                    <h4 class="card-titulo">Reto de 7 Días</h4>
-                    <p class="card-descripcion">Completa un amigurumi diferente cada día de la semana. ¡Desafía tu creatividad!</p>
-                    <div class="card-detalles">
-                        <span class="card-tiempo">
-                            <i class="fas fa-clock"></i>
-                            7 días
-                        </span>
-                        <span class="card-dificultad">
-                            <i class="fas fa-star"></i>
-                            Intermedio
-                        </span>
-                    </div>
-                    <button class="btn-ver-mas">Aceptar Reto</button>
-                </div>
-
-                <div class="favorito-card reto-card">
-                    <button class="btn-favorito" title="Quitar de favoritos">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <div class="card-imagen">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <h4 class="card-titulo">Reto Comunitario</h4>
-                    <p class="card-descripcion">Únete a la comunidad para crear una manta gigante colaborativa. ¡Cada persona aporta un cuadro!</p>
-                    <div class="card-detalles">
-                        <span class="card-tiempo">
-                            <i class="fas fa-clock"></i>
-                            1 mes
-                        </span>
-                        <span class="card-dificultad">
-                            <i class="fas fa-star"></i>
-                            Todos los niveles
-                        </span>
-                    </div>
-                    <button class="btn-ver-mas">Unirse al Reto</button>
-                </div>
-            </div>
         </section>
 
         <!-- Sección de Eventos -->
@@ -456,7 +370,7 @@
                 Eventos de Interés
             </h3>
             <div class="cards-grid">
-                <div class="favorito-card evento-card">
+                <div class="favorito-card evento-card" data-tipo="evento">
                     <button class="btn-favorito" title="Quitar de favoritos">
                         <i class="fas fa-heart"></i>
                     </button>
@@ -466,33 +380,22 @@
                     </div>
                     <h4 class="card-titulo">Cafecito del Día de las Madres</h4>
                     <p class="card-descripcion">¡Trae algo para compartir y disfruta de una tarde de crochet y buena compañía!</p>
-                    <button class="btn-ver-mas">Ver Detalles del Evento</button>
+                    <button class="btn-ver-mas" data-url="../Comunidad/secciones/eventos.html">Ver Detalles del Evento</button>
                 </div>
 
-                <div class="favorito-card evento-card">
+                
+
+                <div class="favorito-card evento-card" data-tipo="evento">
                     <button class="btn-favorito" title="Quitar de favoritos">
                         <i class="fas fa-heart"></i>
                     </button>
-                    <div class="evento-fecha">Próximamente</div>
+                    <div class="evento-fecha">10 de Agosto</div>
                     <div class="card-imagen">
-                        <i class="fas fa-heart"></i>
+                        <i class="fas fa-calendar-alt"></i>
                     </div>
-                    <h4 class="card-titulo">Fiesta de la Alegría</h4>
-                    <p class="card-descripcion">Con una cuota de 5 mil, sorprende a alguien con algo relacionado al crochet. ¡Participa!</p>
-                    <button class="btn-ver-mas">Ver Detalles del Evento</button>
-                </div>
-
-                <div class="favorito-card evento-card">
-                    <button class="btn-favorito" title="Quitar de favoritos">
-                        <i class="fas fa-heart"></i>
-                    </button>
-                    <div class="evento-fecha">Septiembre</div>
-                    <div class="card-imagen">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h4 class="card-titulo">Taller de Técnicas Avanzadas</h4>
-                    <p class="card-descripcion">Aprende técnicas avanzadas de crochet con la profesora Vanessa. Cupos limitados.</p>
-                    <button class="btn-ver-mas">Ver Detalles del Evento</button>
+                    <h4 class="card-titulo">Taller de Técnicas Mixtas  (Avanzadas)</h4>
+                    <p class="card-descripcion">Aprende técnicas avanzadas de crochet con la profesora Vanessa. *CUPOS LLENOS*</p>
+                    <button class="btn-ver-mas" data-url="../Comunidad/secciones/eventos.html">Ver Detalles del Evento</button>
                 </div>
             </div>
         </section>
@@ -509,10 +412,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Funcionalidad para quitar favoritos
+        // Funcionalidad SIMPLE para quitar favoritos (tomada del código que funciona)
         document.querySelectorAll('.btn-favorito').forEach(btn => {
             btn.addEventListener('click', function() {
                 const card = this.closest('.favorito-card');
+                const titulo = card.querySelector('.card-titulo').textContent;
+                
+                // Animación simple de eliminación
                 card.style.transform = 'scale(0.8)';
                 card.style.opacity = '0.5';
                 
@@ -520,19 +426,79 @@
                     card.style.display = 'none';
                 }, 300);
                 
-                // Aquí se haría la llamada al backend para remover de favoritos
-                console.log('Removido de favoritos');
+                console.log(`Removido de favoritos: ${titulo}`);
+                
+            
             });
         });
         
-        // Funcionalidad para botones "Ver más" (creo que no es necesaria)
+        // Funcionalidad para botones "Ver más" con redirección
         document.querySelectorAll('.btn-ver-mas').forEach(btn => {
             btn.addEventListener('click', function() {
-                const titulo = this.closest('.favorito-card').querySelector('.card-titulo').textContent;
-                alert(`Redirigiendo a: ${titulo}`);
-                // Aquí se haría la redirección correspondiente
+                const url = this.getAttribute('data-url');
+                const card = this.closest('.favorito-card');
+                const tipo = card.getAttribute('data-tipo');
+                const titulo = card.querySelector('.card-titulo').textContent;
+                
+                // Verificar si es una URL válida o placeholder
+                if (url && url !== 'redireccionarPagina' && url !== '#') {
+                    // Efecto visual antes de redirigir
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Cargando...';
+                    this.disabled = true;
+                    
+                    setTimeout(() => {
+                        try {
+                            window.location.href = url;
+                        } catch (error) {
+                            // Si hay error en la redirección, mostrar mensaje
+                            alert(`La página ${url} no está disponible en este momento.`);
+                            // Restaurar botón
+                            this.innerHTML = this.textContent.includes('Aceptar') ? 'Aceptar Reto' : 
+                                           this.textContent.includes('Unirse') ? 'Unirse al Reto' :
+                                           this.textContent.includes('Ver Detalles') ? 'Ver Detalles del Evento' :
+                                           this.textContent.includes('Ver Proyecto') ? 'Ver Proyecto' : 'Ver Patrón';
+                            this.disabled = false;
+                        }
+                    }, 800);
+                } else {
+                    // Si es placeholder, mostrar mensaje informativo
+                    alert(`Redirigiendo a: ${titulo}\n\nTipo: ${tipo}\nEsta funcionalidad estará disponible próximamente.`);
+                }
+                
+                // Log para debugging
+                console.log(`Tipo: ${tipo}, URL: ${url}, Título: ${titulo}`);
             });
         });
+        
+        // Función auxiliar para manejar errores de navegación
+        window.addEventListener('beforeunload', function() {
+            // Limpiar cualquier estado de loading
+            document.querySelectorAll('.btn-ver-mas').forEach(btn => {
+                btn.disabled = false;
+            });
+        });
+        
+        // Función opcional para simular llamadas al backend
+        function enviarAlBackend(accion, titulo) {
+            console.log(`Backend: ${accion} - "${titulo}"`);
+            
+        
+            /*
+            fetch('/api/favoritos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    accion: accion,
+                    titulo: titulo,
+                    timestamp: new Date().toISOString()
+                })
+            }).then(response => response.json())
+              .then(data => console.log('Respuesta del servidor:', data))
+              .catch(error => console.error('Error:', error));
+            */
+        }
     </script>
 </body>
 </html>

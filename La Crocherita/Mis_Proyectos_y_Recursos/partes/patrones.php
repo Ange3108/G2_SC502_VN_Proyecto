@@ -56,8 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 // =========== INICIO: LÓGICA PARA PROCESAR FORMULARIO DEL MODAL ===========
-// Este bloque solo se ejecuta si se envía el formulario (método POST)
-    // Si viene nombre_patron, es alta/edición de patrón (flujo original)
+
     // Recoger datos de texto
     $nombre_patron = $_POST['nombre_patron'] ?? '';
     $descripcion = $_POST['descripcion'] ?? '';
