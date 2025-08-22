@@ -7,7 +7,7 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 // Datos de conexión
 $host = '127.0.0.1';
 $usuario = 'root';
-$contrasenia = 'MaFERNANDA2023**'; // Debe agregar la contraseña de su respectivo MySQL
+$contrasenia = ''; // Debe agregar la contraseña de su respectivo MySQL
 $base_datos = 'la_crocherita';
 $port = 3306; 
 
